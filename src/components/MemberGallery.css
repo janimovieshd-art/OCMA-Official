@@ -1,0 +1,963 @@
+/* =====================================
+   OCMA MEMBER GALLERY
+===================================== */
+
+.member-gallery-section{
+
+  min-height:100vh;
+
+  padding:70px 25px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #050505,
+      #111111
+    );
+
+  color:white;
+
+}
+
+
+/* =====================================
+   HEADING
+===================================== */
+
+.gallery-heading{
+
+  text-align:center;
+
+  margin-bottom:40px;
+
+}
+
+
+.gallery-heading h2{
+
+  margin:0 0 12px;
+
+  color:#d4af37;
+
+  font-size:38px;
+
+  font-weight:900;
+
+}
+
+
+.gallery-heading p{
+
+  margin:0;
+
+  color:#bbb;
+
+  font-size:16px;
+
+}
+
+
+/* =====================================
+   PHOTO GRID
+===================================== */
+
+.gallery-grid{
+
+  width:100%;
+
+  max-width:1600px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(6,minmax(0,1fr));
+
+  gap:15px;
+
+}
+
+
+/* =====================================
+   PHOTO CARD
+===================================== */
+
+.gallery-card{
+
+  background:
+    linear-gradient(
+      145deg,
+      #1a1a1a,
+      #090909
+    );
+
+  border:
+    1px solid rgba(212,175,55,.25);
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.45);
+
+  transition:.3s;
+
+}
+
+
+.gallery-card:hover{
+
+  transform:translateY(-5px);
+
+  border-color:#d4af37;
+
+  box-shadow:
+    0 0 25px rgba(212,175,55,.3);
+
+}
+
+
+/* =====================================
+   PHOTO
+===================================== */
+
+.gallery-photo{
+
+  width:100%;
+
+  height:190px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  cursor:pointer;
+
+  background:#000;
+
+}
+
+
+.gallery-photo img{
+
+  width:100%;
+
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+  transition:.4s;
+
+}
+
+
+.gallery-photo:hover img{
+
+  transform:scale(1.07);
+
+}
+
+
+.photo-overlay{
+
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:
+    rgba(0,0,0,.25);
+
+  color:white;
+
+  font-size:28px;
+
+  opacity:0;
+
+  transition:.3s;
+
+}
+
+
+.gallery-photo:hover
+.photo-overlay{
+
+  opacity:1;
+
+}
+
+
+/* =====================================
+   PHOTO CODE
+===================================== */
+
+.gallery-card-info{
+
+  padding:10px;
+
+  text-align:center;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:3px;
+
+}
+
+
+.gallery-card-info span{
+
+  color:#f8e80e;
+
+  font-size:10px;
+
+}
+
+
+.gallery-card-info strong{
+
+  color:white;
+
+  font-size:16px;
+
+  font-weight:900;
+
+}
+
+
+/* =====================================
+   VIDEO SECTION
+===================================== */
+
+.video-section{
+
+  max-width:1600px;
+
+  margin:70px auto 0;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid rgba(212,175,55,.25);
+
+}
+
+
+.video-heading{
+
+  margin-bottom:35px;
+
+}
+
+
+/* =====================================
+   VIDEO GRID
+===================================== */
+
+.video-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:18px;
+
+}
+
+
+/* =====================================
+   VIDEO CARD
+===================================== */
+
+.video-card{
+
+  background:
+    linear-gradient(
+      145deg,
+      #1a1a1a,
+      #090909
+    );
+
+  border:
+    1px solid rgba(212,175,55,.25);
+
+  border-radius:15px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.45);
+
+}
+
+
+.video-card:hover{
+
+  border-color:#d4af37;
+
+}
+
+
+/* =====================================
+   YOUTUBE THUMBNAIL
+===================================== */
+
+.youtube-thumbnail{
+
+  width:100%;
+
+  height:210px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  cursor:pointer;
+
+  background:#000;
+
+}
+
+
+.youtube-thumbnail img{
+
+  width:100%;
+
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+  transition:.3s;
+
+}
+
+
+.youtube-thumbnail:hover img{
+
+  transform:scale(1.05);
+
+  opacity:.8;
+
+}
+
+
+.youtube-play{
+
+  position:absolute;
+
+  left:50%;
+
+  top:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  width:58px;
+
+  height:58px;
+
+  border-radius:50%;
+
+  background:#e62117;
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:25px;
+
+  padding-left:3px;
+
+  box-shadow:
+    0 5px 25px rgba(0,0,0,.6);
+
+}
+
+
+/* =====================================
+   OTHER VIDEO BUTTONS
+===================================== */
+
+.video-open-button,
+.video-external-button{
+
+  width:100%;
+
+  min-height:210px;
+
+  border:none;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:10px;
+
+  padding:20px;
+
+  box-sizing:border-box;
+
+  cursor:pointer;
+
+  text-decoration:none;
+
+  font-size:17px;
+
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      145deg,
+      #222,
+      #111
+    );
+
+  color:#d4af37;
+
+}
+
+
+.video-open-button:hover,
+.video-external-button:hover{
+
+  background:
+    linear-gradient(
+      145deg,
+      #2b2b2b,
+      #151515
+    );
+
+}
+
+
+/* =====================================
+   VIDEO CODE
+===================================== */
+
+.video-card-info{
+
+  padding:12px;
+
+  text-align:center;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:3px;
+
+}
+
+
+.video-card-info span{
+
+  color:#f8e80e;
+
+  font-size:11px;
+
+}
+
+
+.video-card-info strong{
+
+  color:white;
+
+  font-size:17px;
+
+  font-weight:900;
+
+}
+
+
+/* =====================================
+   IMAGE POPUP
+===================================== */
+
+.image-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(0,0,0,.95);
+
+  z-index:99999;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+}
+
+
+.popup-content{
+
+  max-width:90vw;
+
+  max-height:90vh;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+}
+
+
+.popup-content img{
+
+  max-width:88vw;
+
+  max-height:78vh;
+
+  object-fit:contain;
+
+  border:
+    3px solid #d4af37;
+
+  border-radius:15px;
+
+  box-shadow:
+    0 0 40px rgba(212,175,55,.45);
+
+}
+
+
+.popup-code{
+
+  margin-top:12px;
+
+  padding:9px 20px;
+
+  background:
+    rgba(0,0,0,.9);
+
+  border:
+    1px solid rgba(212,175,55,.6);
+
+  border-radius:25px;
+
+  color:#d4af37;
+
+  font-weight:900;
+
+}
+
+
+.popup-code span{
+
+  margin-left:12px;
+
+  color:#ccc;
+
+  font-size:12px;
+
+}
+
+
+/* =====================================
+   POPUP BUTTONS
+===================================== */
+
+.popup-close{
+
+  position:fixed;
+
+  top:20px;
+
+  right:25px;
+
+  width:45px;
+
+  height:45px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(255,255,255,.5);
+
+  background:
+    rgba(255,255,255,.12);
+
+  color:white;
+
+  font-size:25px;
+
+  cursor:pointer;
+
+  z-index:100001;
+
+}
+
+
+.popup-close:hover{
+
+  background:white;
+
+  color:#111;
+
+}
+
+
+.popup-prev,
+.popup-next{
+
+  position:fixed;
+
+  top:50%;
+
+  transform:
+    translateY(-50%);
+
+  width:50px;
+
+  height:50px;
+
+  border-radius:50%;
+
+  border:
+    1px solid #d4af37;
+
+  background:
+    rgba(0,0,0,.75);
+
+  color:#d4af37;
+
+  font-size:25px;
+
+  cursor:pointer;
+
+  z-index:100001;
+
+}
+
+
+.popup-prev{
+
+  left:25px;
+
+}
+
+
+.popup-next{
+
+  right:25px;
+
+}
+
+
+.popup-prev:hover,
+.popup-next:hover{
+
+  background:#d4af37;
+
+  color:#111;
+
+}
+
+
+/* =====================================
+   VIDEO POPUP
+===================================== */
+
+.video-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:100000;
+
+  background:
+    rgba(0,0,0,.95);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+}
+
+
+.video-popup-box{
+
+  width:90%;
+
+  max-width:900px;
+
+  position:relative;
+
+}
+
+
+.video-popup-box iframe{
+
+  width:100%;
+
+  height:520px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:#000;
+
+}
+
+
+.close-video{
+
+  position:absolute;
+
+  right:12px;
+
+  top:12px;
+
+  width:42px;
+
+  height:42px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(255,255,255,.5);
+
+  background:
+    rgba(0,0,0,.75);
+
+  color:white;
+
+  font-size:24px;
+
+  cursor:pointer;
+
+  z-index:10;
+
+}
+
+
+.close-video:hover{
+
+  background:white;
+
+  color:#111;
+
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width:1400px){
+
+  .gallery-grid{
+
+    grid-template-columns:
+      repeat(5,minmax(0,1fr));
+
+  }
+
+}
+
+
+@media(max-width:1100px){
+
+  .gallery-grid{
+
+    grid-template-columns:
+      repeat(4,minmax(0,1fr));
+
+  }
+
+
+  .video-grid{
+
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+
+  }
+
+}
+
+
+@media(max-width:800px){
+
+  .member-gallery-section{
+
+    padding:50px 15px;
+
+  }
+
+
+  .gallery-heading h2{
+
+    font-size:28px;
+
+  }
+
+
+  .gallery-grid{
+
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+
+    gap:10px;
+
+  }
+
+
+  .gallery-photo{
+
+    height:140px;
+
+  }
+
+
+  .video-grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+  }
+
+
+  .youtube-thumbnail,
+  .video-open-button,
+  .video-external-button{
+
+    height:170px;
+
+    min-height:170px;
+
+  }
+
+
+  .video-popup-box{
+
+    width:95%;
+
+  }
+
+
+  .video-popup-box iframe{
+
+    height:400px;
+
+  }
+
+
+  .popup-prev{
+
+    left:8px;
+
+  }
+
+
+  .popup-next{
+
+    right:8px;
+
+  }
+
+}
+
+
+@media(max-width:500px){
+
+  .gallery-grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+  }
+
+
+  .gallery-photo{
+
+    height:135px;
+
+  }
+
+
+  .video-grid{
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .youtube-thumbnail,
+  .video-open-button,
+  .video-external-button{
+
+    height:200px;
+
+    min-height:200px;
+
+  }
+
+
+  .popup-content img{
+
+    max-width:88vw;
+
+    max-height:70vh;
+
+  }
+
+
+  .popup-code{
+
+    font-size:13px;
+
+    text-align:center;
+
+  }
+
+
+  .popup-code span{
+
+    display:block;
+
+    margin:5px 0 0;
+
+  }
+
+
+  .video-popup-box iframe{
+
+    height:330px;
+
+  }
+
+}

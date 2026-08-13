@@ -1,0 +1,1131 @@
+.registered-members {
+
+
+  padding:70px 5%;
+
+
+  background:
+
+
+  linear-gradient(
+
+    180deg,
+
+    #050505,
+
+    #111
+
+  );
+
+
+  color:white;
+
+
+}
+
+
+
+
+
+
+
+.registered-header {
+
+
+  text-align:center;
+
+
+  max-width:900px;
+
+
+  margin:auto;
+
+
+  margin-bottom:55px;
+
+
+}
+
+
+
+
+
+
+
+.registered-header h2 {
+
+
+  font-size:42px;
+
+
+  color:#d4af37;
+
+
+  font-weight:900;
+
+
+  letter-spacing:.5px;
+
+
+  margin-bottom:15px;
+
+
+}
+
+
+
+
+
+
+
+.registered-header p {
+
+
+  color:#d0d0d0;
+
+
+  font-size:19px;
+
+
+  font-weight:600;
+
+
+}
+
+
+
+
+
+
+
+
+.registered-header input {
+
+
+
+  margin-top:30px;
+
+
+
+  width:85%;
+
+
+
+  max-width:700px;
+
+
+
+  padding:18px 30px;
+
+
+
+  border-radius:50px;
+
+
+
+  border:1px solid rgba(212,175,55,.7);
+
+
+
+  background:
+
+
+  linear-gradient(
+
+    145deg,
+
+    #202020,
+
+    #111
+
+  );
+
+
+
+  color:white;
+
+
+
+  font-size:17px;
+
+
+
+  font-weight:600;
+
+
+
+  outline:none;
+
+
+
+  box-shadow:
+
+
+  0 15px 35px rgba(0,0,0,.5);
+
+
+
+}
+
+
+
+
+
+
+
+
+.registered-header input::placeholder {
+
+
+  color:#aaa;
+
+
+}
+
+
+
+
+
+
+
+
+.registered-header input:focus {
+
+
+
+  border-color:#fff0a8;
+
+
+
+  box-shadow:
+
+
+  0 0 25px rgba(212,175,55,.35);
+
+
+
+}
+
+
+
+
+
+
+
+
+/* PROFESSION BUTTONS */
+
+
+.profession-filter {
+
+
+  display:flex;
+
+
+  justify-content:center;
+
+
+  flex-wrap:wrap;
+
+
+  gap:14px;
+
+
+  margin-top:35px;
+
+
+
+}
+
+
+
+
+
+
+
+
+.profession-filter button {
+
+
+
+  min-width:130px;
+
+
+
+  padding:13px 25px;
+
+
+
+  border-radius:35px;
+
+
+
+  border:1px solid rgba(212,175,55,.45);
+
+
+
+  background:
+
+
+  linear-gradient(
+
+    145deg,
+
+    #222,
+
+    #111
+
+  );
+
+
+
+  color:#eee;
+
+
+
+  font-size:16px;
+
+
+
+  font-weight:800;
+
+
+
+  cursor:pointer;
+
+
+
+  transition:.35s;
+
+
+
+}
+
+
+
+
+
+
+
+
+.profession-filter button:hover {
+
+
+
+  transform:translateY(-4px);
+
+
+
+  border-color:#d4af37;
+
+
+
+}
+
+
+
+
+
+
+
+
+.profession-filter .active-filter {
+
+
+
+  background:
+
+
+  linear-gradient(
+
+    135deg,
+
+    #d4af37,
+
+    #b8860b
+
+  );
+
+
+
+  color:#000;
+
+
+
+  box-shadow:
+
+
+  0 10px 25px rgba(212,175,55,.35);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* CITY FILTER */
+
+
+.city-filter {
+
+
+  margin-top:30px;
+
+
+  width:320px;
+
+
+  height:58px;
+
+
+  padding:0 25px;
+
+
+  border-radius:35px;
+
+
+
+  border:1px solid rgba(212,175,55,.6);
+
+
+
+  background:
+
+
+  linear-gradient(
+
+    145deg,
+
+    #252525,
+
+    #111
+
+  );
+
+
+
+  color:white;
+
+
+
+  font-size:18px;
+
+
+
+  font-weight:800;
+
+
+
+  cursor:pointer;
+
+
+
+  outline:none;
+
+
+
+  box-shadow:
+
+
+  0 15px 35px rgba(0,0,0,.5);
+
+
+
+}
+
+
+
+
+
+
+
+
+.city-filter:hover {
+
+
+
+  border-color:#fff0a8;
+
+
+
+  box-shadow:
+
+
+  0 0 25px rgba(212,175,55,.35);
+
+
+
+}
+
+
+
+
+
+
+
+
+.city-filter option {
+
+
+  background:#151515;
+
+
+  color:white;
+
+
+  font-size:16px;
+
+
+  font-weight:700;
+
+
+}
+
+
+
+
+
+
+
+
+/* MEMBER GRID */
+
+
+.registered-grid {
+
+
+
+  display:grid;
+
+
+
+  grid-template-columns:
+
+
+  repeat(
+
+    auto-fit,
+
+    minmax(420px,1fr)
+
+  );
+
+
+
+  gap:35px;
+
+
+
+  max-width:1450px;
+
+
+
+  margin:auto;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* MEMBER CARD */
+
+
+.office-member-card {
+
+
+
+  display:flex;
+
+
+
+  align-items:center;
+
+
+
+  min-height:210px;
+
+
+
+  padding:25px;
+
+
+
+  gap:30px;
+
+
+
+
+
+  background:
+
+
+  linear-gradient(
+
+    145deg,
+
+    #262626,
+
+    #101010
+
+  );
+
+
+
+
+
+  border-radius:28px;
+
+
+
+
+
+  border:1px solid rgba(212,175,55,.35);
+
+
+
+
+
+  box-shadow:
+
+
+  0 20px 45px rgba(0,0,0,.65),
+
+
+  inset 0 1px 15px rgba(255,255,255,.05);
+
+
+
+
+
+  cursor:pointer;
+
+
+
+  position:relative;
+
+
+
+  overflow:hidden;
+
+
+
+  transition:.35s;
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-member-card:hover {
+
+
+
+  transform:translateY(-10px);
+
+
+
+  border-color:#d4af37;
+
+
+
+  box-shadow:
+
+
+  0 30px 60px rgba(212,175,55,.25);
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-member-card::before {
+
+
+
+  content:"";
+
+
+
+  position:absolute;
+
+
+
+  width:250px;
+
+
+
+  height:250px;
+
+
+
+  right:-100px;
+
+
+
+  top:-100px;
+
+
+
+  background:
+
+
+  radial-gradient(
+
+    circle,
+
+    rgba(212,175,55,.25),
+
+    transparent 70%
+
+  );
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-photo {
+
+
+
+  width:150px;
+
+
+
+  height:150px;
+
+
+
+  flex-shrink:0;
+
+
+
+  padding:5px;
+
+
+
+  border-radius:25px;
+
+
+
+  background:
+
+
+  linear-gradient(
+
+    135deg,
+
+    #d4af37,
+
+    #fff0a8,
+
+    #b8860b
+
+  );
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-photo img {
+
+
+
+  width:100%;
+
+
+
+  height:100%;
+
+
+
+  object-fit:cover;
+
+
+
+  border-radius:20px;
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-info {
+
+
+
+  position:relative;
+
+
+
+  z-index:2;
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-id {
+
+
+
+  display:inline-block;
+
+
+
+  padding:7px 20px;
+
+
+
+  border-radius:30px;
+
+
+
+  background:#d4af37;
+
+
+
+  color:#000;
+
+
+
+  font-weight:900;
+
+
+
+  font-size:14px;
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-info h3 {
+
+
+
+  margin:15px 0;
+
+
+
+  font-size:28px;
+
+
+
+  font-weight:900;
+
+
+
+  color:white;
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-info p {
+
+
+
+  margin:10px 0;
+
+
+
+  color:#eee;
+
+
+
+  font-size:18px;
+
+
+
+  font-weight:700;
+
+
+
+}
+
+
+
+
+
+
+
+
+.office-whatsapp {
+
+
+
+  display:inline-block;
+
+
+
+  margin-top:15px;
+
+
+
+  padding:12px 35px;
+
+
+
+  background:
+
+
+  linear-gradient(
+
+    135deg,
+
+    #25D366,
+
+    #128C7E
+
+  );
+
+
+
+  color:white;
+
+
+
+  border-radius:35px;
+
+
+
+  text-decoration:none;
+
+
+
+  font-weight:900;
+
+
+
+}
+
+
+
+
+
+
+
+
+.no-members {
+
+
+  text-align:center;
+
+
+  margin-top:50px;
+
+
+  color:#d4af37;
+
+
+  font-size:24px;
+
+
+}
+
+
+
+
+
+
+
+
+@media(max-width:800px){
+
+
+
+.registered-members{
+
+
+padding:45px 15px;
+
+
+}
+
+
+
+
+
+.registered-header h2{
+
+
+font-size:30px;
+
+
+}
+
+
+
+
+
+.registered-header input{
+
+
+width:100%;
+
+
+}
+
+
+
+
+
+.profession-filter button{
+
+
+width:auto;
+
+
+min-width:110px;
+
+
+padding:12px 18px;
+
+
+}
+
+
+
+
+
+.city-filter{
+
+
+width:100%;
+
+
+}
+
+
+
+
+
+.registered-grid{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+
+
+
+.office-member-card{
+
+
+flex-direction:column;
+
+
+text-align:center;
+
+
+}
+
+
+
+
+
+.office-photo{
+
+
+width:130px;
+
+
+height:130px;
+
+
+}
+
+
+
+
+
+.office-info h3{
+
+
+font-size:25px;
+
+
+}
+
+
+
+
+
+.office-info p{
+
+
+font-size:16px;
+
+
+}
+
+
+
+}

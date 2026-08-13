@@ -1,0 +1,859 @@
+
+/* =========================================================
+   OCMA PREMIUM FOOTER
+   ABOUT US + LINKS + SERVICES + CONTACT + ADMIN + MAP
+========================================================= */
+
+.footer {
+  width: 100%;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(212, 175, 55, 0.10),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #050505 0%, #0d0d0d 50%, #151515 100%);
+  color: #ffffff;
+  padding: 0 40px 20px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   PREMIUM ABOUT US
+========================================================= */
+
+.footer-about-section {
+  width: 100%;
+  padding: 90px 20px 80px;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(212, 175, 55, 0.12),
+      transparent 55%
+    );
+}
+
+
+.footer-about-content {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+
+.footer-about-label {
+  display: inline-block;
+  color: #d4af37;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+}
+
+
+.footer-about-content h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 46px;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+
+.footer-about-line {
+  width: 75px;
+  height: 3px;
+  margin: 25px auto;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    #b8860b,
+    #d4af37,
+    #f5d76e
+  );
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+}
+
+
+.footer-about-content p {
+  max-width: 850px;
+  margin: 0 auto;
+  color: #cfcfcf;
+  font-size: 17px;
+  line-height: 2;
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   MAIN FOOTER CONTAINER
+========================================================= */
+
+.footer-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 70px 0 30px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 45px;
+
+  align-items: start;
+}
+
+
+.footer-box {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   FOOTER HEADINGS
+========================================================= */
+
+.footer-box h3 {
+  position: relative;
+  display: inline-block;
+
+  margin: 0 0 25px;
+
+  color: #d4af37;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+
+.footer-box h3::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -9px;
+
+  width: 35px;
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: #d4af37;
+}
+
+
+/* =========================================================
+   QUICK LINKS
+========================================================= */
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.footer-links a {
+  display: block;
+
+  width: fit-content;
+
+  color: #d7d7d7;
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+.footer-links a:hover {
+  color: #d4af37;
+  transform: translateX(7px);
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.footer-services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.footer-services-list p {
+  margin: 0;
+
+  color: #d2d2d2;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  margin-bottom: 15px;
+}
+
+
+.contact-item strong {
+  color: #d4af37;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+.contact-item span {
+  color: #d1d1d1;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  word-break: break-word;
+}
+
+
+.contact-admin-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  margin-top: 8px;
+
+  padding: 11px 22px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d4af37,
+      #b8860b
+    );
+
+  color: #111111;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+.contact-admin-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 25px rgba(212, 175, 55, 0.35);
+}
+
+
+/* =========================================================
+   ADMIN / DEVELOPER PROFILE
+========================================================= */
+
+.admin-profile-box {
+  text-align: center;
+
+  padding-top: 10px;
+}
+
+
+.admin-profile-box h3 {
+  margin-bottom: 25px;
+}
+
+
+.admin-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.admin-photo-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 155px;
+  height: 155px;
+
+  margin-bottom: 18px;
+}
+
+
+.admin-photo-wrapper::before {
+  content: "";
+
+  position: absolute;
+  inset: -8px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(212, 175, 55, 0.45);
+
+  box-shadow:
+    0 0 25px rgba(212, 175, 55, 0.18);
+}
+
+
+.admin-profile-photo {
+  width: 145px;
+  height: 145px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 4px solid #d4af37;
+
+  box-shadow:
+    0 0 25px rgba(212, 175, 55, 0.45);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+
+.admin-profile-photo:hover {
+  transform: scale(1.05);
+
+  box-shadow:
+    0 0 45px rgba(212, 175, 55, 0.75);
+}
+
+
+.admin-profile-box h2 {
+  margin: 10px 0 4px;
+
+  color: #ffffff;
+
+  font-size: 26px;
+  font-weight: 900;
+}
+
+
+.admin-profile-box h4 {
+  margin: 5px 0;
+
+  color: #d4af37;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+.admin-profile-box p {
+  margin: 5px 0 0;
+
+  color: #aaa;
+
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   MAP SECTION
+========================================================= */
+
+.map-section {
+  width: 100%;
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  padding: 25px 0 15px;
+}
+
+
+.map-box {
+  width: 100%;
+
+  text-align: center;
+
+  padding: 35px 25px;
+
+  box-sizing: border-box;
+
+  border-radius: 20px;
+
+  border: 1px solid rgba(212, 175, 55, 0.18);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.35);
+}
+
+
+.map-box h3 {
+  margin: 0 0 8px;
+
+  color: #d4af37;
+
+  font-size: 24px;
+  font-weight: 800;
+}
+
+
+.map-click-text {
+  margin: 0 0 20px;
+
+  color: #cfcfcf;
+
+  font-size: 14px;
+}
+
+
+.map-preview {
+  position: relative;
+
+  width: 100%;
+  height: 330px;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.55);
+}
+
+
+.map-preview iframe {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  border: none;
+
+  pointer-events: none;
+}
+
+
+.map-click-layer {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 10;
+
+  display: block;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  transition:
+    background 0.3s ease;
+}
+
+
+.map-click-layer:hover {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+
+/* =========================================================
+   SOCIAL MEDIA
+========================================================= */
+
+.social-section {
+  width: 100%;
+
+  max-width: 1400px;
+
+  margin: 40px auto 0;
+
+  padding: 35px 20px;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.social-section h3 {
+  margin: 0 0 22px;
+
+  color: #d4af37;
+
+  font-size: 23px;
+  font-weight: 800;
+}
+
+
+.social-links {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+
+.social-links a {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 110px;
+
+  padding: 10px 20px;
+
+  border-radius: 30px;
+
+  border: 1px solid rgba(212, 175, 55, 0.2);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+
+.social-links a:hover {
+  background: #d4af37;
+
+  border-color: #d4af37;
+
+  color: #111111;
+
+  transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+.footer-bottom {
+  width: 100%;
+
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  padding: 22px 15px 5px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  text-align: center;
+
+  color: #888;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+
+.footer-bottom span:nth-child(2) {
+  color: #d4af37;
+
+  font-weight: 700;
+}
+
+
+.copyright-divider {
+  color: #555;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .footer {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+
+  .footer-container {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 40px 30px;
+  }
+
+
+  .footer-about-content h2 {
+    font-size: 40px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .footer {
+    padding:
+      0
+      18px
+      15px;
+  }
+
+
+  .footer-about-section {
+    padding:
+      65px
+      12px
+      60px;
+  }
+
+
+  .footer-about-label {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+  }
+
+
+  .footer-about-content h2 {
+    font-size: 32px;
+  }
+
+
+  .footer-about-content p {
+    font-size: 15px;
+
+    line-height: 1.9;
+  }
+
+
+  .footer-container {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+
+    padding-top: 55px;
+
+    text-align: center;
+  }
+
+
+  .footer-box {
+    width: 100%;
+  }
+
+
+  .footer-box h3::after {
+    left: 50%;
+
+    transform: translateX(-50%);
+  }
+
+
+  .footer-links {
+    align-items: center;
+  }
+
+
+  .footer-links a {
+    width: auto;
+  }
+
+
+  .footer-links a:hover {
+    transform: translateY(-2px);
+  }
+
+
+  .footer-services-list {
+    align-items: center;
+  }
+
+
+  .footer-contact {
+    align-items: center;
+  }
+
+
+  .contact-item {
+    align-items: center;
+  }
+
+
+  .admin-profile-box {
+    padding-top: 5px;
+  }
+
+
+  .admin-photo-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+
+  .admin-profile-photo {
+    width: 130px;
+    height: 130px;
+  }
+
+
+  .admin-profile-box h2 {
+    font-size: 24px;
+  }
+
+
+  .map-section {
+    padding-top: 15px;
+  }
+
+
+  .map-box {
+    padding: 28px 15px;
+  }
+
+
+  .map-preview {
+    height: 250px;
+  }
+
+
+  .social-section {
+    margin-top: 25px;
+
+    padding:
+      30px
+      10px;
+  }
+
+
+  .social-links {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+
+  .social-links a {
+    width: 220px;
+
+    box-sizing: border-box;
+  }
+
+
+  .footer-bottom {
+    padding-top: 18px;
+
+    font-size: 12px;
+
+    gap: 6px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .footer-about-content h2 {
+    font-size: 28px;
+  }
+
+
+  .footer-about-content p {
+    font-size: 14px;
+  }
+
+
+  .map-preview {
+    height: 220px;
+  }
+
+
+  .admin-profile-box h2 {
+    font-size: 22px;
+  }
+
+}

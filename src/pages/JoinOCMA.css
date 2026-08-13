@@ -1,0 +1,575 @@
+
+/* ===========================
+   OCMA JOIN PAGE
+=========================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap");
+
+/* ===========================
+   PAGE
+=========================== */
+
+.join-page {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #070707,
+    #111111,
+    #181818
+  );
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* ===========================
+   MAIN BOX
+=========================== */
+
+.join-box {
+  width: 100%;
+  max-width: 950px;
+  background: #151515;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 25px;
+  padding: 45px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  animation: fadeUp 0.5s ease;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===========================
+   MAIN TITLE
+=========================== */
+
+.join-box h1 {
+  text-align: center;
+  font-size: 42px;
+  color: #d4af37;
+  margin: 0 0 15px;
+  font-weight: 700;
+}
+
+/* ===========================
+   INTRO
+=========================== */
+
+.join-box > p {
+  text-align: center;
+  color: #d6d6d6;
+  font-size: 17px;
+  line-height: 2;
+  margin: 0 0 40px;
+}
+
+/* ===========================
+   FORM
+=========================== */
+
+.join-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===========================
+   INPUTS
+=========================== */
+
+.join-box input,
+.join-box textarea,
+.join-box select {
+  width: 100%;
+  padding: 15px 18px;
+  font-size: 16px;
+  background: #202020;
+  color: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  outline: none;
+  transition: 0.25s ease;
+  box-sizing: border-box;
+  font-family: "Poppins", "Noto Nastaliq Urdu", sans-serif;
+}
+
+.join-box input:focus,
+.join-box textarea:focus,
+.join-box select:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.join-box textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.join-box input::placeholder,
+.join-box textarea::placeholder {
+  color: #999999;
+  opacity: 1;
+}
+
+/* ===========================
+   GOOGLE ADDRESS FIELD
+=========================== */
+
+.join-box input[name="googleAddress"] {
+  border-color: rgba(212, 175, 55, 0.45);
+  background: #1c1c1c;
+}
+
+.join-box input[name="googleAddress"]:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* ===========================
+   SELECT
+=========================== */
+
+.join-box select {
+  cursor: pointer;
+}
+
+.join-box select option {
+  background: #202020;
+  color: #ffffff;
+}
+
+/* ===========================
+   HEADINGS
+=========================== */
+
+.join-box h2 {
+  margin: 20px 0 0;
+  font-size: 28px;
+  color: #d4af37;
+  font-weight: 700;
+}
+
+.join-box h3 {
+  margin: 10px 0 0;
+  font-size: 21px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.join-box label {
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 5px;
+}
+
+/* ===========================
+   SUCCESS MESSAGE
+=========================== */
+
+.success-message {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(
+    135deg,
+    #0d6b2d,
+    #08451f
+  );
+  color: #ffffff;
+  border: 1px solid #27c45a;
+  padding: 18px 22px;
+  border-radius: 12px;
+  margin: 0;
+  text-align: center;
+  font-family: "Noto Nastaliq Urdu", "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: 2;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(0, 150, 60, 0.18);
+  animation: successAppear 0.35s ease;
+}
+
+/* ===========================
+   ERROR MESSAGE
+=========================== */
+
+.error-message {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(
+    135deg,
+    #721c24,
+    #451014
+  );
+  color: #ffffff;
+  border: 1px solid #d9534f;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin: 0 0 25px;
+  text-align: center;
+  font-family: "Noto Nastaliq Urdu", "Poppins", sans-serif;
+  font-size: 17px;
+  line-height: 2;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(200, 0, 0, 0.15);
+}
+
+/* ===========================
+   SUBMIT BUTTON
+=========================== */
+
+.join-box form > button[type="submit"] {
+  width: 100%;
+  min-height: 55px;
+  border: none;
+  border-radius: 30px;
+  background: #d4af37;
+  color: #111111;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s ease;
+  font-family: "Poppins", "Noto Nastaliq Urdu", sans-serif;
+}
+
+.join-box form > button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+}
+
+.join-box form > button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===========================
+   PROFILE PHOTO
+=========================== */
+
+.profile-preview {
+  display: block;
+  width: 220px;
+  height: 220px;
+  margin: 20px auto;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #d4af37;
+  background: #111111;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* ===========================
+   PORTFOLIO
+=========================== */
+
+.portfolio-box {
+  margin-top: 40px;
+  padding: 30px;
+  background: #1a1a1a;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 18px;
+  box-sizing: border-box;
+}
+
+.portfolio-box p {
+  color: #cfcfcf;
+  line-height: 2;
+  margin: 12px 0 25px;
+  font-size: 15px;
+}
+
+/* ===========================
+   FILE UPLOAD
+=========================== */
+
+.join-box input[type="file"] {
+  padding: 14px;
+  background: #242424;
+  color: #dddddd;
+  cursor: pointer;
+}
+
+.join-box input[type="file"]::file-selector-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #d4af37;
+  color: #111111;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: 0.25s ease;
+}
+
+.join-box input[type="file"]::file-selector-button:hover {
+  background: #f1ca54;
+}
+
+/* ===========================
+   PORTFOLIO PREVIEW
+=========================== */
+
+.portfolio-preview {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* ===========================
+   PORTFOLIO ITEM
+=========================== */
+
+.portfolio-item {
+  position: relative;
+  background: #111111;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid #303030;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-6px);
+  border-color: #d4af37;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
+.portfolio-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  object-fit: cover;
+  background: #000000;
+  transition: 0.35s ease;
+}
+
+.portfolio-item:hover img {
+  transform: scale(1.08);
+}
+
+/* ===========================
+   REMOVE BUTTON
+=========================== */
+
+.portfolio-item button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background: #d92020;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 34px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  z-index: 2;
+}
+
+.portfolio-item button:hover {
+  background: #ff0000;
+  transform: scale(1.08);
+}
+
+/* ===========================
+   VIDEO SECTION
+=========================== */
+
+.video-box {
+  margin-top: 25px;
+  padding: 18px;
+  background: #1b1b1b;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 16px;
+  transition: 0.25s ease;
+}
+
+.video-box:hover {
+  border-color: #d4af37;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.video-box input {
+  margin-bottom: 15px;
+}
+
+.video-box iframe {
+  width: 100%;
+  height: 320px;
+  border: none;
+  border-radius: 14px;
+  background: #000000;
+  display: block;
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 20px;
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes successAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media (max-width: 900px) {
+  .join-box {
+    padding: 30px;
+  }
+
+  .join-box h1 {
+    font-size: 34px;
+  }
+
+  .video-box iframe {
+    height: 250px;
+  }
+
+  .profile-preview {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 700px) {
+  .join-page {
+    padding: 20px 12px;
+  }
+
+  .join-box {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .join-box h1 {
+    font-size: 28px;
+  }
+
+  .join-box h2 {
+    font-size: 22px;
+  }
+
+  .join-box h3 {
+    font-size: 18px;
+  }
+
+  .join-box > p {
+    font-size: 15px;
+    line-height: 2;
+  }
+
+  .join-box input,
+  .join-box textarea,
+  .join-box select {
+    font-size: 15px;
+    padding: 13px;
+  }
+
+  .profile-preview {
+    width: 150px;
+    height: 150px;
+  }
+
+  .portfolio-box {
+    padding: 20px;
+  }
+
+  .portfolio-preview {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .video-box iframe {
+    height: 200px;
+  }
+
+  .success-message {
+    font-size: 16px;
+    padding: 15px;
+    line-height: 2.1;
+  }
+
+  .error-message {
+    font-size: 15px;
+    padding: 14px;
+    line-height: 2;
+  }
+}
+
+/* ===========================
+   SMALL MOBILE
+=========================== */
+
+@media (max-width: 480px) {
+  .portfolio-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .video-box iframe {
+    height: 180px;
+  }
+
+  .join-box form > button[type="submit"] {
+    min-height: 50px;
+    font-size: 16px;
+  }
+
+  .success-message {
+    font-size: 15px;
+  }
+}

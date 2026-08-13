@@ -1,0 +1,914 @@
+
+/* =====================================
+   OCMA ADMIN
+   MEMBERSHIP REQUESTS
+   PREMIUM ADMIN STYLE
+   ===================================== */
+
+
+/* =====================================
+   PAGE
+   ===================================== */
+
+.member-request-admin {
+  width: 100%;
+  min-height: 100vh;
+  padding: 35px;
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(212, 175, 55, 0.08),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #080808,
+      #111111,
+      #171717
+    );
+
+  color: #ffffff;
+
+  font-family:
+    "Inter",
+    "Poppins",
+    Arial,
+    sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================
+   MAIN HEADING
+   ===================================== */
+
+.member-request-admin > h1 {
+  margin: 0 0 30px;
+
+  color: #d4af37;
+
+  font-size: 34px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+
+  text-align: center;
+
+  text-shadow:
+    0 3px 15px
+    rgba(212, 175, 55, 0.15);
+}
+
+
+/* =====================================
+   LOADING / EMPTY MESSAGE
+   ===================================== */
+
+.member-request-admin > h2 {
+  width: 100%;
+
+  margin: 30px 0;
+
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid
+    rgba(212, 175, 55, 0.25);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  color: #cccccc;
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  text-align: center;
+}
+
+
+/* =====================================
+   REQUEST GRID
+   ===================================== */
+
+.request-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(280px, 1fr)
+    );
+
+  gap: 24px;
+
+  align-items: stretch;
+}
+
+
+/* =====================================
+   REQUEST CARD
+   ===================================== */
+
+.request-card {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  padding: 22px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(31, 31, 31, 0.98),
+      rgba(18, 18, 18, 0.98)
+    );
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 12px 35px
+    rgba(0, 0, 0, 0.35);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+/* CARD TOP GOLD LINE */
+
+.request-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #d4af37,
+      transparent
+    );
+
+  opacity: 0.7;
+}
+
+
+/* CARD HOVER */
+
+.request-card:hover {
+  transform: translateY(-5px);
+
+  border-color:
+    rgba(212, 175, 55, 0.45);
+
+  box-shadow:
+    0 18px 45px
+    rgba(0, 0, 0, 0.5);
+}
+
+
+/* =====================================
+   MEMBER IMAGE
+   ===================================== */
+
+.request-card > img {
+  display: block;
+
+  width: 105px;
+  height: 105px;
+
+  margin: 5px auto 18px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  background: #080808;
+
+  border:
+    3px solid
+    #d4af37;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.45);
+}
+
+
+/* =====================================
+   MEMBER NAME
+   ===================================== */
+
+.request-card h3 {
+  margin: 0 0 15px;
+
+  color: #ffffff;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  text-align: center;
+
+  line-height: 1.4;
+
+  word-break: break-word;
+}
+
+
+/* =====================================
+   CARD INFORMATION
+   ===================================== */
+
+.request-card p {
+  margin: 5px 0;
+
+  color: #bdbdbd;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  word-break: break-word;
+}
+
+
+.request-card p b {
+  color: #d4af37;
+
+  font-weight: 700;
+}
+
+
+/* =====================================
+   STATUS
+   ===================================== */
+
+.request-card p:nth-last-of-type(1) {
+  display: inline-flex;
+
+  align-self: flex-start;
+
+  margin-top: 12px;
+
+  padding: 5px 12px;
+
+  border:
+    1px solid
+    rgba(255, 193, 7, 0.35);
+
+  border-radius: 20px;
+
+  background:
+    rgba(255, 193, 7, 0.08);
+
+  color: #ffc107;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+}
+
+
+/* =====================================
+   VIEW DETAILS BUTTON
+   ===================================== */
+
+.request-card > button {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 11px 16px;
+
+  border:
+    1px solid
+    rgba(212, 175, 55, 0.55);
+
+  border-radius: 10px;
+
+  background:
+    rgba(212, 175, 55, 0.08);
+
+  color: #d4af37;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+
+.request-card > button:hover {
+  background: #d4af37;
+
+  color: #111111;
+
+  transform: translateY(-1px);
+}
+
+
+/* =====================================
+   ACTION BUTTON AREA
+   ===================================== */
+
+.request-buttons {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr 1fr;
+
+  gap: 8px;
+
+  margin-top: 10px;
+}
+
+
+/* =====================================
+   ALL ACTION BUTTONS
+   ===================================== */
+
+.request-buttons button {
+  min-height: 42px;
+
+  padding: 8px 6px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* APPROVE */
+
+.request-buttons button:not(.reject):not(.delete) {
+  background:
+    linear-gradient(
+      135deg,
+      #d4af37,
+      #b88a0a
+    );
+
+  color: #111111;
+}
+
+
+.request-buttons button:not(.reject):not(.delete):hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 15px
+    rgba(212, 175, 55, 0.25);
+}
+
+
+/* REJECT */
+
+.request-buttons .reject {
+  background:
+    #8f2424;
+
+  color: #ffffff;
+}
+
+
+.request-buttons .reject:hover {
+  background: #b72c2c;
+
+  transform: translateY(-2px);
+}
+
+
+/* DELETE */
+
+.request-buttons .delete {
+  background:
+    #292929;
+
+  color: #dddddd;
+
+  border:
+    1px solid
+    #444444;
+}
+
+
+.request-buttons .delete:hover {
+  background: #444444;
+
+  color: #ffffff;
+
+  transform: translateY(-2px);
+}
+
+
+/* =====================================
+   POPUP BACKDROP
+   ===================================== */
+
+.member-popup {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  background:
+    rgba(0, 0, 0, 0.78);
+
+  backdrop-filter:
+    blur(8px);
+
+  -webkit-backdrop-filter:
+    blur(8px);
+
+  animation:
+    popupFadeIn 0.25s ease;
+}
+
+
+/* =====================================
+   POPUP BOX
+   ===================================== */
+
+.popup-box {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 650px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding: 32px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid
+    rgba(212, 175, 55, 0.45);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #1d1d1d,
+      #101010
+    );
+
+  box-shadow:
+    0 25px 80px
+    rgba(0, 0, 0, 0.75);
+
+  animation:
+    popupSlideUp 0.3s ease;
+}
+
+
+/* =====================================
+   POPUP HEADING
+   ===================================== */
+
+.popup-box h2 {
+  margin: 0 0 25px;
+
+  color: #d4af37;
+
+  font-size: 28px;
+
+  font-weight: 800;
+
+  text-align: center;
+}
+
+
+/* =====================================
+   POPUP MEMBER IMAGE
+   ===================================== */
+
+.popup-member-image {
+  display: block;
+
+  width: 130px;
+  height: 130px;
+
+  margin: 0 auto 25px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  background: #080808;
+
+  border:
+    4px solid
+    #d4af37;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.5);
+}
+
+
+/* =====================================
+   POPUP DETAILS
+   ===================================== */
+
+.popup-box p {
+  margin: 0;
+
+  padding: 12px 0;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  color: #cccccc;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+
+  word-break: break-word;
+}
+
+
+.popup-box p:last-of-type {
+  border-bottom: none;
+}
+
+
+.popup-box p b {
+  display: inline-block;
+
+  min-width: 165px;
+
+  color: #d4af37;
+
+  font-weight: 700;
+}
+
+
+/* =====================================
+   POPUP ACTIONS
+   ===================================== */
+
+.popup-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 25px;
+}
+
+
+.popup-actions button {
+  min-height: 45px;
+
+  padding: 10px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background:
+    #d4af37;
+
+  color: #111111;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+
+.popup-actions button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 20px
+    rgba(212, 175, 55, 0.22);
+}
+
+
+/* POPUP REJECT */
+
+.popup-actions .reject {
+  background: #8f2424;
+
+  color: #ffffff;
+}
+
+
+.popup-actions .reject:hover {
+  background: #b72c2c;
+}
+
+
+/* =====================================
+   POPUP SCROLLBAR
+   ===================================== */
+
+.popup-box::-webkit-scrollbar {
+  width: 7px;
+}
+
+
+.popup-box::-webkit-scrollbar-track {
+  background: #111111;
+
+  border-radius: 10px;
+}
+
+
+.popup-box::-webkit-scrollbar-thumb {
+  background: #d4af37;
+
+  border-radius: 10px;
+}
+
+
+/* =====================================
+   ANIMATIONS
+   ===================================== */
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes popupSlideUp {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(25px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =====================================
+   TABLET
+   ===================================== */
+
+@media (max-width: 900px) {
+
+  .member-request-admin {
+    padding: 25px;
+  }
+
+  .request-grid {
+    grid-template-columns:
+      repeat(
+        auto-fill,
+        minmax(260px, 1fr)
+      );
+  }
+
+  .popup-box {
+    max-width: 600px;
+
+    padding: 25px;
+  }
+
+}
+
+
+/* =====================================
+   MOBILE
+   ===================================== */
+
+@media (max-width: 600px) {
+
+  .member-request-admin {
+    padding: 18px 12px;
+  }
+
+
+  .member-request-admin > h1 {
+    font-size: 27px;
+
+    line-height: 1.35;
+
+    margin-bottom: 22px;
+  }
+
+
+  .member-request-admin > h2 {
+    font-size: 16px;
+
+    padding: 20px 12px;
+  }
+
+
+  .request-grid {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+
+  .request-card {
+    padding: 18px;
+  }
+
+
+  .request-card > img {
+    width: 90px;
+    height: 90px;
+  }
+
+
+  .request-card h3 {
+    font-size: 19px;
+  }
+
+
+  .request-card p {
+    font-size: 13px;
+  }
+
+
+  .request-buttons {
+    gap: 6px;
+  }
+
+
+  .request-buttons button {
+    min-height: 40px;
+
+    font-size: 11px;
+  }
+
+
+  .member-popup {
+    padding: 12px;
+  }
+
+
+  .popup-box {
+    max-height: 94vh;
+
+    padding: 20px;
+
+    border-radius: 17px;
+  }
+
+
+  .popup-box h2 {
+    font-size: 23px;
+
+    margin-bottom: 20px;
+  }
+
+
+  .popup-member-image {
+    width: 105px;
+    height: 105px;
+  }
+
+
+  .popup-box p {
+    font-size: 13px;
+
+    padding: 10px 0;
+  }
+
+
+  .popup-box p b {
+    display: block;
+
+    min-width: auto;
+
+    margin-bottom: 2px;
+  }
+
+
+  .popup-actions {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+
+  .popup-actions button {
+    min-height: 44px;
+  }
+
+}
+
+
+/* =====================================
+   SMALL MOBILE
+   ===================================== */
+
+@media (max-width: 400px) {
+
+  .member-request-admin {
+    padding: 15px 10px;
+  }
+
+
+  .request-card {
+    padding: 15px;
+  }
+
+
+  .request-buttons {
+    grid-template-columns: 1fr;
+  }
+
+
+  .request-buttons button {
+    width: 100%;
+  }
+
+
+  .popup-box {
+    padding: 17px;
+  }
+
+}

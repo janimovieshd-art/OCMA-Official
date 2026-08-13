@@ -1,0 +1,744 @@
+/* =====================================================
+   OCMA AI COMMAND CENTER
+   ADMIN LOGIN — SCI-FI / LOADING STYLE
+===================================================== */
+
+.admin-login {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #16394d 0%,
+      #071019 45%,
+      #000 100%
+    );
+
+  font-family: "Courier New", monospace;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   CAMERA BACKGROUND
+===================================================== */
+
+.admin-login::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.72),
+      rgba(0, 0, 0, 0.94)
+    ),
+    url("/assets/camera-bg.jpg");
+
+  background-size: cover;
+
+  background-position: center;
+
+  z-index: 0;
+
+  animation: cameraZoom 18s ease-in-out infinite alternate;
+}
+
+
+/* =====================================================
+   SCI-FI GRID
+===================================================== */
+
+.admin-login::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      rgba(0, 234, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 234, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 45px 45px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 20%,
+    black 80%,
+    transparent
+  );
+}
+
+
+/* =====================================================
+   LOGIN BOX
+===================================================== */
+
+.login-box {
+  position: relative;
+
+  z-index: 5;
+
+  width: 400px;
+
+  padding: 45px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0, 25, 40, 0.94),
+      rgba(0, 0, 0, 0.93)
+    );
+
+  border:
+    1px solid rgba(0, 234, 255, 0.65);
+
+  border-radius: 25px;
+
+  text-align: center;
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 0 50px rgba(0, 234, 255, 0.25),
+    0 0 100px rgba(0, 234, 255, 0.08),
+    inset 0 0 35px rgba(0, 234, 255, 0.12);
+
+  overflow: hidden;
+
+  animation:
+    loginAppear 0.8s ease,
+    boxPulse 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   SCAN LINE
+===================================================== */
+
+.login-box::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: -20%;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00eaff,
+      transparent
+    );
+
+  box-shadow:
+    0 0 15px #00eaff,
+    0 0 30px #00eaff;
+
+  opacity: 0.8;
+
+  animation: scanLine 4s linear infinite;
+}
+
+
+/* =====================================================
+   CORNER LIGHTS
+===================================================== */
+
+.login-box::after {
+  content: "";
+
+  position: absolute;
+
+  width: 100px;
+  height: 100px;
+
+  right: -55px;
+  bottom: -55px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 234, 255, 0.12);
+
+  box-shadow:
+    0 0 40px rgba(0, 234, 255, 0.2);
+
+  pointer-events: none;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.login-box h1 {
+  position: relative;
+
+  margin: 0 0 12px;
+
+  font-size: 34px;
+
+  letter-spacing: 6px;
+
+  color: #00eaff;
+
+  text-shadow:
+    0 0 8px #00eaff,
+    0 0 20px #00eaff,
+    0 0 35px rgba(0, 234, 255, 0.8);
+
+  animation: titleGlow 2.5s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   SYSTEM STATUS
+===================================================== */
+
+.login-box::marker {
+  display: none;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.login-box input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-bottom: 20px;
+
+  padding: 15px 20px;
+
+  border-radius: 30px;
+
+  border:
+    1px solid rgba(0, 234, 255, 0.75);
+
+  background:
+    rgba(0, 0, 0, 0.78);
+
+  color: #ffffff;
+
+  font-family: "Courier New", monospace;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+
+.login-box input:hover {
+  border-color: #00eaff;
+
+  box-shadow:
+    0 0 12px rgba(0, 234, 255, 0.18);
+}
+
+
+.login-box input:focus {
+  border-color: #d4af37;
+
+  background:
+    rgba(10, 10, 10, 0.9);
+
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.5),
+    inset 0 0 10px rgba(212, 175, 55, 0.08);
+}
+
+
+.login-box input::placeholder {
+  color: #777;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.login-box button {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 55px;
+
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d4af37,
+      #f5d76e,
+      #d4af37
+    );
+
+  background-size: 200% 100%;
+
+  color: #111111;
+
+  font-family: "Courier New", monospace;
+
+  font-size: 17px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  letter-spacing: 2px;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  overflow: hidden;
+
+  animation: goldButton 3s linear infinite;
+}
+
+
+/* =====================================================
+   BUTTON LIGHT SWEEP
+===================================================== */
+
+.login-box button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 60%;
+
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.45),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  animation: buttonSweep 3s ease-in-out infinite;
+}
+
+
+.login-box button:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.55),
+    0 0 40px rgba(212, 175, 55, 0.25);
+}
+
+
+.login-box button:disabled {
+  opacity: 0.75;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =====================================================
+   ERROR MESSAGE
+===================================================== */
+
+.login-error {
+  margin: 0 0 20px;
+
+  padding: 12px 15px;
+
+  color: #ff7777;
+
+  background:
+    rgba(120, 0, 0, 0.18);
+
+  border:
+    1px solid rgba(255, 80, 80, 0.35);
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  text-shadow:
+    0 0 10px rgba(255, 0, 0, 0.7);
+
+  animation:
+    errorShake 0.35s ease;
+}
+
+
+/* =====================================================
+   LOADING STATE
+===================================================== */
+
+.login-loading {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+}
+
+
+/* =====================================================
+   LOADING SPINNER
+===================================================== */
+
+.login-spinner {
+  width: 18px;
+
+  height: 18px;
+
+  border:
+    2px solid rgba(17, 17, 17, 0.3);
+
+  border-top-color: #111111;
+
+  border-right-color: #111111;
+
+  border-radius: 50%;
+
+  animation:
+    loginSpin 0.7s linear infinite;
+}
+
+
+/* =====================================================
+   SYSTEM DOTS
+===================================================== */
+
+.login-dots {
+  display: inline-flex;
+
+  gap: 4px;
+
+  margin-left: 3px;
+}
+
+
+.login-dots span {
+  width: 4px;
+
+  height: 4px;
+
+  background: #111111;
+
+  border-radius: 50%;
+
+  animation:
+    dotPulse 1.2s infinite;
+}
+
+
+.login-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+
+.login-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .admin-login {
+    padding: 20px;
+  }
+
+
+  .login-box {
+    width: 100%;
+
+    max-width: 400px;
+
+    padding: 35px 25px;
+
+    border-radius: 20px;
+  }
+
+
+  .login-box h1 {
+    font-size: 27px;
+
+    letter-spacing: 4px;
+  }
+
+
+  .login-box input {
+    font-size: 15px;
+
+    padding: 14px 18px;
+  }
+
+
+  .login-box button {
+    min-height: 52px;
+
+    font-size: 15px;
+  }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+  .admin-login {
+    padding: 15px;
+  }
+
+
+  .login-box {
+    padding: 30px 20px;
+  }
+
+
+  .login-box h1 {
+    font-size: 23px;
+
+    letter-spacing: 3px;
+  }
+
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes loginAppear {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(35px)
+      scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+@keyframes boxPulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 50px rgba(0, 234, 255, 0.20),
+      0 0 100px rgba(0, 234, 255, 0.05),
+      inset 0 0 35px rgba(0, 234, 255, 0.10);
+  }
+
+  50% {
+    box-shadow:
+      0 0 65px rgba(0, 234, 255, 0.32),
+      0 0 120px rgba(0, 234, 255, 0.10),
+      inset 0 0 40px rgba(0, 234, 255, 0.15);
+  }
+
+}
+
+
+@keyframes cameraZoom {
+
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+
+}
+
+
+@keyframes scanLine {
+
+  0% {
+    top: -20%;
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 120%;
+
+    opacity: 0;
+  }
+
+}
+
+
+@keyframes titleGlow {
+
+  0%,
+  100% {
+    text-shadow:
+      0 0 8px #00eaff,
+      0 0 20px #00eaff,
+      0 0 35px rgba(0, 234, 255, 0.5);
+  }
+
+  50% {
+    text-shadow:
+      0 0 12px #00eaff,
+      0 0 30px #00eaff,
+      0 0 50px rgba(0, 234, 255, 0.8);
+  }
+
+}
+
+
+@keyframes goldButton {
+
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+
+}
+
+
+@keyframes buttonSweep {
+
+  0% {
+    left: -100%;
+  }
+
+  45% {
+    left: 140%;
+  }
+
+  100% {
+    left: 140%;
+  }
+
+}
+
+
+@keyframes loginSpin {
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+@keyframes dotPulse {
+
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+
+    transform: scale(0.7);
+  }
+
+  30% {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes errorShake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+
+}

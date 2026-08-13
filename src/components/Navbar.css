@@ -1,0 +1,1418 @@
+/* =====================================================
+   OCMA PREMIUM MODERN NAVBAR
+   COMPLETE FINAL CSS
+===================================================== */
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+.navbar,
+.navbar * {
+
+  box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   MAIN NAVBAR
+===================================================== */
+
+.navbar {
+
+  width: 100%;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8, 8, 8, .98),
+      rgba(20, 20, 20, .98)
+    );
+
+  backdrop-filter: blur(12px);
+
+  border-bottom:
+    1px solid rgba(212, 175, 55, .55);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 10px 34px;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 9999;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, .45);
+
+  transition: .3s;
+
+}
+
+
+/* =====================================================
+   LOGO AREA
+===================================================== */
+
+.nav-logo {
+
+  display: flex;
+
+  align-items: center;
+
+  flex-shrink: 0;
+
+}
+
+
+.logo-link {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  text-decoration: none;
+
+}
+
+
+.nav-logo img {
+
+  width: 62px;
+
+  height: 62px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 0 12px rgba(212, 175, 55, .35)
+    );
+
+  transition: .3s;
+
+}
+
+
+.nav-logo img:hover {
+
+  transform: scale(1.05);
+
+}
+
+
+.nav-logo h3 {
+
+  margin: 0;
+
+  color: #d4af37;
+
+  font-size: 28px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  line-height: 1;
+
+  text-shadow:
+    0 5px 15px rgba(212, 175, 55, .25);
+
+}
+
+
+.nav-logo span {
+
+  color: #ddd;
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+  letter-spacing: .4px;
+
+}
+
+
+/* =====================================================
+   LIVE NETWORK PREMIUM TICKER
+===================================================== */
+
+.nav-live-network {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-left: auto;
+
+  margin-right: 24px;
+
+  padding: 7px 13px;
+
+  min-height: 42px;
+
+  border:
+    1px solid rgba(212, 175, 55, .32);
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, .18),
+      rgba(212, 175, 55, .045),
+      rgba(0, 0, 0, .18)
+    );
+
+  box-shadow:
+    inset 0 0 12px rgba(212, 175, 55, .035),
+    0 0 12px rgba(0, 0, 0, .18);
+
+  position: relative;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+}
+
+
+/* =====================================================
+   SUBTLE AI SCAN LIGHT
+===================================================== */
+
+.nav-live-network::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: -80%;
+
+  width: 35%;
+
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 175, 55, .10),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  animation:
+    navTickerScan 6s linear infinite;
+
+  pointer-events: none;
+
+}
+
+
+@keyframes navTickerScan {
+
+  0% {
+
+    left: -80%;
+
+  }
+
+  100% {
+
+    left: 150%;
+
+  }
+
+}
+
+
+/* =====================================================
+   LIVE ITEMS
+===================================================== */
+
+.nav-live-item {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+
+/* =====================================================
+   LIVE DOT
+===================================================== */
+
+.nav-live-dot {
+
+  width: 7px;
+
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #00ff99;
+
+  box-shadow:
+    0 0 6px #00ff99,
+    0 0 12px rgba(0, 255, 153, .65);
+
+  animation:
+    navLivePulse 1.4s infinite;
+
+  flex-shrink: 0;
+
+}
+
+
+@keyframes navLivePulse {
+
+  0%,
+  100% {
+
+    opacity: 1;
+
+    transform: scale(1);
+
+  }
+
+  50% {
+
+    opacity: .35;
+
+    transform: scale(.72);
+
+  }
+
+}
+
+
+/* =====================================================
+   LIVE TEXT
+===================================================== */
+
+.nav-live-label {
+
+  color: #00ff99;
+
+  font-family:
+    "Montserrat",
+    "Inter",
+    sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 8px rgba(0, 255, 153, .55);
+
+}
+
+
+/* =====================================================
+   LIVE NUMBERS
+===================================================== */
+
+.nav-live-item strong {
+
+  color: #fff;
+
+  font-family:
+    "Montserrat",
+    "Inter",
+    sans-serif;
+
+  font-size: 17px;
+
+  font-weight: 900;
+
+  line-height: 1;
+
+  letter-spacing: .3px;
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, .18);
+
+}
+
+
+/* =====================================================
+   MEMBERS / CITIES LABEL
+===================================================== */
+
+.nav-live-item small {
+
+  color: #d4af37;
+
+  font-family:
+    "Montserrat",
+    "Inter",
+    sans-serif;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: .8px;
+
+}
+
+
+/* =====================================================
+   SEPARATOR
+===================================================== */
+
+.nav-live-separator {
+
+  color:
+    rgba(212, 175, 55, .38);
+
+  font-size: 18px;
+
+  font-weight: 300;
+
+  line-height: 1;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+
+/* =====================================================
+   CITY ICON
+===================================================== */
+
+.nav-city-icon {
+
+  color: #d4af37;
+
+  font-size: 12px;
+
+  text-shadow:
+    0 0 7px rgba(212, 175, 55, .55);
+
+  animation:
+    cityIconPulse 2s infinite;
+
+}
+
+
+@keyframes cityIconPulse {
+
+  0%,
+  100% {
+
+    opacity: .65;
+
+  }
+
+  50% {
+
+    opacity: 1;
+
+  }
+
+}
+
+
+/* =====================================================
+   CITY LIVE DISPLAY
+===================================================== */
+
+.nav-live-city-display {
+
+  min-width: 145px;
+
+  height: 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  position: relative;
+
+  overflow: hidden;
+
+  z-index: 2;
+
+}
+
+
+/* =====================================================
+   CURRENT CITY
+===================================================== */
+
+.nav-live-city {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 145px;
+
+  animation:
+    navCityDissolve 3.5s ease-in-out;
+
+}
+
+
+/* =====================================================
+   CITY LIVE DOT
+===================================================== */
+
+.nav-city-live-dot {
+
+  width: 5px;
+
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #00eaff;
+
+  box-shadow:
+    0 0 7px #00eaff;
+
+  flex-shrink: 0;
+
+  animation:
+    cityDotPulse 1.5s infinite;
+
+}
+
+
+@keyframes cityDotPulse {
+
+  0%,
+  100% {
+
+    opacity: .45;
+
+  }
+
+  50% {
+
+    opacity: 1;
+
+  }
+
+}
+
+
+/* =====================================================
+   CITY NAME
+===================================================== */
+
+.nav-live-city strong {
+
+  color: #fff;
+
+  font-family:
+    "Montserrat",
+    "Inter",
+    sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  letter-spacing: .2px;
+
+  white-space: nowrap;
+
+}
+
+
+/* =====================================================
+   CITY MEMBER COUNT
+===================================================== */
+
+.nav-live-city small {
+
+  color: #d4af37;
+
+  font-family:
+    "Montserrat",
+    "Inter",
+    sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: .2px;
+
+  white-space: nowrap;
+
+}
+
+
+/* =====================================================
+   CITY DISSOLVE
+===================================================== */
+
+@keyframes navCityDissolve {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateX(12px);
+
+    filter:
+      blur(3px);
+
+  }
+
+  18% {
+
+    opacity: 1;
+
+    transform:
+      translateX(0);
+
+    filter:
+      blur(0);
+
+  }
+
+  72% {
+
+    opacity: 1;
+
+    transform:
+      translateX(0);
+
+    filter:
+      blur(0);
+
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform:
+      translateX(-10px);
+
+    filter:
+      blur(2px);
+
+  }
+
+}
+
+
+/* =====================================================
+   CITY LOADING
+===================================================== */
+
+.nav-city-loading {
+
+  opacity: .75;
+
+}
+
+
+.nav-city-loading small {
+
+  color: #aaa;
+
+}
+
+
+/* =====================================================
+   MEMBERS NUMBER ANIMATION
+===================================================== */
+
+.nav-members-item strong {
+
+  animation:
+    navNumberGlow 3.5s ease-in-out infinite;
+
+}
+
+
+@keyframes navNumberGlow {
+
+  0%,
+  100% {
+
+    opacity: .75;
+
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, .12);
+
+  }
+
+  50% {
+
+    opacity: 1;
+
+    text-shadow:
+      0 0 10px rgba(255, 255, 255, .38);
+
+  }
+
+}
+
+
+/* =====================================================
+   CITIES NUMBER ANIMATION
+===================================================== */
+
+.nav-city-count-item strong {
+
+  animation:
+    navCityNumberGlow 3.5s ease-in-out infinite;
+
+  animation-delay: 1.5s;
+
+}
+
+
+@keyframes navCityNumberGlow {
+
+  0%,
+  100% {
+
+    opacity: .72;
+
+  }
+
+  50% {
+
+    opacity: 1;
+
+    text-shadow:
+      0 0 10px rgba(212, 175, 55, .55);
+
+  }
+
+}
+
+
+/* =====================================================
+   TICKER HOVER
+===================================================== */
+
+.nav-live-network:hover {
+
+  border-color:
+    rgba(212, 175, 55, .60);
+
+  box-shadow:
+    inset 0 0 15px rgba(212, 175, 55, .06),
+    0 0 15px rgba(212, 175, 55, .10);
+
+}
+
+
+/* =====================================================
+   NAVIGATION LINKS
+===================================================== */
+
+.nav-links {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 22px;
+
+}
+
+
+.nav-links a {
+
+  color: #f5f5f5;
+
+  text-decoration: none;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  letter-spacing: .2px;
+
+  position: relative;
+
+  transition: .25s;
+
+}
+
+
+.nav-links a::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: -8px;
+
+  width: 0;
+
+  height: 2px;
+
+  background: #d4af37;
+
+  border-radius: 10px;
+
+  transform:
+    translateX(-50%);
+
+  transition: .25s;
+
+}
+
+
+.nav-links a:hover {
+
+  color: #d4af37;
+
+}
+
+
+.nav-links a:hover::after {
+
+  width: 100%;
+
+}
+
+
+/* =====================================================
+   JOIN BUTTON
+===================================================== */
+
+.nav-links a:last-child {
+
+  background: #d4af37;
+
+  color: #111;
+
+  padding: 9px 20px;
+
+  border-radius: 25px;
+
+  font-weight: 700;
+
+  box-shadow:
+    0 6px 18px rgba(212, 175, 55, .25);
+
+  transition: .25s;
+
+}
+
+
+.nav-links a:last-child:hover {
+
+  background: #e5c15b;
+
+  color: #000;
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(212, 175, 55, .35);
+
+}
+
+
+.nav-links a:last-child::after {
+
+  display: none;
+
+}
+
+
+/* =====================================================
+   GALLERY DROPDOWN
+===================================================== */
+
+.gallery-menu {
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+
+.gallery-menu > a {
+
+  cursor: pointer;
+
+}
+
+
+/* =====================================================
+   GALLERY TITLE
+===================================================== */
+
+.gallery-title {
+
+  color: #f5f5f5;
+
+  text-decoration: none;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  letter-spacing: .2px;
+
+  position: relative;
+
+  cursor: pointer;
+
+  transition: .25s;
+
+}
+
+
+.gallery-title::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: -8px;
+
+  width: 0;
+
+  height: 2px;
+
+  background: #d4af37;
+
+  border-radius: 10px;
+
+  transform:
+    translateX(-50%);
+
+  transition: .25s;
+
+}
+
+
+.gallery-menu:hover .gallery-title {
+
+  color: #d4af37;
+
+}
+
+
+.gallery-menu:hover .gallery-title::after {
+
+  width: 100%;
+
+}
+
+
+/* =====================================================
+   GALLERY DROPDOWN BOX
+===================================================== */
+
+.gallery-dropdown {
+
+  position: absolute;
+
+  top: 42px;
+
+  left: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(10, 10, 10, .98),
+      rgba(30, 30, 30, .98)
+    );
+
+  min-width: 190px;
+
+  padding: 10px;
+
+  border-radius: 12px;
+
+  border:
+    1px solid rgba(212, 175, 55, .5);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, .5);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform:
+    translateY(10px);
+
+  transition: .3s;
+
+  z-index: 99999;
+
+}
+
+
+/* =====================================================
+   GALLERY DROPDOWN LINKS
+===================================================== */
+
+.gallery-dropdown a {
+
+  display: block;
+
+  padding: 12px 15px;
+
+  color: #fff;
+
+  font-size: 14px;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+}
+
+
+.gallery-dropdown a::after {
+
+  display: none;
+
+}
+
+
+.gallery-dropdown a:hover {
+
+  background: #d4af37;
+
+  color: #111;
+
+}
+
+
+/* =====================================================
+   SHOW GALLERY DROPDOWN
+===================================================== */
+
+.gallery-menu:hover .gallery-dropdown {
+
+  opacity: 1;
+
+  visibility: visible;
+
+  transform:
+    translateY(0);
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .navbar {
+
+    flex-direction: column;
+
+    gap: 14px;
+
+    padding: 15px 25px;
+
+  }
+
+
+  .nav-live-network {
+
+    margin: 0;
+
+    order: 2;
+
+  }
+
+
+  .nav-links {
+
+    order: 3;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+  }
+
+
+  .nav-logo {
+
+    order: 1;
+
+  }
+
+}
+
+
+/* =====================================================
+   SMALL LAPTOP
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .nav-logo h3 {
+
+    font-size: 26px;
+
+  }
+
+
+  .nav-links a {
+
+    font-size: 14px;
+
+  }
+
+
+  .gallery-title {
+
+    font-size: 14px;
+
+  }
+
+
+  .nav-live-network {
+
+    gap: 9px;
+
+    padding: 6px 10px;
+
+  }
+
+
+  .nav-live-item strong {
+
+    font-size: 15px;
+
+  }
+
+
+  .nav-live-city strong {
+
+    font-size: 12px;
+
+  }
+
+
+  .nav-live-city-display {
+
+    min-width: 125px;
+
+  }
+
+
+  .nav-live-city {
+
+    min-width: 125px;
+
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .navbar {
+
+    padding: 16px 15px;
+
+  }
+
+
+  .logo-link {
+
+    flex-direction: column;
+
+    text-align: center;
+
+    gap: 8px;
+
+  }
+
+
+  .nav-logo img {
+
+    width: 55px;
+
+    height: 55px;
+
+  }
+
+
+  .nav-logo h3 {
+
+    font-size: 24px;
+
+  }
+
+
+  .nav-logo span {
+
+    font-size: 11px;
+
+  }
+
+
+  /* LIVE TICKER */
+
+  .nav-live-network {
+
+    width: 100%;
+
+    margin: 4px 0 8px;
+
+    justify-content: center;
+
+    padding: 7px 8px;
+
+    gap: 8px;
+
+    border-radius: 8px;
+
+    order: 2;
+
+  }
+
+
+  .nav-live-item strong {
+
+    font-size: 14px;
+
+  }
+
+
+  .nav-live-item small {
+
+    font-size: 8px;
+
+  }
+
+
+  .nav-live-label {
+
+    font-size: 9px;
+
+  }
+
+
+  .nav-live-city-display {
+
+    min-width: 125px;
+
+  }
+
+
+  .nav-live-city {
+
+    min-width: 125px;
+
+  }
+
+
+  .nav-live-city strong {
+
+    font-size: 11px;
+
+  }
+
+
+  .nav-live-city small {
+
+    font-size: 9px;
+
+  }
+
+
+  /* NAV LINKS */
+
+  .nav-links {
+
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    order: 3;
+
+  }
+
+
+  .nav-links a {
+
+    font-size: 13px;
+
+  }
+
+
+  .nav-links a:last-child {
+
+    padding: 8px 16px;
+
+  }
+
+
+  /* GALLERY */
+
+  .gallery-dropdown {
+
+    position: relative;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    text-align: center;
+
+    margin-top: 10px;
+
+  }
+
+
+  .gallery-menu:hover .gallery-dropdown {
+
+    display: block;
+
+  }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+  .nav-links {
+
+    gap: 10px;
+
+  }
+
+
+  .nav-links a {
+
+    font-size: 12px;
+
+  }
+
+
+  .gallery-title {
+
+    font-size: 12px;
+
+  }
+
+
+  .nav-logo h3 {
+
+    font-size: 22px;
+
+  }
+
+
+  .nav-live-network {
+
+    gap: 6px;
+
+    padding: 6px;
+
+  }
+
+
+  .nav-live-item strong {
+
+    font-size: 13px;
+
+  }
+
+
+  .nav-live-city-display {
+
+    min-width: 110px;
+
+  }
+
+
+  .nav-live-city {
+
+    min-width: 110px;
+
+  }
+
+
+  .nav-live-city strong {
+
+    font-size: 10px;
+
+  }
+
+
+  .nav-live-city small {
+
+    font-size: 8px;
+
+  }
+
+}
