@@ -13,12 +13,14 @@
   position: relative;
   overflow: hidden;
 
+  padding: 20px;
+
   background:
     radial-gradient(
       circle at center,
       #16394d 0%,
       #071019 45%,
-      #000 100%
+      #000000 100%
     );
 
   font-family: "Courier New", monospace;
@@ -28,7 +30,8 @@
 
 
 /* =====================================================
-   CAMERA BACKGROUND
+   SCI-FI BACKGROUND GLOW
+   NO IMAGE REQUIRED
 ===================================================== */
 
 .admin-login::before {
@@ -38,19 +41,25 @@
   inset: 0;
 
   background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.72),
-      rgba(0, 0, 0, 0.94)
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(0, 234, 255, 0.08),
+      transparent 35%
     ),
-    url("/assets/camera-bg.jpg");
-
-  background-size: cover;
-
-  background-position: center;
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(0, 234, 255, 0.06),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(7, 16, 25, 0.25),
+      rgba(0, 0, 0, 0.72)
+    );
 
   z-index: 0;
 
-  animation: cameraZoom 18s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
 
@@ -101,6 +110,7 @@
   z-index: 5;
 
   width: 400px;
+  max-width: 100%;
 
   padding: 45px;
 
@@ -168,7 +178,7 @@
 
 
 /* =====================================================
-   CORNER LIGHTS
+   CORNER LIGHT
 ===================================================== */
 
 .login-box::after {
@@ -201,6 +211,8 @@
 .login-box h1 {
   position: relative;
 
+  z-index: 2;
+
   margin: 0 0 12px;
 
   font-size: 34px;
@@ -219,19 +231,14 @@
 
 
 /* =====================================================
-   SYSTEM STATUS
-===================================================== */
-
-.login-box::marker {
-  display: none;
-}
-
-
-/* =====================================================
    INPUTS
 ===================================================== */
 
 .login-box input {
+  position: relative;
+
+  z-index: 2;
+
   width: 100%;
 
   box-sizing: border-box;
@@ -284,7 +291,7 @@
 
 
 .login-box input::placeholder {
-  color: #777;
+  color: #777777;
 }
 
 
@@ -294,6 +301,8 @@
 
 .login-box button {
   position: relative;
+
+  z-index: 2;
 
   width: 100%;
 
@@ -357,7 +366,7 @@
     linear-gradient(
       90deg,
       transparent,
-      rgba(255,255,255,0.45),
+      rgba(255, 255, 255, 0.45),
       transparent
     );
 
@@ -390,6 +399,10 @@
 ===================================================== */
 
 .login-error {
+  position: relative;
+
+  z-index: 2;
+
   margin: 0 0 20px;
 
   padding: 12px 15px;
@@ -424,7 +437,6 @@
   display: inline-flex;
 
   align-items: center;
-
   justify-content: center;
 
   gap: 10px;
@@ -437,14 +449,12 @@
 
 .login-spinner {
   width: 18px;
-
   height: 18px;
 
   border:
     2px solid rgba(17, 17, 17, 0.3);
 
   border-top-color: #111111;
-
   border-right-color: #111111;
 
   border-radius: 50%;
@@ -469,7 +479,6 @@
 
 .login-dots span {
   width: 4px;
-
   height: 4px;
 
   background: #111111;
@@ -501,7 +510,6 @@
     padding: 20px;
   }
 
-
   .login-box {
     width: 100%;
 
@@ -512,20 +520,17 @@
     border-radius: 20px;
   }
 
-
   .login-box h1 {
     font-size: 27px;
 
     letter-spacing: 4px;
   }
 
-
   .login-box input {
     font-size: 15px;
 
     padding: 14px 18px;
   }
-
 
   .login-box button {
     min-height: 52px;
@@ -546,11 +551,9 @@
     padding: 15px;
   }
 
-
   .login-box {
     padding: 30px 20px;
   }
-
 
   .login-box h1 {
     font-size: 23px;
@@ -601,19 +604,6 @@
       0 0 65px rgba(0, 234, 255, 0.32),
       0 0 120px rgba(0, 234, 255, 0.10),
       inset 0 0 40px rgba(0, 234, 255, 0.15);
-  }
-
-}
-
-
-@keyframes cameraZoom {
-
-  from {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(1.08);
   }
 
 }
