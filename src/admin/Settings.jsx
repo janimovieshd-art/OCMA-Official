@@ -26,7 +26,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
-
+import { uploadImage } from "../services/cloudinary";
 
 
 
@@ -44,7 +44,10 @@ const defaultSettings = {
     address: "",
     logo: "",
   },
-
+loadingScreen: {
+  title: "Loading OCMA Website...",
+  message: "Please wait while the website loads.",
+},
   hero: {
     heading: "Okara Cameramen Association",
     subtitle: "Professional Cameramen Community",
@@ -279,7 +282,10 @@ function Settings() {
             ...defaultSettings.website,
             ...(data.website || {}),
           },
-
+          loadingScreen: {
+  ...defaultSettings.loadingScreen,
+  ...(data.loadingScreen || {}),
+},
 
           hero: {
             ...defaultSettings.hero,
@@ -1321,7 +1327,76 @@ function Settings() {
 
       </div>
 
+        {/* ======================================
+    WEBSITE LOADING SCREEN
+====================================== */}
 
+<div className="settings-card">
+
+  <div className="card-heading">
+
+    <FaSpinner />
+
+    <div>
+
+      <h2>
+        Website Loading Screen
+      </h2>
+
+      <p>
+        Change the text displayed while
+        the website is loading.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <label>
+    Loading Title
+  </label>
+
+  <input
+    value={
+      settings.loadingScreen.title
+    }
+    onChange={(e) =>
+      setSettings((prev) => ({
+        ...prev,
+
+        loadingScreen: {
+          ...prev.loadingScreen,
+          title: e.target.value,
+        },
+
+      }))
+    }
+  />
+
+
+  <label>
+    Loading Message
+  </label>
+
+  <input
+    value={
+      settings.loadingScreen.message
+    }
+    onChange={(e) =>
+      setSettings((prev) => ({
+        ...prev,
+
+        loadingScreen: {
+          ...prev.loadingScreen,
+          message: e.target.value,
+        },
+
+      }))
+    }
+  />
+
+</div>
       {/* ======================================
           HERO SECTION
       ====================================== */}
@@ -2458,7 +2533,161 @@ function Settings() {
         </button>
 
       </div>
+      {/* ======================================
+    SOCIAL MEDIA / FOLLOW US
+====================================== */}
 
+<div className="settings-card">
+
+  <div className="card-heading">
+
+    <FaLink />
+
+    <div>
+
+      <h2>
+        Social Media / Follow Us
+      </h2>
+
+      <p>
+        Update the social media links
+        displayed in the website footer.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div className="input-grid">
+
+    {/* FACEBOOK */}
+
+    <div>
+
+      <label>
+        Facebook URL
+      </label>
+
+      <input
+        type="url"
+        placeholder="https://facebook.com/your-page"
+        value={
+          settings.social.facebook
+        }
+        onChange={(e) =>
+          updateSocial(
+            "facebook",
+            e.target.value
+          )
+        }
+      />
+
+    </div>
+
+
+    {/* INSTAGRAM */}
+
+    <div>
+
+      <label>
+        Instagram URL
+      </label>
+
+      <input
+        type="url"
+        placeholder="https://instagram.com/your-page"
+        value={
+          settings.social.instagram
+        }
+        onChange={(e) =>
+          updateSocial(
+            "instagram",
+            e.target.value
+          )
+        }
+      />
+
+    </div>
+
+
+    {/* YOUTUBE */}
+
+    <div>
+
+      <label>
+        YouTube URL
+      </label>
+
+      <input
+        type="url"
+        placeholder="https://youtube.com/@your-channel"
+        value={
+          settings.social.youtube
+        }
+        onChange={(e) =>
+          updateSocial(
+            "youtube",
+            e.target.value
+          )
+        }
+      />
+
+    </div>
+
+
+    {/* TIKTOK */}
+
+    <div>
+
+      <label>
+        TikTok URL
+      </label>
+
+      <input
+        type="url"
+        placeholder="https://www.tiktok.com/@your-account"
+        value={
+          settings.social.tiktok
+        }
+        onChange={(e) =>
+          updateSocial(
+            "tiktok",
+            e.target.value
+          )
+        }
+      />
+
+    </div>
+
+
+    {/* WHATSAPP */}
+
+    <div>
+
+      <label>
+        WhatsApp URL
+      </label>
+
+      <input
+        type="url"
+        placeholder="https://wa.me/923001234567"
+        value={
+          settings.social.whatsapp
+        }
+        onChange={(e) =>
+          updateSocial(
+            "whatsapp",
+            e.target.value
+          )
+        }
+      />
+
+    </div>
+
+  </div>
+
+</div>
 
       {/* ======================================
           SECURITY SETTINGS

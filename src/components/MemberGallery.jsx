@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { getData } from "../services/firestoreService";
 
@@ -15,6 +15,27 @@ function MemberGallery() {
 
 
   // =====================================================
+  // IMAGE ZOOM
+  // =====================================================
+
+  const [imageZoom, setImageZoom] = useState(1);
+
+  const [imagePosition, setImagePosition] = useState({
+    x: 0,
+    y: 0
+  });
+
+  const [isDragging, setIsDragging] = useState(false);
+
+  const dragStartRef = useRef({
+    x: 0,
+    y: 0,
+    positionX: 0,
+    positionY: 0
+  });
+
+
+  // =====================================================
   // LOAD MEMBERS
   // =====================================================
 
@@ -24,13 +45,12 @@ function MemberGallery() {
 
       const data = await getData("members");
 
-
-      const activeMembers = data.filter(
-        (member) =>
-          member.status === "ACTIVE" &&
-          member.portfolio
-      );
-
+      const activeMembers =
+        data.filter(
+          (member) =>
+            member.status === "ACTIVE" &&
+            member.portfolio
+        );
 
       setMembers(activeMembers);
 
@@ -38,7 +58,10 @@ function MemberGallery() {
 
     catch (error) {
 
-      console.log("Gallery Error:", error);
+      console.log(
+        "Gallery Error:",
+        error
+      );
 
     }
 
@@ -59,7 +82,8 @@ function MemberGallery() {
   const getMemberCode = (member) => {
 
     return (
-      member.memberId?.replace("OCMA-", "") ||
+      member.memberId
+        ?.replace("OCMA-", "") ||
       member.memberId ||
       "N/A"
     );
@@ -68,70 +92,144 @@ function MemberGallery() {
 
 
   // =====================================================
-  // GET VIDEO URL
+  // GET RAW VIDEO URL
   // =====================================================
 
-  const getVideoUrl = (video) => {
+  const getVideoRawUrl = (video) => {
 
-    if (!video) return "";
+    if (!video) {
+      return "";
+    }
 
     if (typeof video === "string") {
-      return video;
+
+      return video.trim();
+
     }
 
     return (
-      video.url ||
       video.embed ||
+      video.url ||
+      video.link ||
+      video.videoUrl ||
       ""
-    );
+    ).trim();
 
   };
 
 
   // =====================================================
-  // YOUTUBE ID
+  // GET VIDEO TYPE
+  // =====================================================
+
+  const getVideoType = (video) => {
+
+    const rawUrl =
+      getVideoRawUrl(video)
+        .toLowerCase();
+
+    if (
+      rawUrl.includes(
+        "instagram.com"
+      )
+    ) {
+
+      return "instagram";
+
+    }
+
+    if (
+      rawUrl.includes(
+        "youtube.com"
+      ) ||
+      rawUrl.includes(
+        "youtu.be"
+      )
+    ) {
+
+      return "youtube";
+
+    }
+
+    if (
+      rawUrl.includes(
+        "facebook.com"
+      ) ||
+      rawUrl.includes(
+        "fb.watch"
+      )
+    ) {
+
+      return "facebook";
+
+    }
+
+    if (
+      rawUrl.includes(
+        "vimeo.com"
+      )
+    ) {
+
+      return "vimeo";
+
+    }
+
+    return "other";
+
+  };
+
+
+  // =====================================================
+  // GET YOUTUBE ID
   // =====================================================
 
   const getYouTubeId = (url) => {
 
-    if (!url) return null;
-
+    if (!url) {
+      return "";
+    }
 
     try {
 
-      const parsed = new URL(url);
-
+      const parsedUrl =
+        new URL(url);
 
       if (
-        parsed.hostname.includes("youtube.com")
+        parsedUrl.hostname.includes(
+          "youtube.com"
+        )
       ) {
 
         const watchId =
-          parsed.searchParams.get("v");
+          parsedUrl.searchParams.get("v");
 
         if (watchId) {
+
           return watchId;
-        }
-
-
-        if (
-          parsed.pathname.includes("/shorts/")
-        ) {
-
-          return parsed.pathname
-            .split("/shorts/")[1]
-            ?.split("/")[0];
 
         }
 
 
-        if (
-          parsed.pathname.includes("/embed/")
-        ) {
+        const shortsMatch =
+          parsedUrl.pathname.match(
+            /\/shorts\/([^/?#]+)/
+          );
 
-          return parsed.pathname
-            .split("/embed/")[1]
-            ?.split("/")[0];
+        if (shortsMatch) {
+
+          return shortsMatch[1];
+
+        }
+
+
+        const embedMatch =
+          parsedUrl.pathname.match(
+            /\/embed\/([^/?#]+)/
+          );
+
+        if (embedMatch) {
+
+          return embedMatch[1];
 
         }
 
@@ -139,12 +237,14 @@ function MemberGallery() {
 
 
       if (
-        parsed.hostname.includes("youtu.be")
+        parsedUrl.hostname.includes(
+          "youtu.be"
+        )
       ) {
 
-        return parsed.pathname
+        return parsedUrl.pathname
           .replace("/", "")
-          .split("?")[0];
+          .trim();
 
       }
 
@@ -153,176 +253,357 @@ function MemberGallery() {
     catch (error) {
 
       console.log(
-        "YouTube URL Error:",
+        "YouTube ID Error:",
         error
       );
 
     }
 
-
-    return null;
+    return "";
 
   };
 
 
   // =====================================================
-  // VIDEO DATA
+  // GET INSTAGRAM EMBED URL
   // =====================================================
 
-  const getVideoData = (video) => {
+  const getInstagramEmbedUrl = (url) => {
 
-    const url = getVideoUrl(video);
+    if (!url) {
+      return "";
+    }
 
-    if (!url) return null;
+    try {
+
+      const parsedUrl =
+        new URL(url);
+
+      const pathname =
+        parsedUrl.pathname;
 
 
-    // ==============================
-    // YOUTUBE
-    // ==============================
+      if (
+        pathname.includes(
+          "/embed"
+        )
+      ) {
 
-    const youtubeId =
-      getYouTubeId(url);
+        return url;
+
+      }
 
 
-    if (youtubeId) {
+      const reelMatch =
+        pathname.match(
+          /\/reel\/([^/?#]+)/
+        );
 
-      return {
+      if (reelMatch) {
 
-        type: "youtube",
+        return (
+          `https://www.instagram.com/reel/${reelMatch[1]}/embed/`
+        );
 
-        url,
+      }
 
-        embed:
-          `https://www.youtube.com/embed/${youtubeId}`,
 
-        thumbnail:
-          `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+      const postMatch =
+        pathname.match(
+          /\/p\/([^/?#]+)/
+        );
 
-      };
+      if (postMatch) {
+
+        return (
+          `https://www.instagram.com/p/${postMatch[1]}/embed/`
+        );
+
+      }
+
+
+      const tvMatch =
+        pathname.match(
+          /\/tv\/([^/?#]+)/
+        );
+
+      if (tvMatch) {
+
+        return (
+          `https://www.instagram.com/tv/${tvMatch[1]}/embed/`
+        );
+
+      }
 
     }
 
+    catch (error) {
 
-    // ==============================
-    // FACEBOOK
-    // ==============================
-
-    if (
-      url.includes("facebook.com") ||
-      url.includes("fb.watch")
-    ) {
-
-      return {
-
-        type: "external",
-
-        platform: "Facebook",
-
-        icon: "📘",
-
-        url
-
-      };
+      console.log(
+        "Instagram URL Error:",
+        error
+      );
 
     }
 
+    return "";
 
-    // ==============================
+  };
+
+
+  // =====================================================
+  // GET VIDEO EMBED URL
+  // =====================================================
+
+  const getVideoEmbedUrl = (video) => {
+
+    const rawUrl =
+      getVideoRawUrl(video);
+
+    if (!rawUrl) {
+      return "";
+    }
+
+    const type =
+      getVideoType(video);
+
+
     // INSTAGRAM
-    // ==============================
 
     if (
-      url.includes("instagram.com")
+      type === "instagram"
     ) {
 
-      return {
-
-        type: "external",
-
-        platform: "Instagram",
-
-        icon: "📷",
-
-        url
-
-      };
+      return getInstagramEmbedUrl(
+        rawUrl
+      );
 
     }
 
 
-    // ==============================
-    // TIKTOK
-    // ==============================
+    // YOUTUBE
 
     if (
-      url.includes("tiktok.com")
+      type === "youtube"
     ) {
 
-      return {
+      const youtubeId =
+        getYouTubeId(rawUrl);
 
-        type: "external",
+      if (youtubeId) {
 
-        platform: "TikTok",
-
-        icon: "🎵",
-
-        url
-
-      };
-
-    }
-
-
-    // ==============================
-    // VIMEO
-    // ==============================
-
-    if (
-      url.includes("vimeo.com")
-    ) {
-
-      const id =
-        url
-          .split("vimeo.com/")[1]
-          ?.split("?")[0]
-          ?.split("/")[0];
-
-
-      if (id) {
-
-        return {
-
-          type: "vimeo",
-
-          platform: "Vimeo",
-
-          url,
-
-          embed:
-            `https://player.vimeo.com/video/${id}`
-
-        };
+        return (
+          `https://www.youtube.com/embed/${youtubeId}?rel=0`
+        );
 
       }
 
     }
 
 
-    // ==============================
-    // OTHER VIDEO
-    // ==============================
+    // FACEBOOK
 
-    return {
+    if (
+      type === "facebook"
+    ) {
 
-      type: "external",
+      return (
+        `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
+          rawUrl
+        )}&show_text=false`
+      );
 
-      platform: "Video",
+    }
 
-      icon: "▶",
 
-      url
+    // VIMEO
 
-    };
+    if (
+      type === "vimeo"
+    ) {
+
+      try {
+
+        const parsedUrl =
+          new URL(rawUrl);
+
+        const pathParts =
+          parsedUrl.pathname
+            .split("/")
+            .filter(Boolean);
+
+        const videoId =
+          pathParts.find(
+            (part) =>
+              /^\d+$/.test(part)
+          );
+
+        if (videoId) {
+
+          return (
+            `https://player.vimeo.com/video/${videoId}`
+          );
+
+        }
+
+      }
+
+      catch {
+
+        return rawUrl;
+
+      }
+
+    }
+
+
+    return rawUrl;
+
+  };
+
+
+  // =====================================================
+  // GET VIDEO THUMBNAIL
+  // =====================================================
+
+  const getVideoThumbnail = (video) => {
+
+    const type =
+      getVideoType(video);
+
+    const rawUrl =
+      getVideoRawUrl(video);
+
+
+    // YOUTUBE THUMBNAIL
+
+    if (
+      type === "youtube"
+    ) {
+
+      const youtubeId =
+        getYouTubeId(rawUrl);
+
+      if (youtubeId) {
+
+        return (
+          `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+        );
+
+      }
+
+    }
+
+
+    // CUSTOM THUMBNAIL
+
+    if (
+      typeof video === "object"
+    ) {
+
+      if (
+        video.thumbnail
+      ) {
+
+        return video.thumbnail;
+
+      }
+
+      if (
+        video.thumbnailUrl
+      ) {
+
+        return video.thumbnailUrl;
+
+      }
+
+    }
+
+    return "";
+
+  };
+
+
+  // =====================================================
+  // CHECK IF VIDEO IS REEL / PORTRAIT
+  // =====================================================
+
+  const isReelVideo = (video) => {
+
+    const rawUrl =
+      getVideoRawUrl(video)
+        .toLowerCase();
+
+
+    if (
+      rawUrl.includes(
+        "instagram.com/reel"
+      )
+    ) {
+
+      return true;
+
+    }
+
+
+    if (
+      rawUrl.includes(
+        "youtube.com/shorts"
+      )
+    ) {
+
+      return true;
+
+    }
+
+
+    if (
+      rawUrl.includes(
+        "tiktok.com"
+      )
+    ) {
+
+      return true;
+
+    }
+
+
+    if (
+      typeof video === "object"
+    ) {
+
+      if (
+        video.type === "reel" ||
+        video.format === "portrait" ||
+        video.orientation === "portrait" ||
+        video.isReel === true
+      ) {
+
+        return true;
+
+      }
+
+    }
+
+    return false;
+
+  };
+
+
+  // =====================================================
+  // RESET IMAGE VIEW
+  // =====================================================
+
+  const resetImageView = () => {
+
+    setImageZoom(1);
+
+    setImagePosition({
+      x: 0,
+      y: 0
+    });
+
+    setIsDragging(false);
 
   };
 
@@ -339,9 +620,9 @@ function MemberGallery() {
     const photos =
       member.portfolio?.photos || [];
 
-
-    if (!photos.length) return;
-
+    if (!photos.length) {
+      return;
+    }
 
     setSelectedImage({
 
@@ -353,6 +634,8 @@ function MemberGallery() {
 
     });
 
+    resetImageView();
+
   };
 
 
@@ -362,26 +645,30 @@ function MemberGallery() {
 
   const nextPhoto = (e) => {
 
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
 
-
-    if (!selectedImage) return;
-
+    if (!selectedImage) {
+      return;
+    }
 
     const total =
       selectedImage.photos.length;
 
+    setSelectedImage((current) => ({
 
-    setSelectedImage({
-
-      ...selectedImage,
+      ...current,
 
       index:
         (
-          selectedImage.index + 1
-        ) % total
+          current.index + 1
+        ) %
+        total
 
-    });
+    }));
+
+    resetImageView();
 
   };
 
@@ -392,28 +679,212 @@ function MemberGallery() {
 
   const previousPhoto = (e) => {
 
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
 
-
-    if (!selectedImage) return;
-
+    if (!selectedImage) {
+      return;
+    }
 
     const total =
       selectedImage.photos.length;
 
+    setSelectedImage((current) => ({
 
-    setSelectedImage({
-
-      ...selectedImage,
+      ...current,
 
       index:
         (
-          selectedImage.index -
+          current.index -
           1 +
           total
-        ) % total
+        )
+        %
+        total
+
+    }));
+
+    resetImageView();
+
+  };
+
+
+  // =====================================================
+  // PHOTO WHEEL ZOOM
+  // =====================================================
+
+  const handleImageWheel = (e) => {
+
+    e.preventDefault();
+
+    e.stopPropagation();
+
+    setImageZoom((currentZoom) => {
+
+      const zoomStep =
+        0.15;
+
+      let newZoom;
+
+
+      if (
+        e.deltaY < 0
+      ) {
+
+        newZoom =
+          Math.min(
+            currentZoom +
+            zoomStep,
+            4
+          );
+
+      }
+
+      else {
+
+        newZoom =
+          Math.max(
+            currentZoom -
+            zoomStep,
+            1
+          );
+
+      }
+
+
+      if (
+        newZoom === 1
+      ) {
+
+        setImagePosition({
+          x: 0,
+          y: 0
+        });
+
+      }
+
+
+      return Number(
+        newZoom.toFixed(2)
+      );
 
     });
+
+  };
+
+
+  // =====================================================
+  // DOUBLE CLICK ZOOM
+  // =====================================================
+
+  const handleImageDoubleClick = (e) => {
+
+    e.preventDefault();
+
+    e.stopPropagation();
+
+
+    if (
+      imageZoom === 1
+    ) {
+
+      setImageZoom(2);
+
+    }
+
+    else {
+
+      resetImageView();
+
+    }
+
+  };
+
+
+  // =====================================================
+  // START DRAG
+  // =====================================================
+
+  const handleImageMouseDown = (e) => {
+
+    if (
+      imageZoom <= 1
+    ) {
+      return;
+    }
+
+    e.preventDefault();
+
+    e.stopPropagation();
+
+    setIsDragging(true);
+
+    dragStartRef.current = {
+
+      x:
+        e.clientX,
+
+      y:
+        e.clientY,
+
+      positionX:
+        imagePosition.x,
+
+      positionY:
+        imagePosition.y
+
+    };
+
+  };
+
+
+  // =====================================================
+  // DRAG PHOTO
+  // =====================================================
+
+  const handleImageMouseMove = (e) => {
+
+    if (
+      !isDragging
+    ) {
+      return;
+    }
+
+    e.preventDefault();
+
+
+    const deltaX =
+      e.clientX -
+      dragStartRef.current.x;
+
+    const deltaY =
+      e.clientY -
+      dragStartRef.current.y;
+
+
+    setImagePosition({
+
+      x:
+        dragStartRef.current.positionX +
+        deltaX,
+
+      y:
+        dragStartRef.current.positionY +
+        deltaY
+
+    });
+
+  };
+
+
+  // =====================================================
+  // STOP IMAGE DRAG
+  // =====================================================
+
+  const stopImageDrag = () => {
+
+    setIsDragging(false);
 
   };
 
@@ -422,30 +893,55 @@ function MemberGallery() {
   // OPEN VIDEO
   // =====================================================
 
-  const openVideo = (video) => {
+  const openVideo = (
+    videoList,
+    index
+  ) => {
 
-    const videoData =
-      getVideoData(video);
+    const video =
+      videoList[index];
 
+    const embedUrl =
+      getVideoEmbedUrl(video);
 
-    if (!videoData) return;
+    if (!embedUrl) {
+      return;
+    }
 
+    setSelectedVideo({
 
-    setSelectedVideo(videoData);
+      videos:
+        videoList,
+
+      index,
+
+      url:
+        embedUrl,
+
+      type:
+        getVideoType(video)
+
+    });
 
   };
 
 
   // =====================================================
-  // CLOSE POPUPS
+  // CLOSE IMAGE
   // =====================================================
 
   const closeImage = () => {
 
     setSelectedImage(null);
 
+    resetImageView();
+
   };
 
+
+  // =====================================================
+  // CLOSE VIDEO
+  // =====================================================
 
   const closeVideo = () => {
 
@@ -455,12 +951,210 @@ function MemberGallery() {
 
 
   // =====================================================
+  // NEXT VIDEO
+  // =====================================================
+
+  const nextVideo = (e) => {
+
+    if (e) {
+      e.stopPropagation();
+    }
+
+    if (!selectedVideo) {
+      return;
+    }
+
+    const total =
+      selectedVideo.videos.length;
+
+    const nextIndex =
+      (
+        selectedVideo.index +
+        1
+      )
+      %
+      total;
+
+    const next =
+      selectedVideo.videos[nextIndex];
+
+
+    setSelectedVideo({
+
+      videos:
+        selectedVideo.videos,
+
+      index:
+        nextIndex,
+
+      url:
+        getVideoEmbedUrl(next),
+
+      type:
+        getVideoType(next)
+
+    });
+
+  };
+
+
+  // =====================================================
+  // PREVIOUS VIDEO
+  // =====================================================
+
+  const previousVideo = (e) => {
+
+    if (e) {
+      e.stopPropagation();
+    }
+
+    if (!selectedVideo) {
+      return;
+    }
+
+    const total =
+      selectedVideo.videos.length;
+
+    const previousIndex =
+      (
+        selectedVideo.index -
+        1 +
+        total
+      )
+      %
+      total;
+
+    const previous =
+      selectedVideo.videos[
+        previousIndex
+      ];
+
+
+    setSelectedVideo({
+
+      videos:
+        selectedVideo.videos,
+
+      index:
+        previousIndex,
+
+      url:
+        getVideoEmbedUrl(previous),
+
+      type:
+        getVideoType(previous)
+
+    });
+
+  };
+
+
+  // =====================================================
+  // KEYBOARD CONTROLS
+  // =====================================================
+
+  useEffect(() => {
+
+    if (
+      !selectedImage &&
+      !selectedVideo
+    ) {
+      return;
+    }
+
+
+    const handleKeyDown = (e) => {
+
+      if (
+        e.key === "Escape"
+      ) {
+
+        if (selectedImage) {
+          closeImage();
+        }
+
+        if (selectedVideo) {
+          closeVideo();
+        }
+
+      }
+
+
+      if (
+        selectedImage
+      ) {
+
+        if (
+          e.key === "ArrowRight"
+        ) {
+
+          nextPhoto();
+
+        }
+
+        if (
+          e.key === "ArrowLeft"
+        ) {
+
+          previousPhoto();
+
+        }
+
+      }
+
+
+      if (
+        selectedVideo
+      ) {
+
+        if (
+          e.key === "ArrowRight"
+        ) {
+
+          nextVideo();
+
+        }
+
+        if (
+          e.key === "ArrowLeft"
+        ) {
+
+          previousVideo();
+
+        }
+
+      }
+
+    };
+
+
+    window.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
+
+    return () => {
+
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown
+      );
+
+    };
+
+  }, [
+    selectedImage,
+    selectedVideo
+  ]);
+
+
+  // =====================================================
   // PHOTO ITEMS
   // ONLY FIRST TWO PHOTOS
   // =====================================================
 
   const photoItems = [];
-
 
   members.forEach((member) => {
 
@@ -470,29 +1164,33 @@ function MemberGallery() {
 
     photos
       .slice(0, 2)
-      .forEach((photo, index) => {
+      .forEach(
+        (photo, index) => {
 
-        photoItems.push({
+          photoItems.push({
 
-          member,
+            member,
 
-          photo,
+            photo,
 
-          index
+            index
 
-        });
+          });
 
-      });
+        }
+      );
 
   });
 
 
   // =====================================================
   // VIDEO ITEMS
-  // ONE VIDEO PER MEMBER
+  // ONLY ONE VIDEO PER MEMBER
   // =====================================================
 
-  const videoItems = [];
+  const reelVideos = [];
+
+  const wideVideos = [];
 
 
   members.forEach((member) => {
@@ -501,19 +1199,217 @@ function MemberGallery() {
       member.portfolio?.videos || [];
 
 
-    if (videos.length > 0) {
+    if (
+      !videos.length
+    ) {
+      return;
+    }
 
-      videoItems.push({
 
-        member,
+    const video =
+      videos[0];
 
-        video: videos[0]
 
-      });
+    const videoItem = {
+
+      member,
+
+      video
+
+    };
+
+
+    if (
+      isReelVideo(video)
+    ) {
+
+      reelVideos.push(
+        videoItem
+      );
+
+    }
+
+    else {
+
+      wideVideos.push(
+        videoItem
+      );
 
     }
 
   });
+
+
+  // =====================================================
+  // CREATE VIDEO LISTS FOR POPUP
+  // =====================================================
+
+  const reelVideoList =
+    reelVideos.map(
+      (item) => item.video
+    );
+
+
+  const wideVideoList =
+    wideVideos.map(
+      (item) => item.video
+    );
+
+
+  // =====================================================
+  // VIDEO CARD
+  // =====================================================
+
+  const renderVideoCard = (
+    item,
+    index,
+    videoList,
+    isReel = false
+  ) => {
+
+    const video =
+      item.video;
+
+    const type =
+      getVideoType(video);
+
+    const embedUrl =
+      getVideoEmbedUrl(video);
+
+    const thumbnail =
+      getVideoThumbnail(video);
+
+
+    if (!embedUrl) {
+      return null;
+    }
+
+
+    return (
+
+      <div
+        className={
+          isReel
+            ? `video-card reel-video-card video-card-${type}`
+            : `video-card wide-video-card video-card-${type}`
+        }
+        key={
+          `${item.member.memberId || item.member.id}-video-${index}`
+        }
+      >
+
+        <div
+          className="video-preview"
+          onClick={() =>
+            openVideo(
+              videoList,
+              index
+            )
+          }
+        >
+
+
+          {/* YOUTUBE THUMBNAIL */}
+
+          {thumbnail ? (
+
+            <>
+
+              <img
+                src={thumbnail}
+                alt="Video Thumbnail"
+              />
+
+
+              <div className="video-preview-overlay">
+
+                <div className="video-play-icon">
+
+                  ▶
+
+                </div>
+
+              </div>
+
+            </>
+
+          ) : type === "instagram" ? (
+
+            <div className="instagram-gallery-preview">
+
+              <iframe
+                src={embedUrl}
+                title={
+                  `Instagram Preview ${index + 1}`
+                }
+                scrolling="no"
+                frameBorder="0"
+              />
+
+
+              <div className="video-preview-overlay">
+
+                <div className="video-play-icon">
+
+                  ▶
+
+                </div>
+
+              </div>
+
+            </div>
+
+          ) : (
+
+            <div className="video-generic-preview">
+
+              <div className="video-play-icon">
+
+                ▶
+
+              </div>
+
+            </div>
+
+          )}
+
+        </div>
+
+
+        <div className="video-card-info">
+
+          <span>
+
+            {type === "instagram"
+              ? "Instagram Reel"
+              : type === "youtube"
+              ? isReel
+                ? "YouTube Short"
+                : "YouTube Video"
+              : type === "facebook"
+              ? "Facebook Video"
+              : type === "vimeo"
+              ? "Vimeo Video"
+              : "Video Portfolio"}
+
+          </span>
+
+
+          <strong>
+
+            #{getMemberCode(
+              item.member
+            )}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+    );
+
+  };
 
 
   // =====================================================
@@ -526,17 +1422,22 @@ function MemberGallery() {
 
 
       {/* =================================================
-          PHOTOS
+          PHOTO SECTION
       ================================================= */}
 
       <div className="gallery-heading">
 
         <h2>
+
           Professional Portfolio Gallery
+
         </h2>
 
+
         <p>
+
           Photography • Videography • Drone • Cinematography
+
         </p>
 
       </div>
@@ -544,17 +1445,15 @@ function MemberGallery() {
 
       <div className="gallery-grid">
 
-
         {photoItems.map(
           (item, index) => (
 
             <div
               className="gallery-card"
               key={
-                `${item.member.id}-photo-${index}`
+                `${item.member.memberId || item.member.id}-photo-${index}`
               }
             >
-
 
               <div
                 className="gallery-photo"
@@ -586,42 +1485,99 @@ function MemberGallery() {
               <div className="gallery-card-info">
 
                 <span>
+
                   Work by
+
                 </span>
 
+
                 <strong>
-                  #{getMemberCode(item.member)}
+
+                  #{getMemberCode(
+                    item.member
+                  )}
+
                 </strong>
 
               </div>
-
 
             </div>
 
           )
         )}
 
-
       </div>
 
 
       {/* =================================================
-          VIDEOS
+          REELS SECTION
       ================================================= */}
 
-      {videoItems.length > 0 && (
+      {reelVideos.length > 0 && (
 
-        <div className="video-section">
+        <div className="video-section reels-section">
 
 
           <div className="gallery-heading video-heading">
 
             <h2>
-              Video Portfolio
+
+              Reels & Short Videos
+
             </h2>
 
+
             <p>
-              Professional Videos by OCMA Members
+
+              Short Professional Videos by OCMA Members
+
+            </p>
+
+          </div>
+
+
+          <div className="reels-grid">
+
+            {reelVideos.map(
+              (item, index) =>
+
+                renderVideoCard(
+                  item,
+                  index,
+                  reelVideoList,
+                  true
+                )
+            )}
+
+          </div>
+
+        </div>
+
+      )}
+
+
+      {/* =================================================
+          WIDE VIDEOS SECTION
+      ================================================= */}
+
+      {wideVideos.length > 0 && (
+
+        <div className="video-section wide-videos-section">
+
+
+          <div className="gallery-heading video-heading">
+
+            <h2>
+
+              Professional Videos
+
+            </h2>
+
+
+            <p>
+
+              Professional Wide Screen Videos by OCMA Members
+
             </p>
 
           </div>
@@ -629,148 +1585,18 @@ function MemberGallery() {
 
           <div className="video-grid">
 
+            {wideVideos.map(
+              (item, index) =>
 
-            {videoItems.map(
-              (item, index) => {
-
-                const videoData =
-                  getVideoData(
-                    item.video
-                  );
-
-
-                if (!videoData) {
-                  return null;
-                }
-
-
-                return (
-
-                  <div
-                    className="video-card"
-                    key={
-                      `${item.member.id}-video-${index}`
-                    }
-                  >
-
-
-                    {/* =================================
-                        YOUTUBE
-                    ================================= */}
-
-                    {videoData.type ===
-                      "youtube" && (
-
-                      <div
-                        className="youtube-thumbnail"
-                        onClick={() =>
-                          openVideo(
-                            item.video
-                          )
-                        }
-                      >
-
-                        <img
-                          src={
-                            videoData.thumbnail
-                          }
-                          alt="Video Thumbnail"
-                        />
-
-
-                        <div className="youtube-play">
-
-                          ▶
-
-                        </div>
-
-                      </div>
-
-                    )}
-
-
-                    {/* =================================
-                        VIMEO
-                    ================================= */}
-
-                    {videoData.type ===
-                      "vimeo" && (
-
-                      <button
-                        type="button"
-                        className="video-open-button"
-                        onClick={() =>
-                          openVideo(
-                            item.video
-                          )
-                        }
-                      >
-
-                        ▶ Play Vimeo Video
-
-                      </button>
-
-                    )}
-
-
-                    {/* =================================
-                        FACEBOOK / INSTAGRAM / TIKTOK
-                    ================================= */}
-
-                    {videoData.type ===
-                      "external" && (
-
-                      <a
-                        href={
-                          videoData.url
-                        }
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="video-external-button"
-                      >
-
-                        <span>
-                          {videoData.icon}
-                        </span>
-
-                        Open {
-                          videoData.platform
-                        } Video
-
-                      </a>
-
-                    )}
-
-
-                    {/* =================================
-                        VIDEO CODE
-                    ================================= */}
-
-                    <div className="video-card-info">
-
-                      <span>
-                        Video by
-                      </span>
-
-                      <strong>
-                        #{getMemberCode(
-                          item.member
-                        )}
-                      </strong>
-
-                    </div>
-
-
-                  </div>
-
-                );
-
-              }
+                renderVideoCard(
+                  item,
+                  index,
+                  wideVideoList,
+                  false
+                )
             )}
 
-
           </div>
-
 
         </div>
 
@@ -788,54 +1614,105 @@ function MemberGallery() {
           onClick={closeImage}
         >
 
-
-          <button
-            type="button"
-            className="popup-close"
-            onClick={(e) => {
-
-              e.stopPropagation();
-
-              closeImage();
-
-            }}
-          >
-
-            ✕
-
-          </button>
-
-
-          {selectedImage.photos.length > 1 && (
-
-            <button
-              type="button"
-              className="popup-prev"
-              onClick={previousPhoto}
-            >
-
-              ❮
-
-            </button>
-
-          )}
-
-
           <div
-            className="popup-content"
+            className="photo-popup-stage"
             onClick={(e) =>
               e.stopPropagation()
             }
           >
 
-            <img
-              src={
-                selectedImage.photos[
-                  selectedImage.index
-                ]
-              }
-              alt="Portfolio Preview"
-            />
+
+            <div className="photo-view-row">
+
+
+              {selectedImage.photos.length > 1 && (
+
+                <button
+                  type="button"
+                  className="popup-prev"
+                  onClick={previousPhoto}
+                  aria-label="Previous Photo"
+                >
+
+                  ❮
+
+                </button>
+
+              )}
+
+
+              <div
+                className={
+                  isDragging
+                    ? "popup-image-container dragging"
+                    : "popup-image-container"
+                }
+                onWheel={
+                  handleImageWheel
+                }
+                onDoubleClick={
+                  handleImageDoubleClick
+                }
+                onMouseDown={
+                  handleImageMouseDown
+                }
+                onMouseMove={
+                  handleImageMouseMove
+                }
+                onMouseUp={
+                  stopImageDrag
+                }
+                onMouseLeave={
+                  stopImageDrag
+                }
+              >
+
+                <img
+                  src={
+                    selectedImage.photos[
+                      selectedImage.index
+                    ]
+                  }
+                  alt="Portfolio Preview"
+                  className="popup-zoom-image"
+                  draggable="false"
+                  style={{
+                    transform:
+                      `translate3d(${imagePosition.x}px, ${imagePosition.y}px, 0) scale(${imageZoom})`
+                  }}
+                />
+
+              </div>
+
+
+              {selectedImage.photos.length > 1 && (
+
+                <button
+                  type="button"
+                  className="popup-next"
+                  onClick={nextPhoto}
+                  aria-label="Next Photo"
+                >
+
+                  ❯
+
+                </button>
+
+              )}
+
+            </div>
+
+
+            <button
+              type="button"
+              className="popup-close"
+              onClick={closeImage}
+              aria-label="Close"
+            >
+
+              ✕
+
+            </button>
 
 
             <div className="popup-code">
@@ -850,31 +1727,33 @@ function MemberGallery() {
               <span>
 
                 Photo{" "}
+
                 {selectedImage.index + 1}
+
                 {" / "}
+
                 {selectedImage.photos.length}
 
               </span>
 
+
+              {imageZoom > 1 && (
+
+                <span className="zoom-info">
+
+                  Zoom{" "}
+
+                  {Math.round(
+                    imageZoom * 100
+                  )}%
+
+                </span>
+
+              )}
+
             </div>
 
           </div>
-
-
-          {selectedImage.photos.length > 1 && (
-
-            <button
-              type="button"
-              className="popup-next"
-              onClick={nextPhoto}
-            >
-
-              ❯
-
-            </button>
-
-          )}
-
 
         </div>
 
@@ -893,61 +1772,96 @@ function MemberGallery() {
         >
 
 
+          <button
+            type="button"
+            className="video-popup-close"
+            onClick={(e) => {
+
+              e.stopPropagation();
+
+              closeVideo();
+
+            }}
+            aria-label="Close Video"
+          >
+
+            ✕
+
+          </button>
+
+
+          {selectedVideo.videos.length > 1 && (
+
+            <button
+              type="button"
+              className="video-popup-prev"
+              onClick={previousVideo}
+              aria-label="Previous Video"
+            >
+
+              ❮
+
+            </button>
+
+          )}
+
+
           <div
-            className="video-popup-box"
+            className={
+              selectedVideo.type ===
+              "instagram"
+                ? "video-popup-container video-popup-reel"
+                : "video-popup-container"
+            }
             onClick={(e) =>
               e.stopPropagation()
             }
           >
 
+            <iframe
+              src={selectedVideo.url}
+              title="OCMA Member Video"
+              className="video-popup-iframe"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+
+          </div>
+
+
+          {selectedVideo.videos.length > 1 && (
 
             <button
               type="button"
-              className="close-video"
-              onClick={closeVideo}
+              className="video-popup-next"
+              onClick={nextVideo}
+              aria-label="Next Video"
             >
 
-              ✕
+              ❯
 
             </button>
 
-
-            {selectedVideo.type ===
-              "youtube" && (
-
-              <iframe
-                src={
-                  selectedVideo.embed
-                }
-                title="OCMA Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-
-            )}
+          )}
 
 
-            {selectedVideo.type ===
-              "vimeo" && (
+          {selectedVideo.videos.length > 1 && (
 
-              <iframe
-                src={
-                  selectedVideo.embed
-                }
-                title="OCMA Vimeo Video"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-              />
+            <div className="video-popup-counter">
 
-            )}
+              {selectedVideo.index + 1}
 
+              {" / "}
 
-          </div>
+              {selectedVideo.videos.length}
+
+            </div>
+
+          )}
 
         </div>
 
       )}
-
 
     </section>
 

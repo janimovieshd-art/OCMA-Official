@@ -1,54 +1,55 @@
-/* =====================================
+/* =========================================================
    OCMA MEMBER PROFILE
-===================================== */
+   COMPLETE RESPONSIVE + ZOOM POPUP VERSION
+========================================================= */
+
+
+/* =========================================================
+   MAIN PROFILE
+========================================================= */
 
 .member-profile {
 
-  min-height: 100vh;
+  width: 100%;
 
-  background:
-    linear-gradient(
-      135deg,
-      #070707,
-      #151515
-    );
+  max-width: 1200px;
 
-  padding: 50px 20px;
+  margin: 0 auto;
 
-  color: white;
+  padding: 40px 20px 70px;
+
+  box-sizing: border-box;
 
 }
 
 
-/* =====================================
+/* =========================================================
    PROFILE CARD
-===================================== */
+========================================================= */
 
 .profile-card {
 
-  max-width: 850px;
+  width: 100%;
 
-  margin: auto;
+  background: #ffffff;
 
-  background: #151515;
+  border-radius: 24px;
 
-  border: 1px solid rgba(212,175,55,.35);
+  padding: 35px;
 
-  border-radius: 25px;
-
-  padding: 40px;
-
-  text-align: center;
+  box-sizing: border-box;
 
   box-shadow:
-    0 20px 60px rgba(0,0,0,.55);
+    0 12px 45px rgba(0, 0, 0, 0.10);
+
+  border: 1px solid #eeeeee;
 
 }
 
 
-/* =====================================
-   TOP AREA
-===================================== */
+/* =========================================================
+   PROFILE TOP
+========================================================= */
 
 .profile-top {
 
@@ -58,66 +59,191 @@
 
   align-items: center;
 
+  text-align: center;
+
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+.profile-image-wrapper {
+
+  position: relative;
+
+  width: 180px;
+
+  height: 180px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  background: #f2f2f2;
+
+  border: 5px solid #ffffff;
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.20);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+
+.profile-image-wrapper:hover {
+
+  transform: scale(1.03);
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.28);
+
 }
 
 
 .profile-image {
 
-  width: 220px;
+  width: 100%;
 
-  height: 220px;
-
-  border-radius: 50%;
+  height: 100%;
 
   object-fit: cover;
 
-  border: 6px solid #d4af37;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.5);
+  display: block;
 
 }
 
 
-.profile-card h1 {
+/* =========================================================
+   PHOTO CLICK HINT
+========================================================= */
 
-  margin-top: 25px;
+.photo-click-hint {
 
-  margin-bottom: 0;
+  position: absolute;
 
-  font-size: 38px;
+  left: 0;
 
-  color: #d4af37;
+  right: 0;
+
+  bottom: 0;
+
+  padding: 8px 5px;
+
+  background:
+    rgba(0, 0, 0, 0.70);
+
+  color: #ffffff;
+
+  font-size: 12px;
+
+  text-align: center;
 
 }
 
 
-.profile-id {
+/* =========================================================
+   REGISTERED BADGE
+========================================================= */
 
-  margin-top: 10px;
+.registered-member-badge {
 
-  padding: 8px 25px;
+  margin-top: 22px;
 
-  display: inline-block;
+  display: inline-flex;
 
-  border-radius: 25px;
+  align-items: center;
 
-  background: #d4af37;
+  justify-content: center;
 
-  color: #111;
+  padding: 8px 16px;
 
-  font-size: 18px;
+  border-radius: 30px;
+
+  background: #e9f8ee;
+
+  color: #16803a;
+
+  border: 1px solid #bfe8cb;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.profile-top h1 {
+
+  margin: 16px 0 5px;
+
+  font-size: 34px;
+
+  line-height: 1.2;
+
+  color: #111827;
 
   font-weight: 800;
 
 }
 
 
-/* =====================================
+/* =========================================================
+   MEMBER ID
+========================================================= */
+
+.profile-id {
+
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+/* =========================================================
+   JOINING DATE
+========================================================= */
+
+.member-joining-date {
+
+  margin-top: 15px;
+
+  padding: 9px 16px;
+
+  border-radius: 10px;
+
+  background: #f8f9fa;
+
+  color: #444;
+
+  font-size: 14px;
+
+}
+
+
+/* =========================================================
    GOOGLE RATING
-===================================== */
+========================================================= */
 
 .profile-google-rating {
+
+  margin-top: 15px;
 
   display: flex;
 
@@ -125,9 +251,7 @@
 
   justify-content: center;
 
-  gap: 10px;
-
-  margin-top: 16px;
+  gap: 8px;
 
   flex-wrap: wrap;
 
@@ -136,222 +260,302 @@
 
 .profile-rating-stars {
 
-  color: #ffc107;
+  color: #f5b301;
 
-  font-size: 25px;
+  font-size: 21px;
 
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 
 }
 
 
 .profile-rating-number {
 
-  color: #fff;
-
-  font-size: 18px;
-
   font-weight: 800;
+
+  font-size: 16px;
+
+  color: #222;
 
 }
 
 
 .profile-review-count {
 
-  color: #aaa;
+  color: #777;
 
-  font-size: 16px;
+  font-size: 14px;
 
 }
 
 
-/* =====================================
+/* =========================================================
    MEMBER INFORMATION
-===================================== */
+========================================================= */
 
 .profile-info {
 
-  margin-top: 35px;
+  margin-top: 32px;
 
-  background: #1d1d1d;
+  padding-top: 25px;
 
-  border-radius: 18px;
+  border-top: 1px solid #eeeeee;
 
-  padding: 25px;
+  display: grid;
 
-  text-align: left;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px 25px;
 
 }
 
 
 .profile-info p {
 
-  font-size: 17px;
+  margin: 0;
 
-  line-height: 1.8;
+  padding: 14px 16px;
 
-  border-bottom: 1px solid #333;
+  background: #f8f9fa;
 
-  padding-bottom: 10px;
+  border-radius: 12px;
 
-  margin-bottom: 15px;
+  color: #333;
 
-}
+  font-size: 15px;
 
+  line-height: 1.6;
 
-.profile-info p:last-child {
-
-  border: none;
-
-  margin-bottom: 0;
+  word-break: break-word;
 
 }
 
 
-/* =====================================
+.profile-info p b {
+
+  color: #111827;
+
+}
+
+
+/* =========================================================
    WHATSAPP
-===================================== */
+========================================================= */
 
 .profile-whatsapp {
 
-  display: inline-block;
+  display: flex;
 
-  margin-top: 30px;
+  width: fit-content;
 
-  padding: 15px 40px;
+  margin: 28px auto 0;
 
-  border-radius: 30px;
+  padding: 13px 24px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #25D366,
-      #128C7E
-    );
-
-  color: white;
-
-  font-size: 18px;
-
-  font-weight: bold;
+  border-radius: 12px;
 
   text-decoration: none;
 
-  transition: .3s;
+  background: #25d366;
 
-  box-shadow:
-    0 10px 25px rgba(37,211,102,.25);
+  color: #ffffff;
+
+  font-weight: 700;
+
+  font-size: 15px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
 }
 
 
 .profile-whatsapp:hover {
 
-  transform: translateY(-3px);
+  color: #ffffff;
+
+  transform: translateY(-2px);
 
   box-shadow:
-    0 10px 25px rgba(37,211,102,.35);
+    0 8px 20px rgba(37, 211, 102, 0.30);
 
 }
 
 
-/* =====================================
-   PORTFOLIO SECTION
-===================================== */
+/* =========================================================
+   COMMON SECTIONS
+========================================================= */
 
 .member-portfolio,
+.member-videos,
+.member-certificate,
+.member-location,
+.share-profile,
+.member-qr {
+
+  background: #ffffff;
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.08);
+
+  border: 1px solid #eeeeee;
+
+}
+
+
+.member-portfolio {
+
+  margin-top: 35px;
+
+  padding: 30px;
+
+}
+
+
 .member-videos {
 
-  max-width: 1100px;
+  margin-top: 35px;
 
-  margin: 50px auto 0;
-
-  background: #151515;
-
-  border: 1px solid rgba(212,175,55,.25);
-
-  border-radius: 25px;
-
-  padding: 35px;
+  padding: 30px;
 
 }
 
 
 .member-portfolio h2,
-.member-videos h2 {
+.member-videos h2,
+.member-certificate h2,
+.member-location h2,
+.share-profile h2,
+.member-qr h2 {
+
+  margin: 0 0 24px;
 
   text-align: center;
 
-  color: #d4af37;
+  font-size: 27px;
 
-  font-size: 32px;
+  color: #111827;
 
-  margin-top: 0;
-
-  margin-bottom: 30px;
+  font-weight: 800;
 
 }
 
 
-/* =====================================
-   IMAGE GALLERY
-===================================== */
+/* =========================================================
+   PORTFOLIO GALLERY
+========================================================= */
 
 .portfolio-gallery {
 
   display: grid;
 
   grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(230px, 1fr)
-    );
+    repeat(3, minmax(0, 1fr));
 
   gap: 20px;
 
 }
 
 
-.portfolio-gallery img {
+.portfolio-photo-item {
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+
+  background: #f3f3f3;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.10);
+
+}
+
+
+.portfolio-photo-item img {
 
   width: 100%;
 
-  height: 300px;
+  aspect-ratio: 4 / 3;
 
   object-fit: cover;
 
-  border-radius: 18px;
+  display: block;
 
   cursor: pointer;
 
-  border: 2px solid transparent;
-
-  transition: .35s;
-
-}
-
-
-.portfolio-gallery img:hover {
-
-  transform: translateY(-8px);
-
-  border-color: #d4af37;
-
-  box-shadow:
-    0 15px 35px rgba(0,0,0,.5);
+  transition:
+    transform 0.35s ease;
 
 }
 
 
-/* =====================================
-   VIDEO PORTFOLIO
-===================================== */
+.portfolio-photo-item:hover img {
 
-.member-videos {
+  transform: scale(1.04);
+
+}
+
+
+/* =========================================================
+   PORTFOLIO BUTTON
+========================================================= */
+
+.portfolio-view-btn {
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 12px;
+
+  transform:
+    translateX(-50%);
+
+  border: none;
+
+  padding: 9px 15px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(0, 0, 0, 0.75);
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   VIDEO GALLERY
+========================================================= */
+
+.video-gallery {
+
+  width: 100%;
 
   display: grid;
 
-  gap: 25px;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    );
+
+  gap: 24px;
 
 }
 
@@ -360,58 +564,101 @@
 
   width: 100%;
 
+  min-width: 0;
+
 }
 
 
-.member-videos iframe {
+/* =========================================================
+   VIDEO PREVIEW
+========================================================= */
+
+.video-preview-button {
 
   width: 100%;
 
-  height: 400px;
+  padding: 0;
+
+  margin: 0;
 
   border: none;
 
-  border-radius: 20px;
+  outline: none;
 
-  background: black;
+  background: #ffffff;
+
+  cursor: pointer;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  display: block;
+
+  text-align: left;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,.5);
+    0 8px 30px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
 }
 
 
-.video-error {
+.video-preview-button:hover {
 
-  text-align: center;
+  transform:
+    translateY(-4px);
 
-  color: #d4af37;
-
-  font-size: 18px;
-
-  padding: 30px;
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.18);
 
 }
 
 
-/* =====================================
-   IMAGE POPUP
-===================================== */
+/* =========================================================
+   VIDEO THUMBNAIL
+========================================================= */
 
-.image-popup {
+.video-thumbnail {
 
-  position: fixed;
+  position: relative;
 
-  top: 0;
+  width: 100%;
 
-  left: 0;
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  background: #111111;
+
+}
+
+
+.video-thumbnail img {
 
   width: 100%;
 
   height: 100%;
 
-  background:
-    rgba(0,0,0,.92);
+  object-fit: cover;
+
+  display: block;
+
+}
+
+
+/* =========================================================
+   THUMBNAIL OVERLAY
+========================================================= */
+
+.video-thumbnail-overlay {
+
+  position: absolute;
+
+  inset: 0;
 
   display: flex;
 
@@ -419,205 +666,1014 @@
 
   justify-content: center;
 
-  z-index: 999999;
-
-  padding: 30px;
-
-  cursor: pointer;
+  background:
+    rgba(0, 0, 0, 0.12);
 
 }
 
 
-.image-popup img {
+/* =========================================================
+   GENERIC VIDEO
+========================================================= */
 
-  max-width: 95%;
+.video-generic-thumbnail {
 
-  max-height: 90vh;
+  display: flex;
 
-  object-fit: contain;
+  align-items: center;
 
-  border-radius: 15px;
-
-  border: 3px solid #d4af37;
-
-  animation:
-    zoomImage .3s ease;
-
-}
-
-
-@keyframes zoomImage {
-
-  from {
-
-    transform: scale(.7);
-
-    opacity: 0;
-
-  }
-
-  to {
-
-    transform: scale(1);
-
-    opacity: 1;
-
-  }
-
-}
-
-
-/* =====================================
-   CERTIFICATE
-===================================== */
-
-.member-certificate {
-
-  max-width: 850px;
-
-  margin: 40px auto 0;
-
-  background: #151515;
-
-  border: 1px solid rgba(212,175,55,.3);
-
-  border-radius: 20px;
-
-  padding: 30px;
-
-  text-align: center;
-
-}
-
-
-.member-certificate h2 {
-
-  color: #d4af37;
-
-  margin-top: 0;
-
-  margin-bottom: 25px;
-
-}
-
-
-.certificate-btn {
-
-  display: inline-block;
+  justify-content: center;
 
   background:
     linear-gradient(
       135deg,
-      #d4af37,
-      #b8860b
+      #111827,
+      #374151
     );
 
-  color: #111;
-
-  padding: 14px 35px;
-
-  border-radius: 30px;
-
-  font-weight: bold;
-
-  text-decoration: none;
-
-  transition: .3s;
-
 }
 
 
-.certificate-btn:hover {
+/* =========================================================
+   PLAY ICON
+========================================================= */
 
-  transform: translateY(-3px);
+.video-play-icon {
+
+  width: 70px;
+
+  height: 70px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  color: #111111;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 28px;
+
+  padding-left: 5px;
+
+  box-sizing: border-box;
 
   box-shadow:
-    0 10px 25px rgba(212,175,55,.25);
+    0 8px 30px rgba(0, 0, 0, 0.35);
+
+  transition:
+    transform 0.25s ease;
 
 }
 
 
-/* =====================================
-   GOOGLE MAP LOCATION
-===================================== */
+.video-preview-button:hover
+.video-play-icon {
 
-.member-map-section {
-
-  max-width: 1100px;
-
-  margin: 40px auto 0;
-
-  padding: 35px;
-
-  background: #151515;
-
-  border: 1px solid rgba(212,175,55,.30);
-
-  border-radius: 25px;
-
-  text-align: center;
-
-  box-shadow:
-    0 15px 45px rgba(0,0,0,.45);
+  transform:
+    scale(1.12);
 
 }
 
 
-.member-map-section h2 {
+/* =========================================================
+   INSTAGRAM PREVIEW
+========================================================= */
 
-  margin: 0 0 25px;
+.instagram-preview-wrapper {
 
-  color: #d4af37;
-
-  font-size: 30px;
-
-  font-weight: 800;
-
-}
-
-
-/* =====================================
-   MAP
-===================================== */
-
-.member-map {
+  position: relative;
 
   width: 100%;
 
-  height: 400px;
+  aspect-ratio: 9 / 16;
+
+  max-height: 520px;
 
   overflow: hidden;
 
-  border-radius: 20px;
+  background: #000000;
 
-  border: 2px solid rgba(212,175,55,.35);
+  display: flex;
 
-  background: #000;
-
-  box-shadow:
-    0 15px 35px rgba(0,0,0,.55);
+  justify-content: center;
 
 }
 
 
-.member-map iframe {
+.instagram-preview-iframe {
 
   width: 100%;
 
   height: 100%;
 
-  border: 0;
+  border: none;
 
   display: block;
+
+  pointer-events: none;
 
 }
 
 
-/* =====================================
-   GOOGLE MAP BUTTON
-===================================== */
+.instagram-preview-overlay {
 
-.google-map-btn {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background:
+    rgba(0, 0, 0, 0.08);
+
+}
+
+
+/* =========================================================
+   VIDEO INFO
+========================================================= */
+
+.video-card-info {
+
+  min-height: 78px;
+
+  padding: 14px 18px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  background: #ffffff;
+
+}
+
+
+.video-card-info span {
+
+  font-size: 13px;
+
+  color: #777777;
+
+}
+
+
+.video-card-info strong {
+
+  font-size: 17px;
+
+  color: #111111;
+
+}
+
+
+/* =========================================================
+   VIDEO ERROR
+========================================================= */
+
+.video-error {
+
+  padding: 25px;
+
+  text-align: center;
+
+  color: #777777;
+
+  background: #f7f7f7;
+
+  border-radius: 12px;
+
+}
+
+
+/* =========================================================
+   IMAGE POPUP
+========================================================= */
+
+.image-popup {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99998;
+
+  background:
+    rgba(0, 0, 0, 0.95);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  overscroll-behavior: none;
+
+  touch-action: none;
+
+  animation:
+    imagePopupFade 0.18s ease;
+
+}
+
+
+@keyframes imagePopupFade {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   IMAGE STAGE
+========================================================= */
+
+.popup-image-stage {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+
+}
+
+
+/* =========================================================
+   POPUP IMAGE
+========================================================= */
+
+.popup-image {
+
+  max-width: 82vw;
+
+  max-height: 80vh;
+
+  width: auto;
+
+  height: auto;
+
+  object-fit: contain;
+
+  display: block;
+
+  border-radius: 12px;
+
+  user-select: none;
+
+  -webkit-user-select: none;
+
+  -webkit-user-drag: none;
+
+  transform-origin: center center;
+
+  cursor: zoom-in;
+
+  will-change: transform;
+
+  transition:
+    transform 0.18s ease;
+
+  box-shadow:
+    0 20px 80px rgba(0, 0, 0, 0.60);
+
+}
+
+
+.popup-image.zoomed {
+
+  cursor: grab;
+
+  transition: none;
+
+}
+
+
+.popup-image.zoomed:active {
+
+  cursor: grabbing;
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.popup-close {
+
+  position: fixed;
+
+  top: 20px;
+
+  right: 25px;
+
+  width: 48px;
+
+  height: 48px;
+
+  padding: 0;
+
+  margin: 0;
+
+  border: 1px solid
+    rgba(255, 255, 255, .45);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.88);
+
+  color: #ffffff;
+
+  font-size: 28px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  z-index: 100002;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+.popup-close:hover {
+
+  background: #ffffff;
+
+  color: #111111;
+
+  box-shadow:
+    0 0 18px
+    rgba(255,255,255,.20);
+
+}
+
+
+/* =========================================================
+   IMAGE ZOOM CONTROLS
+========================================================= */
+
+.image-zoom-controls {
+
+  position: fixed;
+
+  left: 50%;
+
+  top: 20px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 100003;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 6px;
+
+  border-radius: 30px;
+
+  background:
+    rgba(0, 0, 0, 0.88);
+
+  border:
+    1px solid
+    rgba(212,175,55,.55);
+
+  box-shadow:
+    0 8px 30px
+    rgba(0,0,0,.35);
+
+}
+
+
+.image-zoom-controls button {
+
+  width: 38px;
+
+  height: 38px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.10);
+
+  color: #ffffff;
+
+  font-size: 23px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    transform .2s ease;
+
+}
+
+
+.image-zoom-controls button:hover {
+
+  background: #d4af37;
+
+  color: #111111;
+
+  transform: scale(1.06);
+
+}
+
+
+.image-zoom-controls button:disabled {
+
+  opacity: .35;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+}
+
+
+.image-zoom-controls span {
+
+  min-width: 55px;
+
+  text-align: center;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+}
+
+
+.image-zoom-controls
+.zoom-reset-btn {
+
+  font-size: 19px;
+
+}
+
+
+/* =========================================================
+   PHOTO ARROWS
+========================================================= */
+
+.popup-prev,
+.popup-next {
+
+  position: fixed;
+
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  width: 50px;
+
+  height: 50px;
+
+  padding: 0;
+
+  margin: 0;
+
+  border:
+    1px solid
+    rgba(212,175,55,.85);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.88);
+
+  color: #d4af37;
+
+  font-size: 26px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  z-index: 100002;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  box-sizing: border-box;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    box-shadow .2s ease,
+    transform .2s ease;
+
+}
+
+
+.popup-prev {
+
+  left: 25px;
+
+}
+
+
+.popup-next {
+
+  right: 25px;
+
+}
+
+
+.popup-prev:hover,
+.popup-next:hover {
+
+  background: #d4af37;
+
+  color: #111111;
+
+  transform:
+    translateY(-50%)
+    scale(1.06);
+
+  box-shadow:
+    0 0 18px
+    rgba(212,175,55,.35);
+
+}
+
+
+.popup-prev:active,
+.popup-next:active {
+
+  transform:
+    translateY(-50%)
+    scale(1.03);
+
+}
+
+
+.popup-prev:focus,
+.popup-next:focus {
+
+  outline: none;
+
+}
+
+
+/* =========================================================
+   PHOTO COUNTER
+========================================================= */
+
+.popup-counter {
+
+  position: fixed;
+
+  bottom: 18px;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  color: #ffffff;
+
+  background:
+    rgba(0, 0, 0, 0.78);
+
+  padding:
+    7px 15px;
+
+  border:
+    1px solid
+    rgba(212,175,55,.45);
+
+  border-radius: 20px;
+
+  font-size: 14px;
+
+  z-index: 100002;
+
+}
+
+
+/* =========================================================
+   ZOOM HELP
+========================================================= */
+
+.zoom-help {
+
+  position: fixed;
+
+  bottom: 18px;
+
+  right: 18px;
+
+  color: rgba(255,255,255,.75);
+
+  background:
+    rgba(0,0,0,.60);
+
+  padding:
+    7px 12px;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+
+  z-index: 100001;
+
+  pointer-events: none;
+
+}
+
+
+/* =========================================================
+   VIDEO POPUP
+========================================================= */
+
+.video-popup {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99999;
+
+  background:
+    rgba(0, 0, 0, 0.94);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  overscroll-behavior: none;
+
+  touch-action: none;
+
+  animation:
+    videoPopupFade 0.2s ease;
+
+}
+
+
+@keyframes videoPopupFade {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   VIDEO CONTAINER
+========================================================= */
+
+.video-popup-container {
+
+  position: relative;
+
+  background: #000000;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 20px 80px
+    rgba(0, 0, 0, 0.70);
+
+}
+
+
+.video-popup-youtube,
+.video-popup-facebook,
+.video-popup-other {
+
+  width:
+    min(90vw, 1100px);
+
+  aspect-ratio: 16 / 9;
+
+}
+
+
+.video-popup-instagram {
+
+  height:
+    min(88vh, 820px);
+
+  width: auto;
+
+  aspect-ratio: 9 / 16;
+
+}
+
+
+/* =========================================================
+   VIDEO IFRAME
+========================================================= */
+
+.video-popup-iframe {
+
+  width: 100%;
+
+  height: 100%;
+
+  border: none;
+
+  display: block;
+
+  background: #000000;
+
+}
+
+
+/* =========================================================
+   VIDEO CLOSE
+========================================================= */
+
+.video-popup-close {
+
+  position: fixed;
+
+  top: 20px;
+
+  right: 25px;
+
+  width: 48px;
+
+  height: 48px;
+
+  padding: 0;
+
+  margin: 0;
+
+  border:
+    1px solid
+    rgba(255,255,255,.45);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.88);
+
+  color: #ffffff;
+
+  font-size: 28px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  z-index: 100002;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+.video-popup-close:hover {
+
+  background: #ffffff;
+
+  color: #111111;
+
+  box-shadow:
+    0 0 18px
+    rgba(255,255,255,.20);
+
+}
+
+
+/* =========================================================
+   VIDEO ARROWS
+========================================================= */
+
+.video-popup-prev,
+.video-popup-next {
+
+  position: fixed;
+
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  width: 50px;
+
+  height: 50px;
+
+  padding: 0;
+
+  margin: 0;
+
+  border:
+    1px solid
+    rgba(255,255,255,.55);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.88);
+
+  color: #ffffff;
+
+  font-size: 26px;
+
+  cursor: pointer;
+
+  z-index: 100002;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    box-shadow .2s ease,
+    transform .2s ease;
+
+}
+
+
+.video-popup-prev {
+
+  left: 25px;
+
+}
+
+
+.video-popup-next {
+
+  right: 25px;
+
+}
+
+
+.video-popup-prev:hover,
+.video-popup-next:hover {
+
+  background: #ffffff;
+
+  color: #111111;
+
+  transform:
+    translateY(-50%)
+    scale(1.06);
+
+  box-shadow:
+    0 0 18px
+    rgba(255,255,255,.20);
+
+}
+
+
+/* =========================================================
+   VIDEO COUNTER
+========================================================= */
+
+.video-popup-counter {
+
+  position: fixed;
+
+  bottom: 18px;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  color: #ffffff;
+
+  background:
+    rgba(0, 0, 0, 0.70);
+
+  padding:
+    7px 15px;
+
+  border-radius: 20px;
+
+  font-size: 14px;
+
+  z-index: 100002;
+
+}
+
+
+/* =========================================================
+   CERTIFICATE
+========================================================= */
+
+.member-certificate {
+
+  margin-top: 35px;
+
+  padding: 30px;
+
+  text-align: center;
+
+}
+
+
+.certificate-btn {
 
   display: inline-flex;
 
@@ -625,520 +1681,62 @@
 
   justify-content: center;
 
-  margin-top: 25px;
+  padding: 12px 25px;
 
-  padding: 14px 32px;
+  border-radius: 12px;
 
-  min-width: 250px;
+  background: #111827;
 
-  border-radius: 35px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #d4af37,
-      #b8860b
-    );
-
-  color: #111;
+  color: #ffffff;
 
   text-decoration: none;
 
-  font-size: 17px;
-
-  font-weight: 800;
-
-  box-shadow:
-    0 10px 25px rgba(212,175,55,.25);
-
-  transition: .3s;
-
-}
-
-
-.google-map-btn:hover {
-
-  transform:
-    translateY(-3px) scale(1.02);
-
-  box-shadow:
-    0 15px 35px rgba(212,175,55,.35);
-
-}
-
-
-/* =====================================
-   SHARE PROFILE
-===================================== */
-
-.share-profile {
-
-  max-width: 850px;
-
-  margin: 40px auto 0;
-
-  background: #151515;
-
-  border: 1px solid rgba(212,175,55,.3);
-
-  border-radius: 20px;
-
-  padding: 30px;
-
-  text-align: center;
-
-}
-
-
-.share-profile h2 {
-
-  color: #d4af37;
-
-  margin-top: 0;
-
-  margin-bottom: 25px;
-
-}
-
-
-.share-btn {
-
-  background:
-    linear-gradient(
-      135deg,
-      #25D366,
-      #128C7E
-    );
-
-  border: none;
-
-  color: white;
-
-  padding: 14px 40px;
-
-  border-radius: 30px;
-
-  font-size: 17px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: .3s;
-
-}
-
-
-.share-btn:hover {
-
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 25px rgba(37,211,102,.30);
-
-}
-
-
-.share-message {
-
-  margin-top: 18px;
-
-  color: #25D366;
-
   font-weight: 700;
 
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
 }
 
 
-/* =====================================
-   QR CODE
-===================================== */
+.certificate-btn:hover {
 
-.member-qr {
+  color: #ffffff;
 
-  max-width: 850px;
-
-  margin: 40px auto;
-
-  padding: 30px;
-
-  background: #151515;
-
-  border: 1px solid rgba(212,175,55,.3);
-
-  border-radius: 20px;
-
-  text-align: center;
+  transform:
+    translateY(-2px);
 
   box-shadow:
-    0 15px 40px rgba(0,0,0,.4);
+    0 8px 20px
+    rgba(0,0,0,.18);
 
 }
 
 
-.member-qr h2 {
-
-  color: #d4af37;
-
-  margin-top: 0;
-
-  margin-bottom: 25px;
-
-  font-size: 25px;
-
-}
-
-
-.qr-wrapper {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-.member-qr canvas {
-
-  display: block;
-
-  padding: 15px;
-
-  background: white;
-
-  border-radius: 15px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.4);
-
-}
-
-
-.member-qr p {
-
-  margin-top: 20px;
-
-  color: #ddd;
-
-  font-size: 16px;
-
-}
-
-
-/* =====================================
-   LOADING
-===================================== */
-
-.profile-loading {
-
-  min-height: 100vh;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  background: #0b0b0b;
-
-  color: #d4af37;
-
-  font-size: 28px;
-
-  font-weight: bold;
-
-}
-
-
-/* =====================================
-   MOBILE RESPONSIVE
-===================================== */
-
-@media (max-width: 700px) {
-
-  .member-profile {
-
-    padding: 30px 10px;
-
-  }
-
-
-  .profile-card {
-
-    padding: 25px 18px;
-
-    border-radius: 20px;
-
-  }
-
-
-  .profile-image {
-
-    width: 170px;
-
-    height: 170px;
-
-  }
-
-
-  .profile-card h1 {
-
-    font-size: 29px;
-
-  }
-
-
-  .profile-id {
-
-    font-size: 15px;
-
-    padding: 7px 20px;
-
-  }
-
-
-  .profile-info {
-
-    padding: 18px;
-
-  }
-
-
-  .profile-info p {
-
-    font-size: 15px;
-
-    line-height: 1.7;
-
-  }
-
-
-  .profile-whatsapp {
-
-    padding: 13px 30px;
-
-    font-size: 16px;
-
-  }
-
-
-  .member-portfolio,
-  .member-videos {
-
-    margin-top: 30px;
-
-    padding: 22px 15px;
-
-    border-radius: 20px;
-
-  }
-
-
-  .member-portfolio h2,
-  .member-videos h2 {
-
-    font-size: 25px;
-
-  }
-
-
-  .portfolio-gallery {
-
-    grid-template-columns:
-      repeat(2, 1fr);
-
-    gap: 12px;
-
-  }
-
-
-  .portfolio-gallery img {
-
-    height: 190px;
-
-    border-radius: 14px;
-
-  }
-
-
-  .member-videos iframe {
-
-    height: 240px;
-
-  }
-
-
-  .member-certificate {
-
-    margin-top: 30px;
-
-    padding: 25px 15px;
-
-  }
-
-
-  .member-map-section {
-
-    margin: 30px 0 0;
-
-    padding: 22px 15px;
-
-    border-radius: 20px;
-
-  }
-
-
-  .member-map-section h2 {
-
-    font-size: 24px;
-
-  }
-
-
-  .member-map {
-
-    height: 300px;
-
-    border-radius: 16px;
-
-  }
-
-
-  .google-map-btn {
-
-    width: 100%;
-
-    min-width: 0;
-
-    padding: 13px 15px;
-
-    font-size: 15px;
-
-  }
-
-
-  .profile-google-rating {
-
-    gap: 7px;
-
-  }
-
-
-  .profile-rating-stars {
-
-    font-size: 21px;
-
-  }
-
-
-  .profile-rating-number {
-
-    font-size: 16px;
-
-  }
-
-
-  .profile-review-count {
-
-    font-size: 14px;
-
-  }
-
-
-  .share-profile {
-
-    margin-top: 30px;
-
-    padding: 25px 15px;
-
-  }
-
-
-  .share-profile h2 {
-
-    font-size: 23px;
-
-  }
-
-
-  .share-btn {
-
-    width: 100%;
-
-    padding: 14px 20px;
-
-  }
-
-
-  .member-qr {
-
-    margin: 30px 0;
-
-    padding: 25px 15px;
-
-  }
-
-
-  .member-qr h2 {
-
-    font-size: 23px;
-
-  }
-
-}
-/* =====================================
+/* =========================================================
    GOOGLE LOCATION
-===================================== */
+========================================================= */
 
 .member-location {
 
-  max-width: 850px;
+  margin-top: 35px;
 
-  margin: 40px auto 0;
-
-  padding: 35px 25px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #1d1d1d,
-      #101010
-    );
-
-  border: 1px solid rgba(212,175,55,.35);
-
-  border-radius: 22px;
+  padding: 30px;
 
   text-align: center;
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,.45);
-
-}
-
-
-.member-location h2 {
-
-  margin: 0 0 12px;
-
-  color: #d4af37;
-
-  font-size: 28px;
 
 }
 
 
 .member-location p {
 
-  margin: 0 auto 25px;
+  max-width: 700px;
 
-  max-width: 650px;
+  margin:
+    0 auto 22px;
 
-  color: #ccc;
-
-  font-size: 16px;
+  color: #666666;
 
   line-height: 1.7;
 
@@ -1153,69 +1751,1058 @@
 
   justify-content: center;
 
-  gap: 8px;
+  padding: 12px 24px;
 
-  padding: 14px 32px;
+  border-radius: 12px;
 
-  border-radius: 35px;
+  background: #4285f4;
 
-  background:
-    linear-gradient(
-      135deg,
-      #d4af37,
-      #b8860b
-    );
-
-  color: #111;
+  color: #ffffff;
 
   text-decoration: none;
 
-  font-size: 17px;
-
-  font-weight: 800;
-
-  box-shadow:
-    0 10px 25px rgba(212,175,55,.25);
-
-  transition: .3s;
+  font-weight: 700;
 
 }
 
 
 .google-location-btn:hover {
 
-  transform: translateY(-3px) scale(1.02);
-
-  box-shadow:
-    0 15px 35px rgba(212,175,55,.4);
+  color: #ffffff;
 
 }
 
 
-@media (max-width:700px) {
+/* =========================================================
+   SHARE
+========================================================= */
 
-  .member-location {
+.share-profile {
 
-    margin: 30px 10px 0;
+  margin-top: 35px;
 
-    padding: 28px 18px;
+  padding: 30px;
+
+  text-align: center;
+
+}
+
+
+.share-btn {
+
+  border: none;
+
+  padding: 13px 28px;
+
+  border-radius: 12px;
+
+  background: #111827;
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+}
+
+
+.share-btn:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(0, 0, 0, 0.20);
+
+}
+
+
+.share-message {
+
+  margin:
+    15px 0 0;
+
+  color: #16803a;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+}
+
+
+/* =========================================================
+   QR
+========================================================= */
+
+.member-qr {
+
+  margin-top: 35px;
+
+  padding: 30px;
+
+  text-align: center;
+
+}
+
+
+.qr-wrapper {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin:
+    10px auto 18px;
+
+}
+
+
+.member-qr p {
+
+  margin: 0;
+
+  color: #666666;
+
+  font-size: 14px;
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.profile-loading {
+
+  min-height: 60vh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 40px;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  color: #444444;
+
+  text-align: center;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .member-profile {
+
+    padding:
+      30px 16px 60px;
 
   }
 
 
-  .member-location h2 {
+  .profile-card {
+
+    padding: 28px;
+
+  }
+
+
+  .profile-info {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .portfolio-gallery {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+  }
+
+
+  .member-portfolio,
+  .member-videos,
+  .member-certificate,
+  .member-location,
+  .share-profile,
+  .member-qr {
+
+    padding: 25px;
+
+  }
+
+
+  .popup-prev {
+
+    left: 15px;
+
+  }
+
+
+  .popup-next {
+
+    right: 15px;
+
+  }
+
+
+  .video-popup-prev {
+
+    left: 15px;
+
+  }
+
+
+  .video-popup-next {
+
+    right: 15px;
+
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .member-profile {
+
+    padding:
+      20px 12px 50px;
+
+  }
+
+
+  .profile-card {
+
+    padding:
+      22px 16px;
+
+    border-radius: 18px;
+
+  }
+
+
+  .profile-image-wrapper {
+
+    width: 150px;
+
+    height: 150px;
+
+  }
+
+
+  .profile-top h1 {
+
+    font-size: 28px;
+
+  }
+
+
+  .profile-id {
+
+    font-size: 14px;
+
+  }
+
+
+  .member-joining-date {
+
+    font-size: 13px;
+
+  }
+
+
+  .profile-info {
+
+    margin-top: 25px;
+
+    gap: 10px;
+
+  }
+
+
+  .profile-info p {
+
+    font-size: 14px;
+
+    padding: 12px;
+
+  }
+
+
+  .member-portfolio,
+  .member-videos,
+  .member-certificate,
+  .member-location,
+  .share-profile,
+  .member-qr {
+
+    margin-top: 25px;
+
+    padding:
+      20px 15px;
+
+    border-radius: 18px;
+
+  }
+
+
+  .member-portfolio h2,
+  .member-videos h2,
+  .member-certificate h2,
+  .member-location h2,
+  .share-profile h2,
+  .member-qr h2 {
+
+    font-size: 23px;
+
+    margin-bottom: 20px;
+
+  }
+
+
+  /* PHOTO GALLERY */
+
+  .portfolio-gallery {
+
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+
+  }
+
+
+  .portfolio-photo-item img {
+
+    aspect-ratio: 4 / 3;
+
+  }
+
+
+  /* VIDEO GALLERY */
+
+  .video-gallery {
+
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+  }
+
+
+  .video-thumbnail {
+
+    aspect-ratio: 16 / 9;
+
+  }
+
+
+  .instagram-preview-wrapper {
+
+    aspect-ratio: 9 / 16;
+
+    max-height: 620px;
+
+  }
+
+
+  .video-card-info {
+
+    min-height: 70px;
+
+    padding:
+      12px 15px;
+
+  }
+
+
+  .video-card-info strong {
+
+    font-size: 15px;
+
+  }
+
+
+  .video-play-icon {
+
+    width: 60px;
+
+    height: 60px;
 
     font-size: 24px;
 
   }
 
 
-  .google-location-btn {
+  /* =====================================================
+     IMAGE POPUP MOBILE
+  ===================================================== */
 
-    width: 100%;
+  .image-popup {
 
-    box-sizing: border-box;
+    padding: 10px;
 
+  }
+
+
+  .popup-image {
+
+    max-width: 86vw;
+
+    max-height: 74vh;
+
+  }
+
+
+  .popup-close {
+
+    top: 10px;
+
+    right: 10px;
+
+    width: 42px;
+
+    height: 42px;
+
+    font-size: 23px;
+
+  }
+
+
+  .image-zoom-controls {
+
+    top: 10px;
+
+    left: 50%;
+
+    padding: 5px;
+
+  }
+
+
+  .image-zoom-controls button {
+
+    width: 34px;
+
+    height: 34px;
+
+    font-size: 21px;
+
+  }
+
+
+  .image-zoom-controls span {
+
+    min-width: 48px;
+
+    font-size: 12px;
+
+  }
+
+
+  .popup-prev,
+  .popup-next {
+
+    width: 42px;
+
+    height: 42px;
+
+    font-size: 20px;
+
+  }
+
+
+  .popup-prev {
+
+    left: 7px;
+
+  }
+
+
+  .popup-next {
+
+    right: 7px;
+
+  }
+
+
+  .popup-counter {
+
+    bottom: 12px;
+
+    font-size: 13px;
+
+  }
+
+
+  .zoom-help {
+
+    display: none;
+
+  }
+
+
+  /* VIDEO POPUP */
+
+  .video-popup {
+
+    padding: 10px;
+
+  }
+
+
+  .video-popup-youtube,
+  .video-popup-facebook,
+  .video-popup-other {
+
+    width: 94vw;
+
+    aspect-ratio: 16 / 9;
+
+  }
+
+
+  .video-popup-instagram {
+
+    height: 82vh;
+
+    max-height: 760px;
+
+    max-width: 88vw;
+
+    aspect-ratio: 9 / 16;
+
+  }
+
+
+  .video-popup-close {
+
+    top: 10px;
+
+    right: 10px;
+
+    width: 42px;
+
+    height: 42px;
+
+    font-size: 23px;
+
+  }
+
+
+  .video-popup-prev,
+  .video-popup-next {
+
+    width: 42px;
+
+    height: 42px;
+
+    font-size: 20px;
+
+  }
+
+
+  .video-popup-prev {
+
+    left: 7px;
+
+  }
+
+
+  .video-popup-next {
+
+    right: 7px;
+
+  }
+
+
+  .video-popup-counter {
+
+    bottom: 12px;
+
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .profile-image-wrapper {
+
+    width: 135px;
+
+    height: 135px;
+
+  }
+
+
+  .profile-top h1 {
+
+    font-size: 25px;
+
+  }
+
+
+  .registered-member-badge {
+
+    font-size: 12px;
+
+    padding:
+      7px 12px;
+
+  }
+
+
+  .profile-rating-stars {
+
+    font-size: 18px;
+
+  }
+
+
+  .portfolio-view-btn {
+
+    font-size: 12px;
+
+    padding:
+      8px 12px;
+
+  }
+
+
+  .instagram-preview-wrapper {
+
+    max-height: 570px;
+
+  }
+
+
+  .video-popup-instagram {
+
+    height: 78vh;
+
+    max-width: 86vw;
+
+  }
+
+
+  .video-card-info {
+
+    padding:
+      11px 13px;
+
+  }
+
+
+  .video-card-info span {
+
+    font-size: 12px;
+
+  }
+
+
+  .video-card-info strong {
+
+    font-size: 14px;
+
+  }
+
+
+  /* SMALL IMAGE POPUP */
+
+  .popup-close {
+
+    top: 7px;
+
+    right: 7px;
+
+    width: 40px;
+
+    height: 40px;
+
+    font-size: 22px;
+
+  }
+
+
+  .image-zoom-controls {
+
+    top: 7px;
+
+  }
+
+
+  .image-zoom-controls button {
+
+    width: 32px;
+
+    height: 32px;
+
+  }
+
+
+  .image-zoom-controls span {
+
+    min-width: 42px;
+
+  }
+
+
+  .popup-prev,
+  .popup-next {
+
+    width: 40px;
+
+    height: 40px;
+
+    font-size: 19px;
+
+  }
+
+
+  .popup-prev {
+
+    left: 5px;
+
+  }
+
+
+  .popup-next {
+
+    right: 5px;
+
+  }
+
+
+  .popup-counter {
+
+    bottom: 9px;
+
+    font-size: 12px;
+
+    padding:
+      6px 12px;
+
+  }
+
+
+  /* SMALL VIDEO POPUP */
+
+  .video-popup-close {
+
+    top: 7px;
+
+    right: 7px;
+
+    width: 40px;
+
+    height: 40px;
+
+    font-size: 22px;
+
+  }
+
+
+  .video-popup-prev,
+  .video-popup-next {
+
+    width: 40px;
+
+    height: 40px;
+
+    font-size: 19px;
+
+  }
+
+
+  .video-popup-prev {
+
+    left: 5px;
+
+  }
+
+
+  .video-popup-next {
+
+    right: 5px;
+
+  }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .popup-image,
+  .profile-image-wrapper,
+  .video-preview-button,
+  .popup-prev,
+  .popup-next,
+  .video-popup-prev,
+  .video-popup-next {
+
+    transition: none;
+
+  }
+
+}
+/* =====================================================
+   WEBSITE THEME COLOR
+===================================================== */
+
+.theme-settings-card {
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   THEME COLOR GRID
+===================================================== */
+
+.theme-color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+
+/* =====================================================
+   THEME COLOR OPTION
+===================================================== */
+
+.theme-color-option {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  width: 100%;
+  min-height: 62px;
+
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 12px 15px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #334155;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: none;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.theme-color-option:hover {
+  transform: translateY(-2px);
+
+  border-color: #94a3b8;
+
+  background: #f8fafc;
+
+  box-shadow:
+    0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =====================================================
+   ACTIVE THEME
+===================================================== */
+
+.theme-color-option.active {
+  border-color: #2563eb;
+
+  background: #eff6ff;
+
+  box-shadow:
+    0 5px 18px rgba(37, 99, 235, 0.12);
+}
+
+
+.theme-color-option.active:hover {
+  border-color: #2563eb;
+}
+
+
+/* =====================================================
+   COLOR CIRCLE
+===================================================== */
+
+.theme-color-circle {
+  flex-shrink: 0;
+
+  width: 31px;
+  height: 31px;
+
+  border-radius: 50%;
+
+  border: 3px solid #ffffff;
+
+  box-shadow:
+    0 0 0 1px #cbd5e1,
+    0 3px 8px rgba(15, 23, 42, 0.15);
+}
+
+
+/* =====================================================
+   CHECK MARK
+===================================================== */
+
+.theme-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 23px;
+  height: 23px;
+
+  margin-left: auto;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   THEME INFORMATION
+===================================================== */
+
+.theme-info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-top: 20px;
+  padding: 13px 15px;
+
+  border: 1px solid #bfdbfe;
+
+  border-radius: 9px;
+
+  background: #eff6ff;
+
+  color: #1e40af;
+}
+
+
+.theme-info-note > svg {
+  flex-shrink: 0;
+
+  margin-top: 3px;
+}
+
+
+.theme-info-note p {
+  margin: 0;
+
+  color: #1e40af;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   THEME RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .theme-color-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .theme-color-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-color-option {
+    min-height: 58px;
+  }
+
+}
+
+
+@media (max-width: 380px) {
+
+  .theme-color-option {
+    min-height: 55px;
+
+    padding: 10px 12px;
+
+    font-size: 13px;
+  }
+
+  .theme-color-circle {
+    width: 28px;
+    height: 28px;
   }
 
 }
