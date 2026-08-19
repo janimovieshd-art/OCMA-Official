@@ -1,261 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
-* {
-  font-family: 'Poppins', sans-serif;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-}
-
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background: #0b0b0b;
-  color: white;
-}
-
-.ocma-home {
-  min-height: 100vh;
-  background: #111;
-  color: white;
-}
-
-.hero {
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px;
-  background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.75),
-      rgba(0, 0, 0, 0.85)
-    ),
-    url("https://images.unsplash.com/photo-1492691527719-9d1e07e534b4")
-    center/cover;
-  color: white;
-}
-
-.logo-image {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-  margin-bottom: 40px;
-}
-
-.hero h1 {
-  font-size: 48px;
-  color: #d4af37;
-  margin: 10px;
-}
-
-.hero p {
-  font-size: 22px;
-  margin: 15px;
-}
-
-button {
-  margin: 10px;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 8px;
-  background: #d4af37;
-  color: black;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 40px;
-  flex-wrap: wrap;
-}
-
-.stats div {
-  background: #222;
-  padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  width: 220px;
-}
-
-.stats h2 {
-  color: #d4af37;
-}
-
-.about {
-  padding: 40px;
-  text-align: center;
-}
-
-.cabinet {
-  padding: 50px 30px;
-  text-align: center;
-}
-
-.cabinet h2 {
-  color: #d4af37;
-  font-size: 32px;
-  margin-bottom: 30px;
-}
-
-.cabinet-grid {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.member-card {
-  background: #222;
-  width: 220px;
-  padding: 25px;
-  border-radius: 15px;
-  border: 1px solid #333;
-  transition: 0.3s;
-}
-
-.member-card:hover {
-  transform: translateY(-5px);
-  border-color: #d4af37;
-}
-
-.member-card h3 {
-  color: #d4af37;
-  margin-bottom: 10px;
-}
-
-.member-card p {
-  color: white;
-  font-size: 15px;
-}
-
-.members {
-  padding: 50px 30px;
-  text-align: center;
-  background: #0d0d0d;
-}
-
-.members h2 {
-  color: #d4af37;
-  font-size: 32px;
-  margin-bottom: 15px;
-}
-
-.members p {
-  color: white;
-  margin-bottom: 30px;
-}
-
-.member-count {
-  width: 250px;
-  margin: auto;
-  padding: 30px;
-  background: #222;
-  border-radius: 15px;
-  border: 1px solid #333;
-}
-
-.member-count h3 {
-  color: #d4af37;
-  font-size: 45px;
-  margin: 0;
-}
-
-.member-count span {
-  color: white;
-}
-
-.chief-patron {
-  padding: 50px 30px;
-  text-align: center;
-}
-
-.chief-patron h2 {
-  color: #d4af37;
-  font-size: 32px;
-  margin-bottom: 30px;
-}
-
-.patron-card {
-  width: 280px;
-  margin: auto;
-  padding: 30px;
-  background: #222;
-  border-radius: 20px;
-  border: 2px solid #d4af37;
-  text-align: center;
-}
-
-.patron-card img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #d4af37;
-}
-
-.patron-card h3 {
-  color: #d4af37;
-  margin-top: 20px;
-}
-
-.patron-card p {
-  color: white;
-}
-
-.patron-card a {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #d4af37;
-  color: black;
-  border-radius: 8px;
-  text-decoration: none;
-}/* =========================================================
-   OCMA OFFICIAL PORTAL
-   GLOBAL APP STYLES
-   Premium Black + Gold Design
-========================================================= */
-
-
-
-
 /* =========================================================
-   GLOBAL RESET
+   OCMA APP GLOBAL CSS
 ========================================================= */
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-  background: #0b0b0b;
-  color: #ffffff;
-  overflow-x: hidden;
 }
 
 html,
@@ -263,867 +15,109 @@ body,
 #root {
   width: 100%;
   min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
   background: #0b0b0b;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button,
 input,
 textarea,
 select {
-  font-family: "Poppins", sans-serif;
+  font: inherit;
 }
 
 button {
   cursor: pointer;
 }
 
-a {
-  color: inherit;
-}
-
-
-/* =========================================================
-   OCMA HOME
-========================================================= */
-
-.ocma-home {
-  width: 100%;
-  min-height: 100vh;
-  background: #0b0b0b;
-  color: #ffffff;
-}
-
-
-/* =========================================================
-   HOME LOADING
-========================================================= */
-
-.home-loading {
-  min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 30px;
-
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(212, 175, 55, 0.12),
-      transparent 45%
-    ),
-    #0b0b0b;
-
-  color: #d4af37;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  text-align: center;
-}
-
-
-/* =========================================================
-   COMMON SECTION
-========================================================= */
-
-section {
-  width: 100%;
-  position: relative;
-}
-
-section:not(.hero) {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-
-/* =========================================================
-   HERO SECTION
-========================================================= */
-
-.hero {
-  position: relative;
-
-  width: 100%;
-  min-height: 78vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-
-  padding: 80px 30px;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.72),
-      rgba(0, 0, 0, 0.88)
-    ),
-    url("https://images.unsplash.com/photo-1492691527719-9d1e07e534b4")
-      center / cover no-repeat;
-}
-
-
-/* Hero subtle gold glow */
-
-.hero::after {
-  content: "";
-
-  position: absolute;
-
-  width: 500px;
-  height: 500px;
-
-  left: 50%;
-  bottom: -350px;
-
-  transform: translateX(-50%);
-
-  background: rgba(212, 175, 55, 0.12);
-
-  filter: blur(80px);
-
-  border-radius: 50%;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   HERO LOGO
-========================================================= */
-
-.logo-image {
-  position: relative;
-  z-index: 2;
-
-  width: 170px;
-  height: 170px;
-
-  object-fit: contain;
-
-  margin-bottom: 25px;
-
-  filter:
-    drop-shadow(0 0 12px rgba(212, 175, 55, 0.55))
-    drop-shadow(0 0 30px rgba(212, 175, 55, 0.25));
-
-  transition: 0.4s ease;
-}
-
-.logo-image:hover {
-  transform: scale(1.04);
-}
-
-
-/* =========================================================
-   HERO TEXT
-========================================================= */
-
-.hero h1 {
-  position: relative;
-  z-index: 2;
-
-  max-width: 1100px;
-
-  margin: 10px auto;
-
-  color: #d4af37;
-
-  font-size: clamp(34px, 5vw, 58px);
-
-  line-height: 1.15;
-
-  font-weight: 900;
-
-  letter-spacing: 1px;
-
-  text-shadow:
-    0 3px 20px rgba(0, 0, 0, 0.8);
-}
-
-.hero h2 {
-  position: relative;
-  z-index: 2;
-
-  max-width: 900px;
-
-  margin: 10px auto;
-
-  color: #ffffff;
-
-  font-size: clamp(20px, 3vw, 30px);
-
-  font-weight: 700;
-}
-
-.hero p {
-  position: relative;
-  z-index: 2;
-
-  max-width: 850px;
-
-  margin: 15px auto;
-
-  color: #dddddd;
-
-  font-size: clamp(15px, 2vw, 19px);
-
-  line-height: 1.8;
-}
-
-
-/* =========================================================
-   GLOBAL GOLD BUTTON
-========================================================= */
-
-button {
-  border: none;
-  outline: none;
-
-  background:
-    linear-gradient(
-      135deg,
-      #d4af37,
-      #b8860b
-    );
-
-  color: #111111;
-
-  padding: 12px 25px;
-
-  border-radius: 30px;
-
-  font-size: 15px;
-  font-weight: 800;
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-button:hover {
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 25px rgba(212, 175, 55, 0.35);
-}
-
-
-/* =========================================================
-   COMMON GOLD HEADINGS
-========================================================= */
-
-h1,
-h2,
-h3 {
-  font-family: "Poppins", sans-serif;
-}
-
-h2 {
-  color: #d4af37;
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-.stats {
-  width: 100%;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: stretch;
-
-  gap: 25px;
-
-  padding: 50px 30px;
-
-  flex-wrap: wrap;
-
-  background:
-    linear-gradient(
-      180deg,
-      #111111,
-      #0b0b0b
-    );
-}
-
-.stats div {
-  width: 220px;
-
-  padding: 28px 20px;
-
-  text-align: center;
-
-  background:
-    linear-gradient(
-      145deg,
-      #1b1b1b,
-      #111111
-    );
-
-  border: 1px solid rgba(212, 175, 55, 0.18);
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.35);
-
-  transition: 0.3s ease;
-}
-
-.stats div:hover {
-  transform: translateY(-6px);
-
-  border-color: rgba(212, 175, 55, 0.65);
-
-  box-shadow:
-    0 18px 40px rgba(212, 175, 55, 0.12);
-}
-
-.stats h2 {
-  margin-bottom: 8px;
-
-  color: #d4af37;
-
-  font-size: 36px;
-
-  font-weight: 900;
-}
-
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-.about {
-  width: 100%;
-
-  padding: 70px 30px;
-
-  text-align: center;
-
-  background: #0d0d0d;
-}
-
-.about h2 {
-  margin-bottom: 18px;
-
-  color: #d4af37;
-
-  font-size: clamp(28px, 4vw, 40px);
-
-  font-weight: 900;
-}
-
-.about p {
-  max-width: 850px;
-
-  margin: auto;
-
-  color: #cccccc;
-
-  font-size: 16px;
-
-  line-height: 1.9;
-}
-
-
-/* =========================================================
-   CABINET
-========================================================= */
-
-.cabinet {
-  width: 100%;
-
-  padding: 70px 30px;
-
-  text-align: center;
-
-  background:
-    linear-gradient(
-      180deg,
-      #0b0b0b,
-      #111111
-    );
-}
-
-.cabinet h2 {
-  margin-bottom: 35px;
-
-  color: #d4af37;
-
-  font-size: clamp(28px, 4vw, 40px);
-
-  font-weight: 900;
-}
-
-.cabinet-grid {
-  display: flex;
-
-  justify-content: center;
-  align-items: stretch;
-
-  gap: 25px;
-
-  flex-wrap: wrap;
-}
-
-.member-card {
-  width: 220px;
-
-  padding: 25px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #202020,
-      #111111
-    );
-
-  border: 1px solid #292929;
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.35);
-
-  transition: 0.35s ease;
-}
-
-.member-card:hover {
-  transform: translateY(-8px);
-
-  border-color: #d4af37;
-
-  box-shadow:
-    0 15px 35px rgba(212, 175, 55, 0.16);
-}
-
-.member-card h3 {
-  margin-bottom: 10px;
-
-  color: #d4af37;
-
-  font-size: 20px;
-
-  font-weight: 800;
-}
-
-.member-card p {
-  color: #dddddd;
-
-  font-size: 14px;
-
-  line-height: 1.7;
-}
-
-
-/* =========================================================
-   MEMBERS
-========================================================= */
-
-.members {
-  width: 100%;
-
-  padding: 70px 30px;
-
-  text-align: center;
-
-  background: #0d0d0d;
-}
-
-.members h2 {
-  margin-bottom: 12px;
-
-  color: #d4af37;
-
-  font-size: clamp(28px, 4vw, 40px);
-
-  font-weight: 900;
-}
-
-.members > p {
-  max-width: 700px;
-
-  margin: 0 auto 30px;
-
-  color: #cccccc;
-
-  line-height: 1.8;
-}
-
-.member-count {
-  width: 250px;
-
-  margin: auto;
-
-  padding: 30px 20px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #202020,
-      #111111
-    );
-
-  border: 1px solid rgba(212, 175, 55, 0.25);
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.35);
-}
-
-.member-count h3 {
-  margin: 0;
-
-  color: #d4af37;
-
-  font-size: 45px;
-
-  font-weight: 900;
-}
-
-.member-count span {
-  color: #ffffff;
-
-  font-size: 15px;
-}
-
-
-/* =========================================================
-   CHIEF PATRON
-========================================================= */
-
-.chief-patron {
-  width: 100%;
-
-  padding: 70px 30px;
-
-  text-align: center;
-
-  background:
-    linear-gradient(
-      180deg,
-      #111111,
-      #0b0b0b
-    );
-}
-
-.chief-patron h2 {
-  margin-bottom: 35px;
-
-  color: #d4af37;
-
-  font-size: clamp(28px, 4vw, 40px);
-
-  font-weight: 900;
-}
-
-.patron-card {
-  width: 290px;
-
-  margin: auto;
-
-  padding: 30px 25px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #202020,
-      #111111
-    );
-
-  border: 2px solid #d4af37;
-
-  border-radius: 22px;
-
-  text-align: center;
-
-  box-shadow:
-    0 20px 45px rgba(0, 0, 0, 0.45),
-    0 0 25px rgba(212, 175, 55, 0.08);
-}
-
-.patron-card img {
-  width: 170px;
-  height: 170px;
-
-  object-fit: cover;
-
-  border-radius: 50%;
-
-  border: 4px solid #d4af37;
-
-  box-shadow:
-    0 0 25px rgba(212, 175, 55, 0.35);
-}
-
-.patron-card h3 {
-  margin-top: 20px;
-
-  color: #d4af37;
-
-  font-size: 22px;
-
-  font-weight: 800;
-}
-
-.patron-card p {
-  margin-top: 8px;
-
-  color: #dddddd;
-
-  line-height: 1.7;
-}
-
-.patron-card a {
-  display: inline-block;
-
-  margin-top: 18px;
-
-  padding: 11px 22px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #d4af37,
-      #b8860b
-    );
-
-  color: #111111;
-
-  border-radius: 30px;
-
-  text-decoration: none;
-
-  font-size: 14px;
-
-  font-weight: 800;
-
-  transition: 0.3s ease;
-}
-
-.patron-card a:hover {
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 25px rgba(212, 175, 55, 0.35);
-}
-
-
-/* =========================================================
-   COMMON IMAGES
-========================================================= */
-
-img {
+img,
+video {
   max-width: 100%;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   ROUTER / APP ROOT
+========================================================= */
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.App {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =========================================================
+   GLOBAL SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* =========================================================
+   TEXT SELECTION
+========================================================= */
+
+::selection {
+  background: #d4af37;
+  color: #000;
+}
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media (max-width: 900px) {
-
-  .hero {
-    min-height: 70vh;
-
-    padding: 70px 25px;
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto;
   }
 
-  .logo-image {
-    width: 145px;
-    height: 145px;
-  }
-
-  .stats {
-    padding: 40px 20px;
-  }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-  .hero {
-    min-height: 68vh;
-
-    padding: 60px 18px;
-  }
-
-  .logo-image {
-    width: 125px;
-    height: 125px;
-
-    margin-bottom: 18px;
-  }
-
-  .hero h1 {
-    font-size: 31px;
-
-    line-height: 1.25;
-  }
-
-  .hero h2 {
-    font-size: 20px;
-  }
-
-  .hero p {
-    font-size: 14px;
-
-    line-height: 1.7;
-  }
-
-  .stats {
-    padding: 35px 15px;
-
-    gap: 15px;
-  }
-
-  .stats div {
-    width: calc(50% - 10px);
-
-    min-width: 145px;
-
-    padding: 22px 12px;
-  }
-
-  .stats h2 {
-    font-size: 30px;
-  }
-
-  .about,
-  .cabinet,
-  .members,
-  .chief-patron {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .member-card {
-    width: min(100%, 300px);
-  }
-
-  .patron-card {
-    width: min(100%, 300px);
-  }
-
-}
-
-
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
-
-@media (max-width: 380px) {
-
-  .hero {
-    padding: 50px 15px;
-  }
-
-  .logo-image {
-    width: 110px;
-    height: 110px;
-  }
-
-  .hero h1 {
-    font-size: 27px;
-  }
-
-  .stats div {
+  body {
     width: 100%;
+    overflow-x: hidden;
   }
-
 }
-/* =========================================================
-   HOME LOADING CONTENT
-========================================================= */
-
-.home-loading-content {
-  width: min(100%, 500px);
-
-  padding: 45px 30px;
-
-  text-align: center;
-
-  background:
-    linear-gradient(
-      145deg,
-      #1b1b1b,
-      #101010
-    );
-
-  border: 1px solid rgba(212, 175, 55, 0.25);
-
-  border-radius: 20px;
-
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.45);
-}
-
-.home-loading-content h2 {
-  margin: 20px 0 10px;
-
-  color: #d4af37;
-
-  font-size: 24px;
-
-  font-weight: 800;
-}
-
-.home-loading-content p {
-  margin: 0;
-
-  color: #cccccc;
-
-  font-size: 14px;
-}
-
 
 /* =========================================================
-   LOADING SPINNER
+   REDUCED MOTION
 ========================================================= */
 
-.loading-spinner {
-  width: 48px;
-  height: 48px;
-
-  margin: 0 auto;
-
-  border: 4px solid rgba(212, 175, 55, 0.2);
-
-  border-top-color: #d4af37;
-
-  border-radius: 50%;
-
-  animation:
-    ocmaSpin 0.9s linear infinite;
-}
-
-@keyframes ocmaSpin {
-
-  from {
-    transform: rotate(0deg);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-
-  to {
-    transform: rotate(360deg);
-  }
-
 }

@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 
 import {
+  collection,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+  doc
+} from "firebase/firestore";
+
+import {
   getData,
   deleteData,
   updateData
 } from "../../services/firestoreService";
+
+import { db } from "../../firebase/firebase";
 
 import "./Members.css";
 
@@ -31,21 +42,11 @@ function Members() {
       const data =
         await getData(collectionName);
 
-
-      /* =====================================
-         ONLY ACTIVE MEMBERS
-      ===================================== */
-
       const activeMembers =
         (data || []).filter(
           (member) =>
             member.status === "ACTIVE"
         );
-
-
-      /* =====================================
-         SORT BY OCMA MEMBER ID
-      ===================================== */
 
       activeMembers.sort((a, b) => {
 
@@ -57,7 +58,6 @@ function Members() {
             ) || 999999
           );
 
-
         const numB =
           Number(
             b.memberId?.replace(
@@ -66,14 +66,11 @@ function Members() {
             ) || 999999
           );
 
-
         return numA - numB;
 
       });
 
-
       setMembers(activeMembers);
-
 
     } catch (error) {
 
@@ -99,23 +96,92 @@ function Members() {
 
 
   /* =====================================================
+     DELETE ALL MEMBER RATINGS / REVIEWS
+  ===================================================== */
+
+  const deleteMemberRatings = async (
+    memberId
+  ) => {
+
+    if (!memberId) return;
+
+    const ratingCollections = [
+      "ratings",
+      "member_ratings"
+    ];
+
+    for (
+      const collectionName
+      of ratingCollections
+    ) {
+
+      const ratingsRef =
+        collection(
+          db,
+          collectionName
+        );
+
+      const ratingQuery =
+        query(
+          ratingsRef,
+          where(
+            "memberId",
+            "==",
+            memberId
+          )
+        );
+
+      const snapshot =
+        await getDocs(
+          ratingQuery
+        );
+
+      await Promise.all(
+        snapshot.docs.map(
+          (ratingDoc) =>
+            deleteDoc(
+              doc(
+                db,
+                collectionName,
+                ratingDoc.id
+              )
+            )
+        )
+      );
+
+    }
+
+  };
+
+
+  /* =====================================================
      DELETE MEMBER
   ===================================================== */
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (
+    id,
+    memberId
+  ) => {
 
     const confirmDelete =
       window.confirm(
-        "Are you sure you want to delete this member?"
+        "Are you sure you want to delete this member?\n\nAll reviews and ratings of this member will also be permanently deleted."
       );
-
 
     if (!confirmDelete) {
       return;
     }
 
-
     try {
+
+      /* DELETE ALL OLD RATINGS + REVIEWS FIRST */
+
+      await deleteMemberRatings(
+        memberId
+      );
+
+
+      /* DELETE MEMBER */
 
       await deleteData(
         collectionName,
@@ -124,18 +190,21 @@ function Members() {
 
 
       alert(
-        "Member Deleted Successfully"
+        "Member and all reviews deleted successfully."
       );
 
 
       loadMembers();
-
 
     } catch (error) {
 
       console.log(
         "Delete Member Error:",
         error
+      );
+
+      alert(
+        "Delete failed. Please try again."
       );
 
     }
@@ -150,7 +219,6 @@ function Members() {
   const handleUpdate = async (e) => {
 
     e.preventDefault();
-
 
     try {
 
@@ -207,9 +275,7 @@ function Members() {
 
       setEditMember(null);
 
-
       loadMembers();
-
 
     } catch (error) {
 
@@ -217,7 +283,6 @@ function Members() {
         "Update Member Error:",
         error
       );
-
 
       alert(
         "Update Failed"
@@ -237,7 +302,6 @@ function Members() {
 
       const text =
         search.toLowerCase().trim();
-
 
       return (
 
@@ -278,7 +342,9 @@ function Members() {
      OPEN MEMBER PROFILE
   ===================================================== */
 
-  const handleView = (memberId) => {
+  const handleView = (
+    memberId
+  ) => {
 
     window.open(
       `/member/${memberId}`,
@@ -292,7 +358,9 @@ function Members() {
      OPEN EDIT
   ===================================================== */
 
-  const handleEdit = (member) => {
+  const handleEdit = (
+    member
+  ) => {
 
     setEditMember({
       ...member
@@ -321,40 +389,28 @@ function Members() {
     <div className="members-admin">
 
 
-      {/* =================================================
-          PAGE TITLE
-      ================================================= */}
+      {/* PAGE TITLE */}
 
       <h1>
         Approved OCMA Members
       </h1>
 
 
-      {/* =================================================
-          SEARCH
-      ================================================= */}
+      {/* SEARCH */}
 
       <input
-
         className="member-search"
-
         placeholder="Search Name, Phone, City or OCMA ID..."
-
         value={search}
-
         onChange={(e) =>
           setSearch(e.target.value)
         }
-
       />
 
 
-      {/* =================================================
-          MEMBERS GRID
-      ================================================= */}
+      {/* MEMBERS GRID */}
 
       <div className="members-grid">
-
 
         {filteredMembers.map(
           (member) => (
@@ -365,33 +421,26 @@ function Members() {
             >
 
 
-              {/* =========================================
-                  MEMBER PHOTO
-              ========================================= */}
+              {/* MEMBER PHOTO */}
 
               <div className="member-photo">
 
                 <img
-
                   src={
                     member.image
                       ? member.image
                       : "/assets/ocma-logo.png"
                   }
-
                   alt={
                     member.name ||
                     "OCMA Member"
                   }
-
                 />
 
               </div>
 
 
-              {/* =========================================
-                  MEMBER ID
-              ========================================= */}
+              {/* MEMBER ID */}
 
               <div className="member-id">
 
@@ -400,9 +449,7 @@ function Members() {
               </div>
 
 
-              {/* =========================================
-                  MEMBER NAME
-              ========================================= */}
+              {/* MEMBER NAME */}
 
               <div className="member-name">
 
@@ -411,9 +458,7 @@ function Members() {
               </div>
 
 
-              {/* =========================================
-                  PROFESSION
-              ========================================= */}
+              {/* PROFESSION */}
 
               <div className="member-work">
 
@@ -423,9 +468,7 @@ function Members() {
               </div>
 
 
-              {/* =========================================
-                  CITY
-              ========================================= */}
+              {/* CITY */}
 
               <div className="member-city">
 
@@ -435,9 +478,7 @@ function Members() {
               </div>
 
 
-              {/* =========================================
-                  PHONE + JOINING DATE
-              ========================================= */}
+              {/* PHONE + JOINING DATE */}
 
               <div className="member-phone">
 
@@ -447,7 +488,6 @@ function Members() {
                     "Not Added"}
 
                 </div>
-
 
                 <small className="member-date">
 
@@ -468,22 +508,19 @@ function Members() {
               </div>
 
 
-              {/* =========================================
-                  BUTTONS
-              ========================================= */}
+              {/* BUTTONS */}
 
               <div className="member-buttons">
-
 
                 <button
                   type="button"
                   onClick={() =>
-                    handleEdit(member)
+                    handleEdit(
+                      member
+                    )
                   }
                 >
-
                   Edit
-
                 </button>
 
 
@@ -495,9 +532,7 @@ function Members() {
                     )
                   }
                 >
-
                   View
-
                 </button>
 
 
@@ -506,31 +541,25 @@ function Members() {
                   className="delete"
                   onClick={() =>
                     handleDelete(
-                      member.id
+                      member.id,
+                      member.memberId
                     )
                   }
                 >
-
                   Delete
-
                 </button>
 
-
               </div>
-
 
             </div>
 
           )
         )}
 
-
       </div>
 
 
-      {/* =================================================
-          NO SEARCH RESULT
-      ================================================= */}
+      {/* NO SEARCH RESULT */}
 
       {filteredMembers.length === 0 && (
 
@@ -543,9 +572,7 @@ function Members() {
       )}
 
 
-      {/* =================================================
-          EDIT MEMBER POPUP
-      ================================================= */}
+      {/* EDIT MEMBER POPUP */}
 
       {editMember && (
 
@@ -554,7 +581,8 @@ function Members() {
           onClick={(e) => {
 
             if (
-              e.target === e.currentTarget
+              e.target ===
+              e.currentTarget
             ) {
 
               closeEdit();
@@ -564,19 +592,15 @@ function Members() {
           }}
         >
 
-
           <form
-
             className="edit-box"
-
-            onSubmit={handleUpdate}
-
+            onSubmit={
+              handleUpdate
+            }
           >
 
 
-            {/* =========================================
-                EDIT TITLE
-            ========================================= */}
+            {/* EDIT TITLE */}
 
             <h2>
               Edit Member
@@ -591,9 +615,7 @@ function Members() {
             </p>
 
 
-            {/* =========================================
-                NAME
-            ========================================= */}
+            {/* NAME */}
 
             <div className="edit-field">
 
@@ -601,36 +623,25 @@ function Members() {
                 Name
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.name || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     name:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Member Name"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                PHONE NUMBER
-            ========================================= */}
+            {/* PHONE NUMBER */}
 
             <div className="edit-field">
 
@@ -638,36 +649,25 @@ function Members() {
                 Phone Number
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.phone || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     phone:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Phone Number"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                FATHER NAME
-            ========================================= */}
+            {/* FATHER NAME */}
 
             <div className="edit-field">
 
@@ -675,36 +675,25 @@ function Members() {
                 Father Name
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.fatherName || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     fatherName:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Father Name"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                STUDIO NAME
-            ========================================= */}
+            {/* STUDIO NAME */}
 
             <div className="edit-field">
 
@@ -712,36 +701,25 @@ function Members() {
                 Studio Name
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.studio || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     studio:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Studio Name"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                CITY
-            ========================================= */}
+            {/* CITY */}
 
             <div className="edit-field">
 
@@ -749,36 +727,25 @@ function Members() {
                 City
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.city || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     city:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter City"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                PROFESSION
-            ========================================= */}
+            {/* PROFESSION */}
 
             <div className="edit-field">
 
@@ -786,36 +753,25 @@ function Members() {
                 Profession
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.specialty || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     specialty:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Profession"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                EXPERIENCE
-            ========================================= */}
+            {/* EXPERIENCE */}
 
             <div className="edit-field">
 
@@ -823,36 +779,25 @@ function Members() {
                 Experience
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.experience || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     experience:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Experience"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                BLOOD GROUP
-            ========================================= */}
+            {/* BLOOD GROUP */}
 
             <div className="edit-field">
 
@@ -860,36 +805,25 @@ function Members() {
                 Blood Group
               </label>
 
-
               <input
-
                 type="text"
-
                 value={
                   editMember.bloodGroup || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     bloodGroup:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Blood Group"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                ADDRESS
-            ========================================= */}
+            {/* ADDRESS */}
 
             <div className="edit-field">
 
@@ -897,34 +831,24 @@ function Members() {
                 Address
               </label>
 
-
               <textarea
-
                 value={
                   editMember.address || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     address:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Address"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                CAMERA DETAILS
-            ========================================= */}
+            {/* CAMERA DETAILS */}
 
             <div className="edit-field">
 
@@ -932,34 +856,24 @@ function Members() {
                 Camera Details
               </label>
 
-
               <textarea
-
                 value={
                   editMember.cameraDetails || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     cameraDetails:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Camera Details"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                MEMBER MESSAGE
-            ========================================= */}
+            {/* MEMBER MESSAGE */}
 
             <div className="edit-field">
 
@@ -967,66 +881,49 @@ function Members() {
                 Member Message
               </label>
 
-
               <textarea
-
                 value={
                   editMember.message || ""
                 }
-
                 onChange={(e) =>
                   setEditMember({
-
                     ...editMember,
-
                     message:
                       e.target.value
-
                   })
                 }
-
                 placeholder="Enter Member Message"
-
               />
 
             </div>
 
 
-            {/* =========================================
-                ACTION BUTTONS
-            ========================================= */}
+            {/* ACTION BUTTONS */}
 
             <div className="edit-actions">
-
 
               <button
                 type="submit"
               >
-
                 Update Member
-
               </button>
-
 
               <button
                 type="button"
-                onClick={closeEdit}
+                onClick={
+                  closeEdit
+                }
               >
-
                 Cancel
-
               </button>
 
-
             </div>
-
 
           </form>
 
         </div>
 
       )}
-
 
     </div>
 

@@ -44,10 +44,7 @@ const defaultSettings = {
     address: "",
     logo: "",
   },
-loadingScreen: {
-  title: "Loading OCMA Website...",
-  message: "Please wait while the website loads.",
-},
+
   hero: {
     heading: "Okara Cameramen Association",
     subtitle: "Professional Cameramen Community",
@@ -282,10 +279,7 @@ function Settings() {
             ...defaultSettings.website,
             ...(data.website || {}),
           },
-          loadingScreen: {
-  ...defaultSettings.loadingScreen,
-  ...(data.loadingScreen || {}),
-},
+
 
           hero: {
             ...defaultSettings.hero,
@@ -1327,76 +1321,7 @@ function Settings() {
 
       </div>
 
-        {/* ======================================
-    WEBSITE LOADING SCREEN
-====================================== */}
 
-<div className="settings-card">
-
-  <div className="card-heading">
-
-    <FaSpinner />
-
-    <div>
-
-      <h2>
-        Website Loading Screen
-      </h2>
-
-      <p>
-        Change the text displayed while
-        the website is loading.
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <label>
-    Loading Title
-  </label>
-
-  <input
-    value={
-      settings.loadingScreen.title
-    }
-    onChange={(e) =>
-      setSettings((prev) => ({
-        ...prev,
-
-        loadingScreen: {
-          ...prev.loadingScreen,
-          title: e.target.value,
-        },
-
-      }))
-    }
-  />
-
-
-  <label>
-    Loading Message
-  </label>
-
-  <input
-    value={
-      settings.loadingScreen.message
-    }
-    onChange={(e) =>
-      setSettings((prev) => ({
-        ...prev,
-
-        loadingScreen: {
-          ...prev.loadingScreen,
-          message: e.target.value,
-        },
-
-      }))
-    }
-  />
-
-</div>
       {/* ======================================
           HERO SECTION
       ====================================== */}

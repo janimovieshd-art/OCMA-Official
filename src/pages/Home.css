@@ -1,0 +1,161 @@
+/* =========================================================
+   OCMA HOME
+   COMPACT + RESPONSIVE + THEME COLOR
+========================================================= */
+
+.ocma-home {
+  --home-theme: #0b0b0b;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--home-theme);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.ocma-home * {
+  box-sizing: border-box;
+}
+
+.ocma-home img {
+  max-width: 100%;
+  display: block;
+}
+
+.home-section {
+  width: 100%;
+  position: relative;
+  background: var(--home-theme);
+}
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+.home-loading {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--home-theme, #0b0b0b);
+  color: #fff;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.home-loading-content {
+  width: 100%;
+  max-width: 500px;
+}
+
+.home-loading-content h2 {
+  margin: 18px 0 8px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.home-loading-content p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #d4af37;
+  border-radius: 50%;
+  animation: homeSpin 0.8s linear infinite;
+}
+
+@keyframes homeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   SECTION BASE
+========================================================= */
+
+.ocma-home section {
+  width: 100%;
+}
+
+.ocma-home .home-section {
+  background: var(--home-theme);
+}
+
+/* =========================================================
+   COMMON RESPONSIVE CONTAINER SUPPORT
+========================================================= */
+
+.ocma-home .container,
+.ocma-home .section-container {
+  width: min(1200px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+/* =========================================================
+   THEME BACKGROUND SUPPORT
+========================================================= */
+
+.ocma-home > .home-section,
+.ocma-home > section {
+  background: var(--home-theme);
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .ocma-home .container,
+  .ocma-home .section-container {
+    width: min(100% - 24px, 1200px);
+  }
+
+  .home-loading {
+    padding: 25px 15px;
+  }
+
+  .home-loading-content h2 {
+    font-size: 20px;
+  }
+
+  .home-loading-content p {
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .ocma-home .container,
+  .ocma-home .section-container {
+    width: calc(100% - 20px);
+  }
+
+  .home-loading-content h2 {
+    font-size: 18px;
+  }
+
+  .loading-spinner {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+}
