@@ -1,391 +1,181 @@
 /* =========================================================
    OCMA MEMBER PROFILE
-   COMPLETE RESPONSIVE + ZOOM POPUP VERSION
-========================================================= */
-
-
-/* =========================================================
-   MAIN PROFILE
+   COMPACT RESPONSIVE VERSION
 ========================================================= */
 
 .member-profile {
-
   width: 100%;
-
   max-width: 1200px;
-
   margin: 0 auto;
-
-  padding: 40px 20px 70px;
-
+  padding: 35px 20px 60px;
   box-sizing: border-box;
-
 }
-
-
-/* =========================================================
-   PROFILE CARD
-========================================================= */
 
 .profile-card {
-
   width: 100%;
-
-  background: #ffffff;
-
-  border-radius: 24px;
-
-  padding: 35px;
-
+  background: #fff;
+  border-radius: 22px;
+  padding: 30px;
   box-sizing: border-box;
-
-  box-shadow:
-    0 12px 45px rgba(0, 0, 0, 0.10);
-
-  border: 1px solid #eeeeee;
-
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.09);
+  border: 1px solid #eee;
 }
-
-
-/* =========================================================
-   PROFILE TOP
-========================================================= */
 
 .profile-top {
-
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   text-align: center;
-
 }
-
-
-/* =========================================================
-   PROFILE IMAGE
-========================================================= */
 
 .profile-image-wrapper {
-
   position: relative;
-
-  width: 180px;
-
-  height: 180px;
-
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-
   overflow: hidden;
-
   cursor: pointer;
-
   background: #f2f2f2;
-
-  border: 5px solid #ffffff;
-
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.20);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-
+  border: 5px solid #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
 
 .profile-image-wrapper:hover {
-
-  transform: scale(1.03);
-
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.28);
-
+  transform: scale(1.02);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.24);
 }
-
 
 .profile-image {
-
   width: 100%;
-
   height: 100%;
-
   object-fit: cover;
-
   display: block;
-
 }
-
-
-/* =========================================================
-   PHOTO CLICK HINT
-========================================================= */
 
 .photo-click-hint {
-
   position: absolute;
-
   left: 0;
-
   right: 0;
-
   bottom: 0;
-
-  padding: 8px 5px;
-
-  background:
-    rgba(0, 0, 0, 0.70);
-
-  color: #ffffff;
-
-  font-size: 12px;
-
+  padding: 7px 5px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 11px;
   text-align: center;
-
 }
-
-
-/* =========================================================
-   REGISTERED BADGE
-========================================================= */
 
 .registered-member-badge {
-
-  margin-top: 22px;
-
+  margin-top: 18px;
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
-  padding: 8px 16px;
-
+  padding: 7px 15px;
   border-radius: 30px;
-
   background: #e9f8ee;
-
   color: #16803a;
-
   border: 1px solid #bfe8cb;
-
-  font-size: 14px;
-
+  font-size: 13px;
   font-weight: 700;
-
 }
-
-
-/* =========================================================
-   NAME
-========================================================= */
 
 .profile-top h1 {
-
-  margin: 16px 0 5px;
-
-  font-size: 34px;
-
+  margin: 14px 0 4px;
+  font-size: 32px;
   line-height: 1.2;
-
   color: #111827;
-
   font-weight: 800;
-
 }
-
-
-/* =========================================================
-   MEMBER ID
-========================================================= */
 
 .profile-id {
-
   margin: 0;
-
   color: #6b7280;
-
-  font-size: 16px;
-
+  font-size: 15px;
   font-weight: 600;
-
-  letter-spacing: 0.5px;
-
 }
-
-
-/* =========================================================
-   JOINING DATE
-========================================================= */
 
 .member-joining-date {
-
-  margin-top: 15px;
-
-  padding: 9px 16px;
-
-  border-radius: 10px;
-
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: 9px;
   background: #f8f9fa;
-
   color: #444;
-
-  font-size: 14px;
-
+  font-size: 13px;
 }
-
-
-/* =========================================================
-   GOOGLE RATING
-========================================================= */
 
 .profile-google-rating {
-
-  margin-top: 15px;
-
+  margin-top: 13px;
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
-  gap: 8px;
-
+  gap: 7px;
   flex-wrap: wrap;
-
 }
-
 
 .profile-rating-stars {
-
   color: #f5b301;
-
-  font-size: 21px;
-
+  font-size: 20px;
   letter-spacing: 1px;
-
 }
-
 
 .profile-rating-number {
-
   font-weight: 800;
-
-  font-size: 16px;
-
+  font-size: 15px;
   color: #222;
-
 }
-
 
 .profile-review-count {
-
   color: #777;
-
-  font-size: 14px;
-
+  font-size: 13px;
 }
-
-
-/* =========================================================
-   MEMBER INFORMATION
-========================================================= */
 
 .profile-info {
-
-  margin-top: 32px;
-
-  padding-top: 25px;
-
-  border-top: 1px solid #eeeeee;
-
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid #eee;
   display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 14px 25px;
-
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px 20px;
 }
-
 
 .profile-info p {
-
   margin: 0;
-
-  padding: 14px 16px;
-
+  padding: 12px 14px;
   background: #f8f9fa;
-
-  border-radius: 12px;
-
+  border-radius: 10px;
   color: #333;
-
-  font-size: 15px;
-
-  line-height: 1.6;
-
+  font-size: 14px;
+  line-height: 1.5;
   word-break: break-word;
-
 }
-
 
 .profile-info p b {
-
   color: #111827;
-
 }
-
-
-/* =========================================================
-   WHATSAPP
-========================================================= */
 
 .profile-whatsapp {
-
   display: flex;
-
   width: fit-content;
-
-  margin: 28px auto 0;
-
-  padding: 13px 24px;
-
-  border-radius: 12px;
-
+  margin: 24px auto 0;
+  padding: 11px 21px;
+  border-radius: 10px;
   text-decoration: none;
-
   background: #25d366;
-
-  color: #ffffff;
-
+  color: #fff;
   font-weight: 700;
-
-  font-size: 15px;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
+  font-size: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
 .profile-whatsapp:hover {
-
-  color: #ffffff;
-
+  color: #fff;
   transform: translateY(-2px);
-
-  box-shadow:
-    0 8px 20px rgba(37, 211, 102, 0.30);
-
+  box-shadow: 0 7px 18px rgba(37, 211, 102, 0.28);
 }
 
 
 /* =========================================================
-   COMMON SECTIONS
+   COMMON WHITE SECTIONS
 ========================================================= */
 
 .member-portfolio,
@@ -394,36 +184,17 @@
 .member-location,
 .share-profile,
 .member-qr {
-
-  background: #ffffff;
-
-  border-radius: 22px;
-
-  box-shadow:
-    0 10px 35px rgba(0, 0, 0, 0.08);
-
-  border: 1px solid #eeeeee;
-
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+  border: 1px solid #eee;
 }
 
-
-.member-portfolio {
-
-  margin-top: 35px;
-
-  padding: 30px;
-
-}
-
-
+.member-portfolio,
 .member-videos {
-
-  margin-top: 35px;
-
-  padding: 30px;
-
+  margin-top: 28px;
+  padding: 25px;
 }
-
 
 .member-portfolio h2,
 .member-videos h2,
@@ -431,111 +202,85 @@
 .member-location h2,
 .share-profile h2,
 .member-qr h2 {
-
-  margin: 0 0 24px;
-
+  margin: 0 0 20px;
   text-align: center;
-
-  font-size: 27px;
-
+  font-size: 25px;
   color: #111827;
-
   font-weight: 800;
-
 }
 
 
 /* =========================================================
-   PORTFOLIO GALLERY
+   PHOTO PORTFOLIO
 ========================================================= */
 
-.portfolio-gallery {
-
+.photo-gallery {
   display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 20px;
-
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
 }
 
-
-.portfolio-photo-item {
-
+.photo-portfolio-item {
   position: relative;
-
-  overflow: hidden;
-
-  border-radius: 16px;
-
-  background: #f3f3f3;
-
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.10);
-
-}
-
-
-.portfolio-photo-item img {
-
   width: 100%;
-
   aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #f2f2f2;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
 
-  object-fit: cover;
-
+.portfolio-photo {
+  width: 100%;
+  height: 100%;
   display: block;
-
-  cursor: pointer;
-
+  object-fit: cover;
   transition:
-    transform 0.35s ease;
-
+    transform 0.45s ease,
+    filter 0.35s ease;
 }
 
-
-.portfolio-photo-item:hover img {
-
-  transform: scale(1.04);
-
+.photo-portfolio-item:hover .portfolio-photo {
+  transform: scale(1.07);
+  filter: brightness(0.78);
 }
 
-
-/* =========================================================
-   PORTFOLIO BUTTON
-========================================================= */
-
-.portfolio-view-btn {
-
+.photo-preview-overlay {
   position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.38);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-  left: 50%;
+.photo-preview-overlay span {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 20px;
+  backdrop-filter: blur(4px);
+}
 
-  bottom: 12px;
+.photo-preview-overlay strong {
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
 
-  transform:
-    translateX(-50%);
-
-  border: none;
-
-  padding: 9px 15px;
-
-  border-radius: 10px;
-
-  background:
-    rgba(0, 0, 0, 0.75);
-
-  color: #ffffff;
-
-  cursor: pointer;
-
-  font-size: 13px;
-
-  font-weight: 700;
-
-  white-space: nowrap;
-
+.photo-portfolio-item:hover .photo-preview-overlay {
+  opacity: 1;
 }
 
 
@@ -544,342 +289,232 @@
 ========================================================= */
 
 .video-gallery {
-
   width: 100%;
-
   display: grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(280px, 1fr)
-    );
-
-  gap: 24px;
-
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
 }
-
 
 .video-item {
-
   width: 100%;
-
   min-width: 0;
-
+  max-width: 100%;
 }
 
-
-/* =========================================================
-   VIDEO PREVIEW
-========================================================= */
-
 .video-preview-button {
-
   width: 100%;
-
   padding: 0;
-
   margin: 0;
-
   border: none;
-
   outline: none;
 
-  background: #ffffff;
+  background: #fff;
 
   cursor: pointer;
 
-  border-radius: 18px;
-
+  border-radius: 13px;
   overflow: hidden;
 
   display: block;
 
   text-align: left;
 
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
 
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 
 .video-preview-button:hover {
-
-  transform:
-    translateY(-4px);
-
-  box-shadow:
-    0 14px 40px rgba(0, 0, 0, 0.18);
-
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
 
-/* =========================================================
-   VIDEO THUMBNAIL
-========================================================= */
+/* FIXED VIDEO THUMBNAIL */
 
 .video-thumbnail {
-
   position: relative;
 
   width: 100%;
-
   aspect-ratio: 16 / 9;
 
   overflow: hidden;
 
-  background: #111111;
-
+  background: #111;
 }
-
 
 .video-thumbnail img {
+  width: 100% !important;
+  height: 100% !important;
 
-  width: 100%;
+  min-width: 0 !important;
+  min-height: 0 !important;
 
-  height: 100%;
+  max-width: none !important;
+  max-height: none !important;
 
   object-fit: cover;
+  object-position: center;
 
   display: block;
-
 }
 
 
-/* =========================================================
-   THUMBNAIL OVERLAY
-========================================================= */
-
 .video-thumbnail-overlay {
-
   position: absolute;
-
   inset: 0;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  background:
-    rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.12);
 
+  z-index: 2;
 }
 
-
-/* =========================================================
-   GENERIC VIDEO
-========================================================= */
 
 .video-generic-thumbnail {
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  background:
-    linear-gradient(
-      135deg,
-      #111827,
-      #374151
-    );
+  width: 100%;
+  height: 100%;
 
+  background: linear-gradient(135deg, #111827, #374151);
 }
 
 
-/* =========================================================
-   PLAY ICON
-========================================================= */
-
 .video-play-icon {
-
-  width: 70px;
-
-  height: 70px;
+  width: 58px;
+  height: 58px;
 
   border-radius: 50%;
 
-  background:
-    rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.96);
 
-  color: #111111;
+  color: #111;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  font-size: 28px;
+  font-size: 25px;
 
-  padding-left: 5px;
+  padding-left: 4px;
 
   box-sizing: border-box;
 
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.32);
 
-  transition:
-    transform 0.25s ease;
+  transition: transform 0.2s ease;
+}
 
+.video-preview-button:hover .video-play-icon {
+  transform: scale(1.08);
 }
 
 
-.video-preview-button:hover
-.video-play-icon {
-
-  transform:
-    scale(1.12);
-
-}
-
-
-/* =========================================================
-   INSTAGRAM PREVIEW
-========================================================= */
+/* INSTAGRAM PREVIEW */
 
 .instagram-preview-wrapper {
-
   position: relative;
 
   width: 100%;
-
   aspect-ratio: 9 / 16;
 
-  max-height: 520px;
+  max-height: 500px;
 
   overflow: hidden;
 
-  background: #000000;
+  background: #000;
 
   display: flex;
-
   justify-content: center;
-
 }
 
-
 .instagram-preview-iframe {
-
   width: 100%;
-
   height: 100%;
 
   border: none;
-
   display: block;
 
   pointer-events: none;
-
 }
 
 
 .instagram-preview-overlay {
-
   position: absolute;
-
   inset: 0;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  background:
-    rgba(0, 0, 0, 0.08);
-
+  background: rgba(0, 0, 0, 0.08);
 }
 
 
-/* =========================================================
-   VIDEO INFO
-========================================================= */
-
 .video-card-info {
+  min-height: 65px;
 
-  min-height: 78px;
-
-  padding: 14px 18px;
+  padding: 10px 12px;
 
   box-sizing: border-box;
 
   display: flex;
-
   flex-direction: column;
-
   justify-content: center;
 
-  gap: 5px;
+  gap: 3px;
 
-  background: #ffffff;
-
+  background: #fff;
 }
-
 
 .video-card-info span {
-
-  font-size: 13px;
-
-  color: #777777;
-
+  font-size: 11px;
+  color: #777;
 }
-
 
 .video-card-info strong {
-
-  font-size: 17px;
-
-  color: #111111;
-
+  font-size: 14px;
+  color: #111;
 }
 
-
-/* =========================================================
-   VIDEO ERROR
-========================================================= */
-
 .video-error {
-
-  padding: 25px;
+  padding: 22px;
 
   text-align: center;
 
-  color: #777777;
+  color: #777;
 
   background: #f7f7f7;
 
-  border-radius: 12px;
-
+  border-radius: 10px;
 }
 
 
 /* =========================================================
    IMAGE POPUP
+   EXISTING OPEN / ZOOM / NEXT / PREVIOUS PRESERVED
 ========================================================= */
 
 .image-popup {
-
   position: fixed;
-
   inset: 0;
+
+  width: 100vw;
+  height: 100vh;
 
   z-index: 99998;
 
-  background:
-    rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.95);
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   padding: 20px;
@@ -889,17 +524,12 @@
   overflow: hidden;
 
   overscroll-behavior: none;
-
   touch-action: none;
 
-  animation:
-    imagePopupFade 0.18s ease;
-
+  animation: imagePopupFade 0.18s ease;
 }
 
-
 @keyframes imagePopupFade {
-
   from {
     opacity: 0;
   }
@@ -907,45 +537,30 @@
   to {
     opacity: 1;
   }
-
 }
 
 
-/* =========================================================
-   IMAGE STAGE
-========================================================= */
-
 .popup-image-stage {
-
   position: relative;
 
   width: 100%;
-
   height: 100%;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   overflow: hidden;
-
 }
 
 
-/* =========================================================
-   POPUP IMAGE
-========================================================= */
+/* POPUP IMAGE */
 
 .popup-image {
-
   max-width: 82vw;
-
   max-height: 80vh;
 
   width: auto;
-
   height: auto;
 
   object-fit: contain;
@@ -955,9 +570,7 @@
   border-radius: 12px;
 
   user-select: none;
-
   -webkit-user-select: none;
-
   -webkit-user-drag: none;
 
   transform-origin: center center;
@@ -966,63 +579,47 @@
 
   will-change: transform;
 
-  transition:
-    transform 0.18s ease;
+  transition: transform 0.18s ease;
 
-  box-shadow:
-    0 20px 80px rgba(0, 0, 0, 0.60);
-
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
 }
-
 
 .popup-image.zoomed {
-
   cursor: grab;
-
   transition: none;
-
 }
 
-
 .popup-image.zoomed:active {
-
   cursor: grabbing;
-
 }
 
 
 /* =========================================================
-   CLOSE BUTTON
+   POPUP CLOSE
 ========================================================= */
 
-.popup-close {
-
+.popup-close,
+.video-popup-close {
   position: fixed;
 
   top: 20px;
-
   right: 25px;
 
   width: 48px;
-
   height: 48px;
 
   padding: 0;
-
   margin: 0;
 
-  border: 1px solid
-    rgba(255, 255, 255, .45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
 
   border-radius: 50%;
 
-  background:
-    rgba(0, 0, 0, 0.88);
+  background: rgba(0, 0, 0, 0.88);
 
-  color: #ffffff;
+  color: #fff;
 
   font-size: 28px;
-
   line-height: 1;
 
   cursor: pointer;
@@ -1030,31 +627,23 @@
   z-index: 100002;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   box-sizing: border-box;
 
   transition:
-    background .2s ease,
-    color .2s ease,
-    box-shadow .2s ease;
-
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+.popup-close:hover,
+.video-popup-close:hover {
+  background: #fff;
+  color: #111;
 
-.popup-close:hover {
-
-  background: #ffffff;
-
-  color: #111111;
-
-  box-shadow:
-    0 0 18px
-    rgba(255,255,255,.20);
-
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
 }
 
 
@@ -1063,20 +652,16 @@
 ========================================================= */
 
 .image-zoom-controls {
-
   position: fixed;
 
   left: 50%;
-
   top: 20px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   z-index: 100003;
 
   display: flex;
-
   align-items: center;
 
   gap: 6px;
@@ -1085,265 +670,188 @@
 
   border-radius: 30px;
 
-  background:
-    rgba(0, 0, 0, 0.88);
+  background: rgba(0, 0, 0, 0.88);
 
-  border:
-    1px solid
-    rgba(212,175,55,.55);
+  border: 1px solid rgba(212, 175, 55, 0.55);
 
-  box-shadow:
-    0 8px 30px
-    rgba(0,0,0,.35);
-
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
-
 .image-zoom-controls button {
-
   width: 38px;
-
   height: 38px;
 
   border: none;
-
   border-radius: 50%;
 
-  background:
-    rgba(255,255,255,.10);
+  background: rgba(255, 255, 255, 0.1);
 
-  color: #ffffff;
+  color: #fff;
 
   font-size: 23px;
-
   line-height: 1;
 
   cursor: pointer;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   transition:
-    background .2s ease,
-    color .2s ease,
-    transform .2s ease;
-
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
-
 
 .image-zoom-controls button:hover {
-
   background: #d4af37;
-
-  color: #111111;
+  color: #111;
 
   transform: scale(1.06);
-
 }
 
-
 .image-zoom-controls button:disabled {
-
-  opacity: .35;
+  opacity: 0.35;
 
   cursor: not-allowed;
 
   transform: none;
-
 }
 
-
 .image-zoom-controls span {
-
   min-width: 55px;
 
   text-align: center;
 
-  color: #ffffff;
+  color: #fff;
 
   font-size: 14px;
-
   font-weight: 700;
-
 }
 
-
-.image-zoom-controls
-.zoom-reset-btn {
-
+.image-zoom-controls .zoom-reset-btn {
   font-size: 19px;
-
 }
 
 
 /* =========================================================
-   PHOTO ARROWS
+   PHOTO / VIDEO ARROWS
 ========================================================= */
 
 .popup-prev,
-.popup-next {
-
+.popup-next,
+.video-popup-prev,
+.video-popup-next {
   position: fixed;
 
   top: 50%;
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 
   width: 50px;
-
   height: 50px;
 
   padding: 0;
-
   margin: 0;
 
-  border:
-    1px solid
-    rgba(212,175,55,.85);
-
   border-radius: 50%;
-
-  background:
-    rgba(0, 0, 0, 0.88);
-
-  color: #d4af37;
-
-  font-size: 26px;
-
-  line-height: 1;
 
   cursor: pointer;
 
   z-index: 100002;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
-  text-align: center;
 
   box-sizing: border-box;
 
   transition:
-    background .2s ease,
-    color .2s ease,
-    box-shadow .2s ease,
-    transform .2s ease;
-
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
+.popup-prev,
+.popup-next {
+  border: 1px solid rgba(212, 175, 55, 0.85);
+
+  background: rgba(0, 0, 0, 0.88);
+
+  color: #d4af37;
+
+  font-size: 26px;
+}
 
 .popup-prev {
-
   left: 25px;
-
 }
-
 
 .popup-next {
-
   right: 25px;
-
 }
-
 
 .popup-prev:hover,
 .popup-next:hover {
-
   background: #d4af37;
 
-  color: #111111;
+  color: #111;
 
-  transform:
-    translateY(-50%)
-    scale(1.06);
+  transform: translateY(-50%) scale(1.06);
 
-  box-shadow:
-    0 0 18px
-    rgba(212,175,55,.35);
-
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
 }
-
 
 .popup-prev:active,
 .popup-next:active {
-
-  transform:
-    translateY(-50%)
-    scale(1.03);
-
+  transform: translateY(-50%) scale(1.03);
 }
-
 
 .popup-prev:focus,
 .popup-next:focus {
-
   outline: none;
-
 }
 
 
-/* =========================================================
-   PHOTO COUNTER
-========================================================= */
-
-.popup-counter {
-
+.popup-counter,
+.video-popup-counter {
   position: fixed;
 
   bottom: 18px;
-
   left: 50%;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
-  color: #ffffff;
+  color: #fff;
 
-  background:
-    rgba(0, 0, 0, 0.78);
+  background: rgba(0, 0, 0, 0.78);
 
-  padding:
-    7px 15px;
-
-  border:
-    1px solid
-    rgba(212,175,55,.45);
+  padding: 7px 15px;
 
   border-radius: 20px;
 
   font-size: 14px;
 
   z-index: 100002;
+}
 
+.popup-counter {
+  border: 1px solid rgba(212, 175, 55, 0.45);
 }
 
 
-/* =========================================================
-   ZOOM HELP
-========================================================= */
-
 .zoom-help {
-
   position: fixed;
 
   bottom: 18px;
-
   right: 18px;
 
-  color: rgba(255,255,255,.75);
+  color: rgba(255, 255, 255, 0.75);
 
-  background:
-    rgba(0,0,0,.60);
+  background: rgba(0, 0, 0, 0.6);
 
-  padding:
-    7px 12px;
+  padding: 7px 12px;
 
   border-radius: 8px;
 
@@ -1352,7 +860,6 @@
   z-index: 100001;
 
   pointer-events: none;
-
 }
 
 
@@ -1361,20 +868,16 @@
 ========================================================= */
 
 .video-popup {
-
   position: fixed;
-
   inset: 0;
 
   z-index: 99999;
 
-  background:
-    rgba(0, 0, 0, 0.94);
+  background: rgba(0, 0, 0, 0.94);
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   padding: 20px;
@@ -1387,14 +890,10 @@
 
   touch-action: none;
 
-  animation:
-    videoPopupFade 0.2s ease;
-
+  animation: videoPopupFade 0.2s ease;
 }
 
-
 @keyframes videoPopupFade {
-
   from {
     opacity: 0;
   }
@@ -1402,259 +901,75 @@
   to {
     opacity: 1;
   }
-
 }
 
-
-/* =========================================================
-   VIDEO CONTAINER
-========================================================= */
-
 .video-popup-container {
-
   position: relative;
 
-  background: #000000;
+  background: #000;
 
   overflow: hidden;
 
   border-radius: 12px;
 
-  box-shadow:
-    0 20px 80px
-    rgba(0, 0, 0, 0.70);
-
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
 }
-
 
 .video-popup-youtube,
 .video-popup-facebook,
 .video-popup-other {
-
-  width:
-    min(90vw, 1100px);
+  width: min(90vw, 1100px);
 
   aspect-ratio: 16 / 9;
-
 }
 
-
 .video-popup-instagram {
-
-  height:
-    min(88vh, 820px);
+  height: min(88vh, 820px);
 
   width: auto;
 
   aspect-ratio: 9 / 16;
-
 }
 
-
-/* =========================================================
-   VIDEO IFRAME
-========================================================= */
-
 .video-popup-iframe {
-
   width: 100%;
-
   height: 100%;
 
   border: none;
 
   display: block;
 
-  background: #000000;
-
+  background: #000;
 }
-
-
-/* =========================================================
-   VIDEO CLOSE
-========================================================= */
-
-.video-popup-close {
-
-  position: fixed;
-
-  top: 20px;
-
-  right: 25px;
-
-  width: 48px;
-
-  height: 48px;
-
-  padding: 0;
-
-  margin: 0;
-
-  border:
-    1px solid
-    rgba(255,255,255,.45);
-
-  border-radius: 50%;
-
-  background:
-    rgba(0, 0, 0, 0.88);
-
-  color: #ffffff;
-
-  font-size: 28px;
-
-  line-height: 1;
-
-  cursor: pointer;
-
-  z-index: 100002;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  box-sizing: border-box;
-
-  transition:
-    background .2s ease,
-    color .2s ease,
-    box-shadow .2s ease;
-
-}
-
-
-.video-popup-close:hover {
-
-  background: #ffffff;
-
-  color: #111111;
-
-  box-shadow:
-    0 0 18px
-    rgba(255,255,255,.20);
-
-}
-
-
-/* =========================================================
-   VIDEO ARROWS
-========================================================= */
 
 .video-popup-prev,
 .video-popup-next {
+  border: 1px solid rgba(255, 255, 255, 0.55);
 
-  position: fixed;
+  background: rgba(0, 0, 0, 0.88);
 
-  top: 50%;
-
-  transform:
-    translateY(-50%);
-
-  width: 50px;
-
-  height: 50px;
-
-  padding: 0;
-
-  margin: 0;
-
-  border:
-    1px solid
-    rgba(255,255,255,.55);
-
-  border-radius: 50%;
-
-  background:
-    rgba(0, 0, 0, 0.88);
-
-  color: #ffffff;
+  color: #fff;
 
   font-size: 26px;
-
-  cursor: pointer;
-
-  z-index: 100002;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  box-sizing: border-box;
-
-  transition:
-    background .2s ease,
-    color .2s ease,
-    box-shadow .2s ease,
-    transform .2s ease;
-
 }
-
 
 .video-popup-prev {
-
   left: 25px;
-
 }
-
 
 .video-popup-next {
-
   right: 25px;
-
 }
-
 
 .video-popup-prev:hover,
 .video-popup-next:hover {
+  background: #fff;
 
-  background: #ffffff;
+  color: #111;
 
-  color: #111111;
+  transform: translateY(-50%) scale(1.06);
 
-  transform:
-    translateY(-50%)
-    scale(1.06);
-
-  box-shadow:
-    0 0 18px
-    rgba(255,255,255,.20);
-
-}
-
-
-/* =========================================================
-   VIDEO COUNTER
-========================================================= */
-
-.video-popup-counter {
-
-  position: fixed;
-
-  bottom: 18px;
-
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  color: #ffffff;
-
-  background:
-    rgba(0, 0, 0, 0.70);
-
-  padding:
-    7px 15px;
-
-  border-radius: 20px;
-
-  font-size: 14px;
-
-  z-index: 100002;
-
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
 }
 
 
@@ -1663,31 +978,26 @@
 ========================================================= */
 
 .member-certificate {
+  margin-top: 28px;
 
-  margin-top: 35px;
-
-  padding: 30px;
+  padding: 25px;
 
   text-align: center;
-
 }
 
-
 .certificate-btn {
-
   display: inline-flex;
 
   align-items: center;
-
   justify-content: center;
 
-  padding: 12px 25px;
+  padding: 11px 23px;
 
-  border-radius: 12px;
+  border-radius: 10px;
 
   background: #111827;
 
-  color: #ffffff;
+  color: #fff;
 
   text-decoration: none;
 
@@ -1696,80 +1006,60 @@
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-
 }
 
-
 .certificate-btn:hover {
+  color: #fff;
 
-  color: #ffffff;
+  transform: translateY(-2px);
 
-  transform:
-    translateY(-2px);
-
-  box-shadow:
-    0 8px 20px
-    rgba(0,0,0,.18);
-
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.18);
 }
 
 
 /* =========================================================
-   GOOGLE LOCATION
+   LOCATION
 ========================================================= */
 
 .member-location {
+  margin-top: 28px;
 
-  margin-top: 35px;
-
-  padding: 30px;
+  padding: 25px;
 
   text-align: center;
-
 }
-
 
 .member-location p {
-
   max-width: 700px;
 
-  margin:
-    0 auto 22px;
+  margin: 0 auto 20px;
 
-  color: #666666;
+  color: #666;
 
   line-height: 1.7;
-
 }
 
-
 .google-location-btn {
-
   display: inline-flex;
 
   align-items: center;
-
   justify-content: center;
 
-  padding: 12px 24px;
+  padding: 11px 22px;
 
-  border-radius: 12px;
+  border-radius: 10px;
 
   background: #4285f4;
 
-  color: #ffffff;
+  color: #fff;
 
   text-decoration: none;
 
   font-weight: 700;
-
 }
 
-
 .google-location-btn:hover {
-
-  color: #ffffff;
-
+  color: #fff;
 }
 
 
@@ -1778,29 +1068,25 @@
 ========================================================= */
 
 .share-profile {
+  margin-top: 28px;
 
-  margin-top: 35px;
-
-  padding: 30px;
+  padding: 25px;
 
   text-align: center;
-
 }
 
-
 .share-btn {
-
   border: none;
 
-  padding: 13px 28px;
+  padding: 12px 25px;
 
-  border-radius: 12px;
+  border-radius: 10px;
 
   background: #111827;
 
-  color: #ffffff;
+  color: #fff;
 
-  font-size: 15px;
+  font-size: 14px;
 
   font-weight: 700;
 
@@ -1809,33 +1095,22 @@
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-
 }
-
 
 .share-btn:hover {
+  transform: translateY(-2px);
 
-  transform:
-    translateY(-2px);
-
-  box-shadow:
-    0 8px 20px
-    rgba(0, 0, 0, 0.20);
-
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.2);
 }
 
-
 .share-message {
-
-  margin:
-    15px 0 0;
+  margin: 13px 0 0;
 
   color: #16803a;
 
-  font-size: 14px;
+  font-size: 13px;
 
   font-weight: 600;
-
 }
 
 
@@ -1844,1020 +1119,110 @@
 ========================================================= */
 
 .member-qr {
+  margin-top: 28px;
 
-  margin-top: 35px;
-
-  padding: 30px;
+  padding: 25px;
 
   text-align: center;
-
 }
-
 
 .qr-wrapper {
-
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  margin:
-    10px auto 18px;
-
+  margin: 8px auto 16px;
 }
-
 
 .member-qr p {
-
   margin: 0;
 
-  color: #666666;
-
-  font-size: 14px;
-
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.profile-loading {
-
-  min-height: 60vh;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 40px;
-
-  font-size: 20px;
-
-  font-weight: 700;
-
-  color: #444444;
-
-  text-align: center;
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .member-profile {
-
-    padding:
-      30px 16px 60px;
-
-  }
-
-
-  .profile-card {
-
-    padding: 28px;
-
-  }
-
-
-  .profile-info {
-
-    grid-template-columns: 1fr;
-
-  }
-
-
-  .portfolio-gallery {
-
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-  }
-
-
-  .member-portfolio,
-  .member-videos,
-  .member-certificate,
-  .member-location,
-  .share-profile,
-  .member-qr {
-
-    padding: 25px;
-
-  }
-
-
-  .popup-prev {
-
-    left: 15px;
-
-  }
-
-
-  .popup-next {
-
-    right: 15px;
-
-  }
-
-
-  .video-popup-prev {
-
-    left: 15px;
-
-  }
-
-
-  .video-popup-next {
-
-    right: 15px;
-
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-  .member-profile {
-
-    padding:
-      20px 12px 50px;
-
-  }
-
-
-  .profile-card {
-
-    padding:
-      22px 16px;
-
-    border-radius: 18px;
-
-  }
-
-
-  .profile-image-wrapper {
-
-    width: 150px;
-
-    height: 150px;
-
-  }
-
-
-  .profile-top h1 {
-
-    font-size: 28px;
-
-  }
-
-
-  .profile-id {
-
-    font-size: 14px;
-
-  }
-
-
-  .member-joining-date {
-
-    font-size: 13px;
-
-  }
-
-
-  .profile-info {
-
-    margin-top: 25px;
-
-    gap: 10px;
-
-  }
-
-
-  .profile-info p {
-
-    font-size: 14px;
-
-    padding: 12px;
-
-  }
-
-
-  .member-portfolio,
-  .member-videos,
-  .member-certificate,
-  .member-location,
-  .share-profile,
-  .member-qr {
-
-    margin-top: 25px;
-
-    padding:
-      20px 15px;
-
-    border-radius: 18px;
-
-  }
-
-
-  .member-portfolio h2,
-  .member-videos h2,
-  .member-certificate h2,
-  .member-location h2,
-  .share-profile h2,
-  .member-qr h2 {
-
-    font-size: 23px;
-
-    margin-bottom: 20px;
-
-  }
-
-
-  /* PHOTO GALLERY */
-
-  .portfolio-gallery {
-
-    grid-template-columns: 1fr;
-
-    gap: 15px;
-
-  }
-
-
-  .portfolio-photo-item img {
-
-    aspect-ratio: 4 / 3;
-
-  }
-
-
-  /* VIDEO GALLERY */
-
-  .video-gallery {
-
-    grid-template-columns: 1fr;
-
-    gap: 18px;
-
-  }
-
-
-  .video-thumbnail {
-
-    aspect-ratio: 16 / 9;
-
-  }
-
-
-  .instagram-preview-wrapper {
-
-    aspect-ratio: 9 / 16;
-
-    max-height: 620px;
-
-  }
-
-
-  .video-card-info {
-
-    min-height: 70px;
-
-    padding:
-      12px 15px;
-
-  }
-
-
-  .video-card-info strong {
-
-    font-size: 15px;
-
-  }
-
-
-  .video-play-icon {
-
-    width: 60px;
-
-    height: 60px;
-
-    font-size: 24px;
-
-  }
-
-
-  /* =====================================================
-     IMAGE POPUP MOBILE
-  ===================================================== */
-
-  .image-popup {
-
-    padding: 10px;
-
-  }
-
-
-  .popup-image {
-
-    max-width: 86vw;
-
-    max-height: 74vh;
-
-  }
-
-
-  .popup-close {
-
-    top: 10px;
-
-    right: 10px;
-
-    width: 42px;
-
-    height: 42px;
-
-    font-size: 23px;
-
-  }
-
-
-  .image-zoom-controls {
-
-    top: 10px;
-
-    left: 50%;
-
-    padding: 5px;
-
-  }
-
-
-  .image-zoom-controls button {
-
-    width: 34px;
-
-    height: 34px;
-
-    font-size: 21px;
-
-  }
-
-
-  .image-zoom-controls span {
-
-    min-width: 48px;
-
-    font-size: 12px;
-
-  }
-
-
-  .popup-prev,
-  .popup-next {
-
-    width: 42px;
-
-    height: 42px;
-
-    font-size: 20px;
-
-  }
-
-
-  .popup-prev {
-
-    left: 7px;
-
-  }
-
-
-  .popup-next {
-
-    right: 7px;
-
-  }
-
-
-  .popup-counter {
-
-    bottom: 12px;
-
-    font-size: 13px;
-
-  }
-
-
-  .zoom-help {
-
-    display: none;
-
-  }
-
-
-  /* VIDEO POPUP */
-
-  .video-popup {
-
-    padding: 10px;
-
-  }
-
-
-  .video-popup-youtube,
-  .video-popup-facebook,
-  .video-popup-other {
-
-    width: 94vw;
-
-    aspect-ratio: 16 / 9;
-
-  }
-
-
-  .video-popup-instagram {
-
-    height: 82vh;
-
-    max-height: 760px;
-
-    max-width: 88vw;
-
-    aspect-ratio: 9 / 16;
-
-  }
-
-
-  .video-popup-close {
-
-    top: 10px;
-
-    right: 10px;
-
-    width: 42px;
-
-    height: 42px;
-
-    font-size: 23px;
-
-  }
-
-
-  .video-popup-prev,
-  .video-popup-next {
-
-    width: 42px;
-
-    height: 42px;
-
-    font-size: 20px;
-
-  }
-
-
-  .video-popup-prev {
-
-    left: 7px;
-
-  }
-
-
-  .video-popup-next {
-
-    right: 7px;
-
-  }
-
-
-  .video-popup-counter {
-
-    bottom: 12px;
-
-  }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .profile-image-wrapper {
-
-    width: 135px;
-
-    height: 135px;
-
-  }
-
-
-  .profile-top h1 {
-
-    font-size: 25px;
-
-  }
-
-
-  .registered-member-badge {
-
-    font-size: 12px;
-
-    padding:
-      7px 12px;
-
-  }
-
-
-  .profile-rating-stars {
-
-    font-size: 18px;
-
-  }
-
-
-  .portfolio-view-btn {
-
-    font-size: 12px;
-
-    padding:
-      8px 12px;
-
-  }
-
-
-  .instagram-preview-wrapper {
-
-    max-height: 570px;
-
-  }
-
-
-  .video-popup-instagram {
-
-    height: 78vh;
-
-    max-width: 86vw;
-
-  }
-
-
-  .video-card-info {
-
-    padding:
-      11px 13px;
-
-  }
-
-
-  .video-card-info span {
-
-    font-size: 12px;
-
-  }
-
-
-  .video-card-info strong {
-
-    font-size: 14px;
-
-  }
-
-
-  /* SMALL IMAGE POPUP */
-
-  .popup-close {
-
-    top: 7px;
-
-    right: 7px;
-
-    width: 40px;
-
-    height: 40px;
-
-    font-size: 22px;
-
-  }
-
-
-  .image-zoom-controls {
-
-    top: 7px;
-
-  }
-
-
-  .image-zoom-controls button {
-
-    width: 32px;
-
-    height: 32px;
-
-  }
-
-
-  .image-zoom-controls span {
-
-    min-width: 42px;
-
-  }
-
-
-  .popup-prev,
-  .popup-next {
-
-    width: 40px;
-
-    height: 40px;
-
-    font-size: 19px;
-
-  }
-
-
-  .popup-prev {
-
-    left: 5px;
-
-  }
-
-
-  .popup-next {
-
-    right: 5px;
-
-  }
-
-
-  .popup-counter {
-
-    bottom: 9px;
-
-    font-size: 12px;
-
-    padding:
-      6px 12px;
-
-  }
-
-
-  /* SMALL VIDEO POPUP */
-
-  .video-popup-close {
-
-    top: 7px;
-
-    right: 7px;
-
-    width: 40px;
-
-    height: 40px;
-
-    font-size: 22px;
-
-  }
-
-
-  .video-popup-prev,
-  .video-popup-next {
-
-    width: 40px;
-
-    height: 40px;
-
-    font-size: 19px;
-
-  }
-
-
-  .video-popup-prev {
-
-    left: 5px;
-
-  }
-
-
-  .video-popup-next {
-
-    right: 5px;
-
-  }
-
-}
-
-
-/* =========================================================
-   REDUCE MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .popup-image,
-  .profile-image-wrapper,
-  .video-preview-button,
-  .popup-prev,
-  .popup-next,
-  .video-popup-prev,
-  .video-popup-next {
-
-    transition: none;
-
-  }
-
-}
-/* =====================================================
-   WEBSITE THEME COLOR
-===================================================== */
-
-.theme-settings-card {
-  position: relative;
-  overflow: hidden;
-}
-
-
-/* =====================================================
-   THEME COLOR GRID
-===================================================== */
-
-.theme-color-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 15px;
-  width: 100%;
-}
-
-
-/* =====================================================
-   THEME COLOR OPTION
-===================================================== */
-
-.theme-color-option {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  gap: 11px;
-
-  width: 100%;
-  min-height: 62px;
-
-  box-sizing: border-box;
-
-  margin: 0;
-  padding: 12px 15px;
-
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-
-  background: #ffffff;
-
-  color: #334155;
-
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  box-shadow: none;
-
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-
-.theme-color-option:hover {
-  transform: translateY(-2px);
-
-  border-color: #94a3b8;
-
-  background: #f8fafc;
-
-  box-shadow:
-    0 6px 18px rgba(15, 23, 42, 0.08);
-}
-
-
-/* =====================================================
-   ACTIVE THEME
-===================================================== */
-
-.theme-color-option.active {
-  border-color: #2563eb;
-
-  background: #eff6ff;
-
-  box-shadow:
-    0 5px 18px rgba(37, 99, 235, 0.12);
-}
-
-
-.theme-color-option.active:hover {
-  border-color: #2563eb;
-}
-
-
-/* =====================================================
-   COLOR CIRCLE
-===================================================== */
-
-.theme-color-circle {
-  flex-shrink: 0;
-
-  width: 31px;
-  height: 31px;
-
-  border-radius: 50%;
-
-  border: 3px solid #ffffff;
-
-  box-shadow:
-    0 0 0 1px #cbd5e1,
-    0 3px 8px rgba(15, 23, 42, 0.15);
-}
-
-
-/* =====================================================
-   CHECK MARK
-===================================================== */
-
-.theme-check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 23px;
-  height: 23px;
-
-  margin-left: auto;
-
-  border-radius: 50%;
-
-  background: #2563eb;
-
-  color: #ffffff;
+  color: #666;
 
   font-size: 13px;
-  font-weight: 900;
 }
 
 
-/* =====================================================
-   THEME INFORMATION
-===================================================== */
-
-.theme-info-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-
-  width: 100%;
-
-  box-sizing: border-box;
-
-  margin-top: 20px;
-  padding: 13px 15px;
-
-  border: 1px solid #bfdbfe;
-
-  border-radius: 9px;
-
-  background: #eff6ff;
-
-  color: #1e40af;
-}
-
-
-.theme-info-note > svg {
-  flex-shrink: 0;
-
-  margin-top: 3px;
-}
-
-
-.theme-info-note p {
-  margin: 0;
-
-  color: #1e40af;
-
-  font-size: 13px;
-
-  line-height: 1.7;
-}
-
-
-/* =====================================================
-   THEME RESPONSIVE
-===================================================== */
-
-@media (max-width: 900px) {
-
-  .theme-color-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-}
-
-
-@media (max-width: 600px) {
-
-  .theme-color-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .theme-color-option {
-    min-height: 58px;
-  }
-
-}
-
-
-@media (max-width: 380px) {
-
-  .theme-color-option {
-    min-height: 55px;
-
-    padding: 10px 12px;
-
-    font-size: 13px;
-  }
-
-  .theme-color-circle {
-    width: 28px;
-    height: 28px;
-  }
-
-}
 /* =========================================================
-   OCMA MEMBER RATING & REVIEWS
+   RATING & REVIEWS
 ========================================================= */
 
 .profile-rating-section {
   width: 100%;
+
   max-width: 900px;
-  margin: 30px auto 24px;
+
+  margin: 28px auto 22px;
+
   box-sizing: border-box;
 }
 
 .profile-rating-title {
-  margin: 0 0 18px;
+  margin: 0 0 16px;
+
   text-align: center;
+
   color: #f5c542;
-  font-size: 24px;
+
+  font-size: 23px;
+
   font-weight: 800;
-  text-shadow: 0 2px 10px rgba(245,197,66,.2);
+
+  text-shadow: 0 2px 10px rgba(245, 197, 66, 0.2);
 }
 
 .profile-rating-summary {
   width: 100%;
+
   display: flex;
+
   justify-content: center;
 }
 
 .profile-rating-main {
   width: 100%;
+
   max-width: 520px;
-  padding: 18px 22px;
+
+  padding: 16px 20px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
-  gap: 22px;
+
+  gap: 20px;
+
   background: #fff;
+
   border: 1px solid #e7e7e7;
-  border-radius: 15px;
-  box-shadow: 0 7px 24px rgba(0,0,0,.08);
+
+  border-radius: 13px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+
   box-sizing: border-box;
 }
 
 .profile-rating-stars-live {
   display: flex;
+
   align-items: center;
+
   gap: 3px;
-  font-size: 29px;
+
+  font-size: 28px;
+
   line-height: 1;
+
   white-space: nowrap;
 }
 
 .rating-display-star {
   color: #ddd;
+
   line-height: 1;
 }
 
@@ -2875,79 +1240,113 @@
     #f5b301 50%,
     #ddd 50%
   );
+
   -webkit-background-clip: text;
   background-clip: text;
+
   -webkit-text-fill-color: transparent;
 }
 
 .profile-rating-score-row {
   display: flex;
+
   align-items: center;
-  gap: 9px;
+
+  gap: 8px;
 }
 
 .profile-rating-score-number {
   color: #111827;
-  font-size: 29px;
+
+  font-size: 28px;
+
   line-height: 1;
+
   font-weight: 900;
 }
 
 .profile-rating-reviews-count {
   color: #6b7280;
-  font-size: 13px;
+
+  font-size: 12px;
+
   font-weight: 700;
+
   white-space: nowrap;
 }
 
-
-/* =========================================================
-   REVIEWS LIST
-========================================================= */
-
 .profile-reviews-list {
   width: 100%;
-  margin: 20px auto 0;
+
+  margin: 18px auto 0;
+
   display: flex;
+
   flex-direction: column;
-  gap: 9px;
+
+  gap: 8px;
 }
 
 .profile-review-card {
   width: 100%;
-  padding: 13px 15px;
+
+  padding: 12px 14px;
+
   display: grid;
-  grid-template-columns: 190px 85px 1fr auto;
+
+  grid-template-columns:
+    190px
+    85px
+    1fr
+    auto;
+
   align-items: center;
-  gap: 12px;
+
+  gap: 10px;
+
   background: #fff;
+
   border: 1px solid #e8e8e8;
-  border-radius: 12px;
-  box-shadow: 0 5px 17px rgba(0,0,0,.05);
+
+  border-radius: 11px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+
   box-sizing: border-box;
-  transition: .2s ease;
+
+  transition: 0.2s ease;
 }
 
 .profile-review-card:hover {
   border-color: #d4af37;
-  box-shadow: 0 8px 22px rgba(0,0,0,.08);
+
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.07);
+
   transform: translateY(-1px);
 }
 
 .profile-review-user {
   min-width: 0;
+
   display: flex;
+
   align-items: center;
-  gap: 10px;
+
+  gap: 9px;
 }
 
 .profile-review-user-image {
-  width: 42px;
-  height: 42px;
-  flex: 0 0 42px;
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
   border-radius: 50%;
+
   object-fit: cover;
+
   background: #f1f3f4;
+
   border: 1px solid #eee;
 }
 
@@ -2957,162 +1356,224 @@
 
 .profile-review-user-name {
   margin: 0;
+
   color: #111827;
-  font-size: 14px;
+
+  font-size: 13px;
+
   line-height: 1.3;
+
   font-weight: 800;
+
   word-break: break-word;
 }
 
 .profile-review-verified {
   display: block;
+
   margin-top: 2px;
+
   color: #888;
-  font-size: 10px;
+
+  font-size: 9px;
+
   font-weight: 600;
 }
 
 .profile-review-stars {
   display: flex;
+
   align-items: center;
+
   gap: 1px;
+
   color: #f5b301;
-  font-size: 15px;
+
+  font-size: 14px;
+
   line-height: 1;
+
   white-space: nowrap;
 }
 
 .profile-review-text {
   min-width: 0;
+
   margin: 0;
+
   color: #444;
-  font-size: 13px;
+
+  font-size: 12px;
+
   line-height: 1.5;
+
   word-break: break-word;
 }
 
 .profile-review-date {
   color: #999;
-  font-size: 10px;
+
+  font-size: 9px;
+
   font-weight: 500;
+
   white-space: nowrap;
+
   text-align: right;
 }
 
 .profile-no-reviews {
   width: 100%;
-  margin-top: 18px;
-  padding: 18px;
+
+  margin-top: 16px;
+
+  padding: 16px;
+
   text-align: center;
+
   color: #777;
-  font-size: 13px;
+
+  font-size: 12px;
+
   background: #f8f9fa;
+
   border: 1px solid #eee;
-  border-radius: 12px;
+
+  border-radius: 11px;
+
   box-sizing: border-box;
 }
 
-
-/* =========================================================
-   WRITE / EDIT BUTTON
-========================================================= */
-
 .profile-review-action {
   width: 100%;
-  margin: 18px auto 0;
+
+  margin: 16px auto 0;
+
   display: flex;
+
   justify-content: center;
 }
 
 .profile-write-review-btn {
-  min-width: 160px;
-  padding: 10px 20px;
+  min-width: 155px;
+
+  padding: 9px 18px;
+
   border: 1px solid #d8d8d8;
-  border-radius: 9px;
+
+  border-radius: 8px;
+
   background: #fff;
+
   color: #222;
-  font-size: 13px;
+
+  font-size: 12px;
+
   font-weight: 800;
+
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,.06);
-  transition: .2s ease;
+
+  box-shadow: 0 4px 13px rgba(0, 0, 0, 0.05);
+
+  transition: 0.2s ease;
 }
 
 .profile-write-review-btn:hover {
   border-color: #d4af37;
-  color: #111;
+
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0,0,0,.09);
 }
 
 .profile-google-login-box {
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
 
-
-/* =========================================================
-   REVIEW FORM
-========================================================= */
-
 .profile-rating-form {
   width: 100%;
+
   max-width: 600px;
-  margin: 18px auto 0;
-  padding: 17px;
+
+  margin: 16px auto 0;
+
+  padding: 15px;
+
   background: #fff;
+
   border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  box-shadow: 0 7px 22px rgba(0,0,0,.06);
+
+  border-radius: 13px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+
   box-sizing: border-box;
 }
 
 .rating-user-info {
   display: flex;
+
   align-items: center;
-  gap: 10px;
+
+  gap: 9px;
 }
 
 .rating-user-info img {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
+
   border-radius: 50%;
+
   object-fit: cover;
 }
 
 .rating-user-info div {
   display: flex;
+
   flex-direction: column;
 }
 
 .rating-user-info strong {
   color: #111827;
-  font-size: 13px;
+
+  font-size: 12px;
 }
 
 .rating-user-info span {
   margin-top: 2px;
+
   color: #888;
-  font-size: 10px;
+
+  font-size: 9px;
 }
 
 .rating-stars-selector {
-  margin: 14px 0;
+  margin: 13px 0;
+
   display: flex;
+
   align-items: center;
+
   gap: 3px;
 }
 
 .rating-star {
   padding: 0;
+
   border: 0;
+
   background: transparent;
+
   color: #d5d5d5;
-  font-size: 28px;
+
+  font-size: 27px;
+
   line-height: 1;
+
   cursor: pointer;
-  transition: .15s ease;
+
+  transition: 0.15s ease;
 }
 
 .rating-star.active,
@@ -3126,53 +1587,81 @@
 
 .review-input-wrapper label {
   display: block;
-  margin-bottom: 6px;
+
+  margin-bottom: 5px;
+
   color: #333;
-  font-size: 12px;
+
+  font-size: 11px;
+
   font-weight: 700;
 }
 
 .review-input-wrapper textarea {
   width: 100%;
-  min-height: 100px;
-  padding: 10px 12px;
+
+  min-height: 95px;
+
+  padding: 9px 11px;
+
   resize: vertical;
+
   border: 1px solid #ddd;
-  border-radius: 9px;
+
+  border-radius: 8px;
+
   outline: none;
+
   background: #fff;
+
   color: #222;
+
   font-family: inherit;
-  font-size: 13px;
-  line-height: 1.55;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
   box-sizing: border-box;
 }
 
 .review-input-wrapper textarea:focus {
   border-color: #d4af37;
-  box-shadow: 0 0 0 3px rgba(212,175,55,.1);
+
+  box-shadow:
+    0 0 0 3px rgba(212, 175, 55, 0.1);
 }
 
 .review-character-count {
   margin-top: 4px;
+
   color: #999;
-  font-size: 10px;
+
+  font-size: 9px;
+
   text-align: right;
 }
 
 .submit-rating-button,
 .cancel-edit-review-button {
-  margin-top: 11px;
-  padding: 10px 17px;
-  border-radius: 8px;
-  font-size: 12px;
+  margin-top: 10px;
+
+  padding: 9px 16px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+
   font-weight: 800;
+
   cursor: pointer;
 }
 
 .submit-rating-button {
   border: 0;
+
   background: #111827;
+
   color: #fff;
 }
 
@@ -3181,21 +1670,52 @@
 }
 
 .submit-rating-button:disabled {
-  opacity: .5;
+  opacity: 0.5;
+
   cursor: not-allowed;
 }
 
 .cancel-edit-review-button {
-  margin-left: 7px;
+  margin-left: 6px;
+
   border: 1px solid #ddd;
+
   background: #fff;
+
   color: #555;
 }
 
 .rating-message {
-  margin: 11px 0 0;
+  margin: 10px 0 0;
+
   color: #666;
-  font-size: 12px;
+
+  font-size: 11px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.profile-loading {
+  min-height: 60vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  color: #444;
+
   text-align: center;
 }
 
@@ -3204,7 +1724,67 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
+  .portfolio-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .portfolio-photo-item {
+    height: 145px;
+    max-height: 145px;
+  }
+
+  .video-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .member-profile {
+    padding: 28px 16px 55px;
+  }
+
+  .profile-card {
+    padding: 25px;
+  }
+
+  .profile-info {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 11px;
+  }
+
+  .portfolio-photo-item {
+    height: 135px;
+    max-height: 135px;
+  }
+
+  .video-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .member-portfolio,
+  .member-videos,
+  .member-certificate,
+  .member-location,
+  .share-profile,
+  .member-qr {
+    padding: 22px;
+  }
+
+  .popup-prev,
+  .video-popup-prev {
+    left: 15px;
+  }
+
+  .popup-next,
+  .video-popup-next {
+    right: 15px;
+  }
+
   .profile-rating-title {
     font-size: 21px;
   }
@@ -3215,6 +1795,7 @@
 
   .profile-review-date {
     grid-column: 3;
+
     text-align: left;
   }
 }
@@ -3224,39 +1805,291 @@
    MOBILE
 ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .member-profile {
+    padding: 18px 10px 45px;
+  }
+
+  .profile-card {
+    padding: 20px 14px;
+
+    border-radius: 17px;
+  }
+
+  .profile-image-wrapper {
+    width: 145px;
+    height: 145px;
+  }
+
+  .profile-top h1 {
+    font-size: 27px;
+  }
+
+  .profile-id {
+    font-size: 13px;
+  }
+
+  .member-joining-date {
+    font-size: 12px;
+  }
+
+  .profile-info {
+    margin-top: 23px;
+
+    gap: 9px;
+  }
+
+  .profile-info p {
+    font-size: 13px;
+
+    padding: 11px;
+  }
+
+  .member-portfolio,
+  .member-videos,
+  .member-certificate,
+  .member-location,
+  .share-profile,
+  .member-qr {
+    margin-top: 22px;
+
+    padding: 18px 13px;
+
+    border-radius: 16px;
+  }
+
+  .member-portfolio h2,
+  .member-videos h2,
+  .member-certificate h2,
+  .member-location h2,
+  .share-profile h2,
+  .member-qr h2 {
+    font-size: 21px;
+
+    margin-bottom: 17px;
+  }
+
+
+  /* =====================================================
+     MOBILE PHOTO THUMBNAILS
+  ===================================================== */
+
+  .portfolio-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+  }
+
+  .portfolio-photo-item {
+    width: 100%;
+
+    height: 115px;
+    max-height: 115px;
+
+    border-radius: 9px;
+  }
+
+  .portfolio-photo-item img {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    object-fit: cover;
+  }
+
+  .portfolio-view-btn {
+    bottom: 5px;
+
+    padding: 5px 8px;
+
+    font-size: 9px;
+  }
+
+
+  /* =====================================================
+     VIDEO
+  ===================================================== */
+
+  .video-gallery {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .video-thumbnail {
+    aspect-ratio: 16 / 9;
+  }
+
+  .instagram-preview-wrapper {
+    aspect-ratio: 9 / 16;
+
+    max-height: 600px;
+  }
+
+  .video-card-info {
+    min-height: 66px;
+
+    padding: 11px 13px;
+  }
+
+  .video-card-info strong {
+    font-size: 14px;
+  }
+
+  .video-play-icon {
+    width: 56px;
+    height: 56px;
+
+    font-size: 23px;
+  }
+
+
+  /* =====================================================
+     IMAGE POPUP MOBILE
+  ===================================================== */
+
+  .image-popup {
+    padding: 10px;
+  }
+
+  .popup-image {
+    max-width: 86vw;
+    max-height: 74vh;
+  }
+
+  .popup-close,
+  .video-popup-close {
+    top: 10px;
+    right: 10px;
+
+    width: 42px;
+    height: 42px;
+
+    font-size: 23px;
+  }
+
+  .image-zoom-controls {
+    top: 10px;
+
+    left: 50%;
+
+    padding: 5px;
+  }
+
+  .image-zoom-controls button {
+    width: 34px;
+    height: 34px;
+
+    font-size: 21px;
+  }
+
+  .image-zoom-controls span {
+    min-width: 48px;
+
+    font-size: 12px;
+  }
+
+  .popup-prev,
+  .popup-next,
+  .video-popup-prev,
+  .video-popup-next {
+    width: 42px;
+    height: 42px;
+
+    font-size: 20px;
+  }
+
+  .popup-prev,
+  .video-popup-prev {
+    left: 7px;
+  }
+
+  .popup-next,
+  .video-popup-next {
+    right: 7px;
+  }
+
+  .popup-counter,
+  .video-popup-counter {
+    bottom: 12px;
+
+    font-size: 13px;
+  }
+
+  .zoom-help {
+    display: none;
+  }
+
+
+  /* =====================================================
+     VIDEO POPUP MOBILE
+  ===================================================== */
+
+  .video-popup {
+    padding: 10px;
+  }
+
+  .video-popup-youtube,
+  .video-popup-facebook,
+  .video-popup-other {
+    width: 94vw;
+
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-popup-instagram {
+    height: 82vh;
+
+    max-height: 760px;
+
+    max-width: 88vw;
+
+    aspect-ratio: 9 / 16;
+  }
+
+
+  /* =====================================================
+     RATINGS MOBILE
+  ===================================================== */
+
   .profile-rating-section {
-    margin-top: 25px;
+    margin-top: 23px;
   }
 
   .profile-rating-title {
-    margin-bottom: 14px;
-    font-size: 19px;
-    color: #f5c542;
+    margin-bottom: 13px;
+
+    font-size: 18px;
   }
 
   .profile-rating-main {
-    padding: 16px 12px;
-    gap: 13px;
+    padding: 14px 11px;
+
+    gap: 12px;
   }
 
   .profile-rating-stars-live {
-    font-size: 24px;
+    font-size: 23px;
   }
 
   .profile-rating-score-number {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   .profile-rating-reviews-count {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .profile-review-card {
     display: grid;
+
     grid-template-columns: 1fr auto;
-    padding: 12px;
-    gap: 8px 10px;
+
+    padding: 11px;
+
+    gap: 7px 9px;
   }
 
   .profile-review-user {
@@ -3269,20 +2102,26 @@
 
   .profile-review-text {
     grid-column: 1 / -1;
-    padding-top: 8px;
+
+    padding-top: 7px;
+
     border-top: 1px solid #f0f0f0;
-    font-size: 12px;
+
+    font-size: 11px;
   }
 
   .profile-review-date {
     grid-column: 1 / -1;
+
     text-align: left;
-    font-size: 9px;
+
+    font-size: 8px;
   }
 
   .profile-write-review-btn {
     width: 100%;
-    max-width: 250px;
+
+    max-width: 240px;
   }
 }
 
@@ -3291,14 +2130,129 @@
    SMALL MOBILE
 ========================================================= */
 
-@media (max-width: 400px) {
-  .profile-rating-main {
-    flex-direction: column;
+@media (max-width: 480px) {
+  .profile-image-wrapper {
+    width: 130px;
+    height: 130px;
+  }
+
+  .profile-top h1 {
+    font-size: 24px;
+  }
+
+  .registered-member-badge {
+    font-size: 11px;
+
+    padding: 6px 11px;
+  }
+
+  .profile-rating-stars {
+    font-size: 17px;
+  }
+
+  .portfolio-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
     gap: 8px;
   }
 
+  .portfolio-photo-item {
+    height: 100px;
+    max-height: 100px;
+
+    border-radius: 8px;
+  }
+
+  .portfolio-view-btn {
+    font-size: 8px;
+
+    padding: 4px 7px;
+
+    bottom: 4px;
+  }
+
+  .instagram-preview-wrapper {
+    max-height: 570px;
+  }
+
+  .video-popup-instagram {
+    height: 78vh;
+
+    max-width: 86vw;
+  }
+
+  .video-card-info {
+    padding: 10px 12px;
+  }
+
+  .video-card-info span {
+    font-size: 11px;
+  }
+
+  .video-card-info strong {
+    font-size: 13px;
+  }
+
+  .popup-close,
+  .video-popup-close {
+    top: 7px;
+    right: 7px;
+
+    width: 40px;
+    height: 40px;
+
+    font-size: 22px;
+  }
+
+  .image-zoom-controls {
+    top: 7px;
+  }
+
+  .image-zoom-controls button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .image-zoom-controls span {
+    min-width: 42px;
+  }
+
+  .popup-prev,
+  .popup-next,
+  .video-popup-prev,
+  .video-popup-next {
+    width: 40px;
+    height: 40px;
+
+    font-size: 19px;
+  }
+
+  .popup-prev,
+  .video-popup-prev {
+    left: 5px;
+  }
+
+  .popup-next,
+  .video-popup-next {
+    right: 5px;
+  }
+
+  .popup-counter {
+    bottom: 9px;
+
+    font-size: 12px;
+
+    padding: 6px 12px;
+  }
+
+  .profile-rating-main {
+    flex-direction: column;
+
+    gap: 7px;
+  }
+
   .profile-rating-stars-live {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   .profile-rating-score-row {
@@ -3306,11 +2260,27 @@
   }
 
   .profile-rating-form {
-    padding: 14px;
+    padding: 13px;
   }
 
   .rating-star {
-    font-size: 25px;
+    font-size: 24px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .portfolio-photo-item {
+    height: 90px;
+    max-height: 90px;
+  }
+
+  .portfolio-view-btn {
+    display: none;
   }
 }
 
@@ -3320,9 +2290,215 @@
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+  .popup-image,
+  .profile-image-wrapper,
+  .video-preview-button,
+  .popup-prev,
+  .popup-next,
+  .video-popup-prev,
+  .video-popup-next,
+  .portfolio-photo-item,
+  .portfolio-photo-item img,
   .profile-review-card,
   .profile-write-review-btn,
   .rating-star {
     transition: none;
+  }
+}
+
+
+/* =========================================================
+   WEBSITE THEME COLOR
+========================================================= */
+
+.theme-settings-card {
+  position: relative;
+
+  overflow: hidden;
+}
+
+.theme-color-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 15px;
+
+  width: 100%;
+}
+
+.theme-color-option {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  width: 100%;
+
+  min-height: 62px;
+
+  box-sizing: border-box;
+
+  margin: 0;
+
+  padding: 12px 15px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+
+  background: #fff;
+
+  color: #334155;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: none;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.theme-color-option:hover {
+  transform: translateY(-2px);
+
+  border-color: #94a3b8;
+
+  background: #f8fafc;
+
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+.theme-color-option.active {
+  border-color: #2563eb;
+
+  background: #eff6ff;
+
+  box-shadow: 0 5px 18px rgba(37, 99, 235, 0.12);
+}
+
+.theme-color-option.active:hover {
+  border-color: #2563eb;
+}
+
+.theme-color-circle {
+  flex-shrink: 0;
+
+  width: 31px;
+  height: 31px;
+
+  border-radius: 50%;
+
+  border: 3px solid #fff;
+
+  box-shadow:
+    0 0 0 1px #cbd5e1,
+    0 3px 8px rgba(15, 23, 42, 0.15);
+}
+
+.theme-check {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 23px;
+  height: 23px;
+
+  margin-left: auto;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  color: #fff;
+
+  font-size: 13px;
+
+  font-weight: 900;
+}
+
+.theme-info-note {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-top: 20px;
+
+  padding: 13px 15px;
+
+  border: 1px solid #bfdbfe;
+
+  border-radius: 9px;
+
+  background: #eff6ff;
+
+  color: #1e40af;
+}
+
+.theme-info-note > svg {
+  flex-shrink: 0;
+
+  margin-top: 3px;
+}
+
+.theme-info-note p {
+  margin: 0;
+
+  color: #1e40af;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .theme-color-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .theme-color-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-color-option {
+    min-height: 58px;
+  }
+}
+
+@media (max-width: 380px) {
+  .theme-color-option {
+    min-height: 55px;
+
+    padding: 10px 12px;
+
+    font-size: 13px;
+  }
+
+  .theme-color-circle {
+    width: 28px;
+    height: 28px;
   }
 }

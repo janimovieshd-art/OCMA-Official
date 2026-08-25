@@ -1,4 +1,3 @@
-
 import "./Footer.css";
 
 function Footer({ data }) {
@@ -7,6 +6,9 @@ function Footer({ data }) {
   const website = settings.website || {};
   const social = settings.social || {};
   const footer = settings.footer || {};
+  const navbar = settings.navbar || {};
+
+  const brandName = navbar.name || "OCMA";
 
   /* ================================
      WHATSAPP NUMBER
@@ -54,7 +56,7 @@ function Footer({ data }) {
       link: "/ocma-gallery",
     },
     {
-      title: "Join OCMA",
+      title: `Join ${brandName}`,
       link: "/join-ocma",
     },
   ];
@@ -83,17 +85,15 @@ function Footer({ data }) {
       >
         <div className="footer-about-content">
 
-         
-
           <h2>
-            {footer.aboutTitle || "About OCMA"}
+            {footer.aboutTitle || `About ${brandName}`}
           </h2>
 
           <div className="footer-about-line" />
 
           <p>
             {footer.aboutDescription ||
-              "Okara Cameramen Association (OCMA) is a professional platform for photographers, videographers, drone operators and media professionals across Pakistan."}
+              `${brandName} is a professional platform for photographers, videographers, drone operators and media professionals across Pakistan.`}
           </p>
 
         </div>
@@ -252,7 +252,7 @@ function Footer({ data }) {
                 }
                 alt={
                   footer.adminName ||
-                  "OCMA Admin"
+                  `${brandName} Admin`
                 }
                 className="admin-profile-photo"
               />
@@ -291,7 +291,7 @@ function Footer({ data }) {
 
           <h3>
             {footer.mapTitle ||
-              "OCMA Location"}
+              `${brandName} Location`}
           </h3>
 
           <p className="map-click-text">
@@ -306,7 +306,7 @@ function Footer({ data }) {
               loading="lazy"
               title={
                 footer.mapTitle ||
-                "OCMA Location"
+                `${brandName} Location`
               }
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
@@ -317,7 +317,7 @@ function Footer({ data }) {
               target="_blank"
               rel="noopener noreferrer"
               className="map-click-layer"
-              aria-label="Open OCMA Location in Google Maps"
+              aria-label={`Open ${brandName} Location in Google Maps`}
             />
 
           </div>
@@ -416,4 +416,3 @@ function Footer({ data }) {
 }
 
 export default Footer;
-

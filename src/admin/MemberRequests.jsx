@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 
 import {
+  doc,
+  getDoc
+} from "firebase/firestore";
+
+import {
   getData,
   addData,
   deleteData
 } from "../services/firestoreService";
+
+import { db } from "../firebase/firebase";
 
 import "./MemberRequests.css";
 
@@ -33,10 +40,18 @@ function MemberRequests() {
       );
 
       setRequests(pendingRequests);
+
     } catch (error) {
-      console.log("Load Requests Error:", error);
+
+      console.log(
+        "Load Requests Error:",
+        error
+      );
+
     } finally {
+
       setLoading(false);
+
     }
   };
 
@@ -44,89 +59,169 @@ function MemberRequests() {
     loadRequests();
   }, []);
 
+
   // ==============================
-  // GENERATE OCMA MEMBER ID
+  // GET WEBSITE SHORT NAME
+  // ==============================
+
+  const getWebsiteShortName = async () => {
+    try {
+
+      const settingsRef = doc(
+        db,
+        "websiteSettings",
+        "main"
+      );
+
+      const snap = await getDoc(
+        settingsRef
+      );
+
+      if (!snap.exists()) {
+        return "OCMA";
+      }
+
+      const data = snap.data();
+
+      const shortName =
+        data?.website?.shortName
+          ?.trim()
+          .replace(/\s+/g, "-");
+
+      return shortName || "OCMA";
+
+    } catch (error) {
+
+      console.log(
+        "Website Settings Error:",
+        error
+      );
+
+      return "OCMA";
+
+    }
+  };
+
+
+  // ==============================
+  // GENERATE MEMBER CODE
   // ==============================
 
   const generateMemberId = async () => {
-    const members = await getData(memberCollection);
 
-    const usedNumbers = members
+    const [
+      members,
+      shortName
+    ] = await Promise.all([
+      getData(memberCollection),
+      getWebsiteShortName()
+    ]);
+
+
+    // ==============================
+    // GET USED NUMBERS
+    // ==============================
+
+    const usedNumbers = (members || [])
       .map((member) => {
-        if (!member.memberId) return null;
 
-        const number = Number(
-          member.memberId.replace("OCMA-", "")
-        );
+        if (!member.memberId) {
+          return null;
+        }
 
-        return Number.isNaN(number)
-          ? null
-          : number;
+        const match =
+          member.memberId.match(
+            /-(\d+)$/
+          );
+
+        return match
+          ? Number(match[1])
+          : null;
+
       })
       .filter(
-        (number) => number !== null
+        (number) =>
+          number !== null &&
+          !Number.isNaN(number)
       );
+
+
+    // ==============================
+    // FIND FIRST AVAILABLE NUMBER
+    // ==============================
 
     let number = 1111;
 
-    while (usedNumbers.includes(number)) {
+    while (
+      usedNumbers.includes(number)
+    ) {
       number++;
     }
 
-    return `OCMA-${number}`;
+
+    // ==============================
+    // RETURN DYNAMIC CODE
+    // ==============================
+
+    return `${shortName}-${number}`;
+
   };
+
 
   // ==============================
   // APPROVE MEMBER
   // ==============================
 
   const approveMember = async (member) => {
-    const confirmApprove = window.confirm(
-      `Approve ${member.name || "this member"}?`
-    );
 
-    if (!confirmApprove) return;
+    const confirmApprove =
+      window.confirm(
+        `Approve ${
+          member.name ||
+          "this member"
+        }?`
+      );
+
+    if (!confirmApprove) {
+      return;
+    }
 
     try {
 
-      // =========================================
-      // GENERATE OCMA MEMBER ID
-      // =========================================
+      // ==============================
+      // GENERATE NEW MEMBER CODE
+      // ==============================
 
       const memberId =
         await generateMemberId();
 
 
-      // =========================================
-      // APPROVAL DATE & TIME
-      // =========================================
+      // ==============================
+      // APPROVAL DATE
+      // ==============================
 
       const approvalDate =
         new Date();
 
 
-      // ISO timestamp
       const joiningDate =
         approvalDate.toISOString();
 
 
-      // =========================================
-      // ADD MEMBER TO MEMBERS COLLECTION
-      // =========================================
+      // ==============================
+      // ADD MEMBER
+      // ==============================
 
       await addData(
         memberCollection,
         {
-          // =====================================
-          // OCMA ID
-          // =====================================
+
+          // MEMBER CODE
 
           memberId,
 
 
-          // =====================================
           // MEMBER INFORMATION
-          // =====================================
 
           name:
             member.name || "",
@@ -165,17 +260,13 @@ function MemberRequests() {
             member.message || "",
 
 
-          // =====================================
           // MEMBER IMAGE
-          // =====================================
 
           image:
             member.image || "",
 
 
-          // =====================================
           // PORTFOLIO
-          // =====================================
 
           portfolio: {
             photos:
@@ -186,42 +277,35 @@ function MemberRequests() {
           },
 
 
-          // =====================================
           // CERTIFICATE
-          // =====================================
 
           certificate:
             member.certificate || "",
 
 
-          // =====================================
-          // MEMBER STATUS
-          // =====================================
+          // STATUS
 
           status:
             "ACTIVE",
 
 
-          // =====================================
           // JOINING DATE
-          // =====================================
 
-         joiningDate:
-  new Date().toISOString(),
+          joiningDate,
 
-          // =====================================
+
           // CREATED DATE
-          // =====================================
 
           createdAt:
-           new Date().toISOString()
+            joiningDate
+
         }
       );
 
 
-      // =========================================
-      // DELETE REQUEST AFTER APPROVAL
-      // =========================================
+      // ==============================
+      // DELETE OLD REQUEST
+      // ==============================
 
       await deleteData(
         requestCollection,
@@ -229,13 +313,13 @@ function MemberRequests() {
       );
 
 
-      // =========================================
-      // SUCCESS MESSAGE
-      // =========================================
+      // ==============================
+      // SUCCESS
+      // ==============================
 
       alert(
         `Member Approved Successfully!\n\n` +
-        `Member ID: ${memberId}\n` +
+        `Member Code: ${memberId}\n` +
         `Joining Date: ${approvalDate.toLocaleDateString(
           "en-GB",
           {
@@ -265,6 +349,7 @@ function MemberRequests() {
     }
   };
 
+
   // ==============================
   // REJECT MEMBER
   // ==============================
@@ -279,7 +364,9 @@ function MemberRequests() {
         }?`
       );
 
-    if (!confirmReject) return;
+    if (!confirmReject) {
+      return;
+    }
 
     try {
 
@@ -310,6 +397,7 @@ function MemberRequests() {
     }
   };
 
+
   // ==============================
   // DELETE REQUEST
   // ==============================
@@ -321,7 +409,9 @@ function MemberRequests() {
         "Delete this request permanently?"
       );
 
-    if (!confirmDelete) return;
+    if (!confirmDelete) {
+      return;
+    }
 
     try {
 
@@ -352,6 +442,7 @@ function MemberRequests() {
     }
   };
 
+
   // ==============================
   // RETURN
   // ==============================
@@ -366,17 +457,21 @@ function MemberRequests() {
 
 
       {loading && (
+
         <h2>
           Loading...
         </h2>
+
       )}
 
 
       {!loading &&
         requests.length === 0 && (
+
           <h2>
             No Pending Requests Found
           </h2>
+
         )}
 
 
@@ -478,9 +573,7 @@ function MemberRequests() {
       </div>
 
 
-      {/* ==========================================
-          MEMBER DETAILS POPUP
-      ========================================== */}
+      {/* MEMBER DETAILS POPUP */}
 
       {selectedMember && (
 

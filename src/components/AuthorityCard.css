@@ -1,342 +1,536 @@
-.authority-card {
 
-  background: #111;
+/* =========================================================
+   PUBLIC AUTHORITY CARD
+   ISOLATED DESIGN — ADMIN SAFE
+========================================================= */
 
-  border: 2px solid #d4af37;
+.public-authority-card {
+  width: 100%;
+  max-width: 270px;
+  margin: 0 auto;
+  padding: 13px;
 
-  border-radius: 20px;
+  box-sizing: border-box;
 
-  padding: 20px;
+  background:
+    linear-gradient(
+      145deg,
+      #151515,
+      #0b0b0b
+    );
+
+  border: 1px solid rgba(212, 175, 55, .55);
+  border-radius: 15px;
 
   text-align: center;
 
-  transition: 0.3s;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, .45),
+    inset 0 1px 0 rgba(255, 255, 255, .05);
 
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.public-authority-card:hover {
+  transform: translateY(-5px);
+
+  border-color: #d4af37;
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, .55),
+    0 0 20px rgba(212, 175, 55, .16);
 }
 
 
-.authority-card:hover {
+/* =========================================================
+   IMAGE / CERTIFICATE PREVIEW
+========================================================= */
 
-  transform: translateY(-8px);
-
-  box-shadow: 0 0 30px rgba(212,175,55,0.4);
-
-}
-
-
-
-/* Certificate Landscape Preview */
-
-.certificate-preview {
-
-  width:100%;
-
+.public-authority-preview {
+  width: 100%;
   aspect-ratio: 11 / 8.5;
 
-  overflow:hidden;
+  overflow: hidden;
 
-  border-radius:12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  border:3px solid #d4af37;
+  box-sizing: border-box;
 
-  background:#222;
+  background: #181818;
 
+  border: 2px solid #d4af37;
+  border-radius: 10px;
 
+  box-shadow:
+    0 6px 15px rgba(0, 0, 0, .4);
+}
 
-  width:100%;
+.public-authority-preview img {
+  width: 100%;
+  height: 100%;
 
-  aspect-ratio:11 / 8.5;
+  display: block;
 
-  overflow:hidden;
-
-  border-radius:12px;
-
-  border:3px solid #d4af37;
-
-  background:#222;
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
+  object-fit: contain;
 }
 
 
+/* =========================================================
+   NAME
+========================================================= */
 
-.certificate-preview img {
+.public-authority-name {
+  width: 100%;
 
-  width:100%;
+  margin: 13px 0 5px;
 
-  height:100%;
+  color: #fff;
 
-  object-fit:contain;
+  font-size: 18px;
+  font-weight: 800;
 
-  display:block;
+  line-height: 1.25;
 
+  overflow-wrap: anywhere;
 }
 
 
+/* =========================================================
+   DESIGNATION
+========================================================= */
 
+.public-authority-designation {
+  width: 100%;
 
+  margin: 0;
 
-.authority-card h3 {
+  color: #d4af37;
 
-  color:white;
+  font-size: 15px;
+  font-weight: 600;
 
-  margin-top:20px;
+  line-height: 1.35;
 
-  font-size:22px;
-
+  overflow-wrap: anywhere;
 }
 
 
+/* =========================================================
+   BUTTON ROW
+========================================================= */
 
-.authority-card p {
+.public-authority-buttons {
+  width: 100%;
 
-  color:#d4af37;
+  margin-top: 19px;
 
-  font-size:16px;
+  display: grid;
 
+  grid-template-columns: 1fr 1fr;
+
+  align-items: start;
+
+  gap: 7px;
+
+  box-sizing: border-box;
 }
 
 
+/* =========================================================
+   BOTH BUTTONS
+   EXACT SAME SIZE / ALIGNMENT
+========================================================= */
 
+.public-authority-view-btn,
+.public-authority-whatsapp-btn {
+  width: 100%;
+  height: 36px;
 
+  min-width: 0;
 
-/* Buttons */
+  margin: 0;
+  padding: 0 8px;
 
-.authority-buttons {
+  box-sizing: border-box;
 
-  display:flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  justify-content:center;
+  border-radius: 8px;
 
-  align-items:center;
+  font-family: inherit;
 
-  gap:12px;
+  font-size: 13px;
+  font-weight: 800;
 
-  margin-top:20px;
+  line-height: 1;
 
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  position: relative;
+
+  vertical-align: middle;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    filter .18s ease;
 }
 
 
+/* =========================================================
+   VIEW IMAGE — GOLD 3D
+========================================================= */
 
-.authority-buttons button,
-.whatsapp-btn {
+.public-authority-view-btn {
+  color: #111;
 
+  background:
+    linear-gradient(
+      180deg,
+      #f8df7c 0%,
+      #d4af37 48%,
+      #a77b16 100%
+    );
 
-  height:42px;
+  border: 1px solid #f5d96c;
 
-  padding:0 22px;
+  box-shadow:
+    0 3px 0 #73530b,
+    0 5px 10px rgba(212, 175, 55, .22),
+    inset 0 1px 0 rgba(255, 255, 255, .55);
+}
 
+.public-authority-view-btn:hover {
+  transform: translateY(-2px);
 
-  display:flex;
+  filter: brightness(1.08);
 
-  align-items:center;
+  box-shadow:
+    0 5px 0 #73530b,
+    0 8px 15px rgba(212, 175, 55, .32),
+    inset 0 1px 0 rgba(255, 255, 255, .6);
+}
 
-  justify-content:center;
+.public-authority-view-btn:active {
+  transform: translateY(2px);
 
-
-  border-radius:25px;
-
-
-  font-weight:bold;
-
-
-  cursor:pointer;
-
-
-  text-decoration:none;
-
-
+  box-shadow:
+    0 1px 0 #73530b,
+    0 3px 6px rgba(212, 175, 55, .2);
 }
 
 
+/* =========================================================
+   WHATSAPP — ORIGINAL GREEN
+========================================================= */
 
-.authority-buttons button {
+.public-authority-whatsapp-btn {
+  color: #fff;
 
+  background:
+    linear-gradient(
+      180deg,
+      #25d366 0%,
+      #019c3a 50%,
+      #128c3a 100%
+    );
 
-  background:#d4af37;
+  border: 1px solid #25d366;
 
+  box-shadow:
+    0 3px 0 #08752f,
+    0 5px 10px rgba(37, 211, 102, .22),
+    inset 0 1px 0 rgba(255, 255, 255, .3);
+}
 
-  color:#111;
+.public-authority-whatsapp-btn:hover {
+  transform: translateY(-2px);
 
+  filter: brightness(1.07);
 
-  border:none;
+  box-shadow:
+    0 5px 0 #08752f,
+    0 8px 15px rgba(37, 211, 102, .32),
+    inset 0 1px 0 rgba(255, 255, 255, .4);
+}
 
+.public-authority-whatsapp-btn:active {
+  transform: translateY(2px);
 
+  box-shadow:
+    0 1px 0 #08752f,
+    0 3px 6px rgba(37, 211, 102, .2);
 }
 
 
+/* =========================================================
+   AUTHORITY GRID
+   AUTO ADJUST — NO FIXED 4 COLUMNS
+========================================================= */
 
+.cabinet-grid {
+  width: 100%;
+  max-width: 1180px;
 
-.whatsapp-btn {
+  margin: 35px auto 0;
+  padding: 0;
 
+  display: grid;
 
-  background:#25D366;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(240px, 270px)
+    );
 
+  justify-content: center;
 
-  color:white;
+  gap: 18px;
 
-
+  box-sizing: border-box;
 }
 
 
+/* =========================================================
+   IMAGE MODAL
+========================================================= */
 
+.public-authority-modal {
+  position: fixed;
 
+  inset: 0;
 
-/* Full Certificate Viewer */
+  z-index: 9999;
 
+  padding: 20px;
 
-.certificate-modal {
+  box-sizing: border-box;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  position:fixed;
+  background: rgba(0, 0, 0, .90);
+}
 
+.public-authority-modal-box {
+  position: relative;
 
-  inset:0;
+  width: min(900px, 92vw);
 
+  max-height: 90vh;
+}
 
-  background:rgba(0,0,0,0.88);
+.public-authority-modal-box img {
+  width: 100%;
+  max-height: 85vh;
 
+  display: block;
 
-  display:flex;
+  object-fit: contain;
 
+  box-sizing: border-box;
 
-  justify-content:center;
+  border: 3px solid #d4af37;
+  border-radius: 12px;
 
+  background: #111;
 
-  align-items:center;
-
-
-  z-index:9999;
-
-
-  padding:30px;
-
-
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, .7);
 }
 
 
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
 
+.public-authority-close-btn {
+  position: absolute;
 
+  top: -17px;
+  right: -17px;
 
-.modal-box {
+  width: 42px;
+  height: 42px;
 
+  padding: 0;
 
-  position:relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  color: #111;
 
-  width:90%;
+  background:
+    linear-gradient(
+      180deg,
+      #f8df7c,
+      #d4af37,
+      #a77b16
+    );
 
+  border: 2px solid #fff;
+  border-radius: 50%;
 
-  max-width:1100px;
+  font-size: 23px;
+  font-weight: 900;
 
+  line-height: 1;
 
+  cursor: pointer;
+
+  z-index: 10000;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, .5);
+
+  transition:
+    transform .2s ease,
+    filter .2s ease;
+}
+
+.public-authority-close-btn:hover {
+  transform: rotate(90deg) scale(1.05);
+
+  filter: brightness(1.1);
 }
 
 
+/* =========================================================
+   TABLET
+========================================================= */
 
+@media (max-width: 900px) {
 
+  .cabinet-grid {
+    grid-template-columns:
+      repeat(
+        auto-fit,
+        minmax(225px, 270px)
+      );
 
-.modal-box img {
-
-
-  width:100%;
-
-
-  max-height:85vh;
-
-
-  object-fit:contain;
-
-
-  display:block;
-
-
-  border:4px solid #d4af37;
-
-
-  border-radius:15px;
-
-
+    gap: 14px;
+  }
 }
 
 
+/* =========================================================
+   MOBILE
+========================================================= */
 
+@media (max-width: 600px) {
 
+  .cabinet-grid {
+    width: 100%;
 
-/* Close Button */
+    grid-template-columns:
+      repeat(
+        auto-fit,
+        minmax(210px, 270px)
+      );
 
-
-.close-btn {
-
-  position:absolute;
-
-  top:-20px;
-  right:-20px;
-
-  width:50px;
-  height:50px;
-
-  border-radius:50%;
-
-  border:2px solid white;
-
-  background:transparent;
-
-  color:white;
-
-  font-size:30px;
-
-  font-weight:900;
-
-  cursor:pointer;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  z-index:10000;
-
-}
-
-
-
-
-
-
-@media(max-width:600px){
-
-
-  .authority-buttons {
-
-
-    flex-direction:column;
-
+    gap: 12px;
   }
 
+  .public-authority-card {
+    max-width: 270px;
 
-  .authority-buttons button,
-  .whatsapp-btn {
-
-    width:100%;
-
+    padding: 12px;
   }
 
-
-  .close-btn {
-
-
-    top:-15px;
-
-    right:-5px;
-
+  .public-authority-name {
+    font-size: 17px;
   }
 
+  .public-authority-designation {
+    font-size: 12px;
+  }
 
+  .public-authority-buttons {
+    gap: 6px;
+  }
+
+  .public-authority-view-btn,
+  .public-authority-whatsapp-btn {
+    width: 100%;
+    height: 35px;
+
+    font-size: 10px;
+
+    padding: 0 7px;
+  }
+
+  .public-authority-modal {
+    padding: 12px;
+  }
+
+  .public-authority-modal-box {
+    width: 100%;
+  }
+
+  .public-authority-modal-box img {
+    max-height: 82vh;
+
+    border-width: 2px;
+    border-radius: 9px;
+  }
+
+  .public-authority-close-btn {
+    top: -10px;
+    right: -3px;
+
+    width: 38px;
+    height: 38px;
+
+    font-size: 21px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .cabinet-grid {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  .public-authority-card {
+    max-width: 285px;
+
+    padding: 11px;
+  }
+
+  .public-authority-name {
+    font-size: 16px;
+  }
+
+  .public-authority-designation {
+    font-size: 11px;
+  }
+
+  .public-authority-view-btn,
+  .public-authority-whatsapp-btn {
+    height: 33px;
+
+    font-size: 9px;
+
+    padding: 0 6px;
+  }
 }

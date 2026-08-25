@@ -17,15 +17,18 @@ function Navbar({ data }) {
   const website = settings.website || {};
   const homepage = settings.homepage || {};
 
+  const brandName =
+    navbar.name?.trim() ||
+    website.shortName?.trim() ||
+    "OCMA";
+
 
   /* =====================================================
      LIVE NETWORK DATA
   ===================================================== */
 
   const [activeMembers, setActiveMembers] = useState(0);
-
   const [cityData, setCityData] = useState([]);
-
   const [currentCity, setCurrentCity] = useState(0);
 
 
@@ -51,10 +54,6 @@ function Navbar({ data }) {
         setActiveMembers(active.length);
 
 
-        /* =====================================
-           CITY COUNTS
-        ===================================== */
-
         const cityCounts = {};
 
         active.forEach((member) => {
@@ -70,10 +69,6 @@ function Navbar({ data }) {
         });
 
 
-        /* =====================================
-           CITY DATA
-        ===================================== */
-
         const cities =
           Object.entries(cityCounts)
             .map(([city, count]) => ({
@@ -87,7 +82,6 @@ function Navbar({ data }) {
 
 
         setCityData(cities);
-
         setCurrentCity(0);
 
       } catch (error) {
@@ -255,9 +249,7 @@ function Navbar({ data }) {
       item?.type || "";
 
 
-    /* =========================================
-       ABOUT
-    ========================================= */
+    /* ABOUT */
 
     if (
       link === "/about" ||
@@ -272,9 +264,7 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       OCMA GALLERY
-    ========================================= */
+    /* OCMA GALLERY */
 
     if (
       link === "/ocma-gallery" ||
@@ -289,9 +279,7 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       MEMBER GALLERY
-    ========================================= */
+    /* MEMBER GALLERY */
 
     if (
       link === "/#gallery" ||
@@ -305,9 +293,7 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       REGISTERED MEMBERS
-    ========================================= */
+    /* REGISTERED MEMBERS */
 
     if (
       link === "/#registered-members" ||
@@ -321,9 +307,7 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       SENIOR MEMBERS
-    ========================================= */
+    /* SENIOR MEMBERS */
 
     if (
       link === "/#senior-members" ||
@@ -337,9 +321,7 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       AUTHORITY
-    ========================================= */
+    /* AUTHORITY */
 
     if (
       link === "/#authority" ||
@@ -353,9 +335,7 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       TRAINING
-    ========================================= */
+    /* TRAINING */
 
     if (
       link === "/#training" ||
@@ -369,9 +349,7 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       ANNOUNCEMENTS
-    ========================================= */
+    /* ANNOUNCEMENTS */
 
     if (
       link === "/#announcements" ||
@@ -385,32 +363,19 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       GALLERY DROPDOWN
-    ========================================= */
+    /* GALLERY DROPDOWN */
 
     if (type === "gallery") {
 
-      const ocmaGalleryEnabled =
-        homepage.ocmaGallery?.show === true;
-
-      const memberGalleryEnabled =
-        homepage.gallery?.show === true;
-
-
       return (
-        ocmaGalleryEnabled ||
-        memberGalleryEnabled
+        homepage.ocmaGallery?.show === true ||
+        homepage.gallery?.show === true
       );
 
     }
 
 
-    /* =========================================
-       HOME
-       
-       Home should always remain available.
-    ========================================= */
+    /* HOME */
 
     if (link === "/") {
 
@@ -419,11 +384,64 @@ function Navbar({ data }) {
     }
 
 
-    /* =========================================
-       OTHER NORMAL LINKS
-    ========================================= */
-
     return true;
+
+  };
+
+
+  /* =====================================================
+     DYNAMIC MENU TITLE
+  ===================================================== */
+
+  const getMenuTitle = (item) => {
+
+    const link =
+      item?.link || "";
+
+    const type =
+      item?.type || "";
+
+
+    /* JOIN */
+
+    if (
+      link === "/join" ||
+      link === "/join-ocma"
+    ) {
+
+      return `Join ${brandName}`;
+
+    }
+
+
+    /* GALLERY */
+
+    if (
+      type === "gallery" ||
+      link === "/ocma-gallery"
+    ) {
+
+      return `${brandName} Gallery`;
+
+    }
+
+
+    /* ABOUT */
+
+    if (
+      link === "/about" ||
+      link === "/#about" ||
+      link === "#about"
+    ) {
+
+      return `About ${brandName}`;
+
+    }
+
+
+    /* OTHER TITLES */
+
+    return item?.title || "";
 
   };
 
@@ -454,16 +472,14 @@ function Navbar({ data }) {
               website.logo ||
               "/assets/LOGO copy.PNG"
             }
-            alt="OCMA Logo"
+            alt={`${brandName} Logo`}
           />
 
 
           <div className="logo-text">
 
             <h3>
-              {navbar.name ||
-                website.shortName ||
-                "OCMA"}
+              {brandName}
             </h3>
 
 
@@ -564,10 +580,13 @@ function Navbar({ data }) {
                 </strong>
 
                 <small>
+
                   {selectedCity.count}{" "}
+
                   {selectedCity.count === 1
                     ? "Member"
                     : "Members"}
+
                 </small>
 
               </div>
@@ -579,7 +598,7 @@ function Navbar({ data }) {
                 <span className="nav-city-live-dot"></span>
 
                 <small>
-                  Members joining...
+                  {brandName} Members joining...
                 </small>
 
               </div>
@@ -599,14 +618,8 @@ function Navbar({ data }) {
 
       <div className="nav-links">
 
-
         {navbar.items?.map(
           (item, index) => {
-
-
-            /* =========================================
-               VISIBILITY CHECK
-            ========================================= */
 
             if (
               !isSectionVisible(item)
@@ -617,9 +630,13 @@ function Navbar({ data }) {
             }
 
 
-            /* =========================================
+            const itemTitle =
+              getMenuTitle(item);
+
+
+            /* =================================================
                GALLERY DROPDOWN
-            ========================================= */
+            ================================================= */
 
             if (
               item.type === "gallery"
@@ -631,8 +648,6 @@ function Navbar({ data }) {
               const showMemberGallery =
                 homepage.gallery?.show === true;
 
-
-              /* BOTH OFF */
 
               if (
                 !showOCMAGallery &&
@@ -653,8 +668,8 @@ function Navbar({ data }) {
 
                   <span className="gallery-title">
 
-                    {item.title ||
-                      "Gallery"}
+                    {itemTitle ||
+                      `${brandName} Gallery`}
 
                   </span>
 
@@ -671,7 +686,7 @@ function Navbar({ data }) {
                       >
 
                         {item.ocmaTitle ||
-                          "OCMA Gallery"}
+                          `${brandName} Gallery`}
 
                       </Link>
 
@@ -711,9 +726,9 @@ function Navbar({ data }) {
             }
 
 
-            /* =========================================
+            /* =================================================
                HOME SECTION LINKS
-            ========================================= */
+            ================================================= */
 
             if (
               item.link?.startsWith("/#")
@@ -736,7 +751,7 @@ function Navbar({ data }) {
                   }}
                 >
 
-                  {item.title}
+                  {itemTitle}
 
                 </a>
 
@@ -745,9 +760,9 @@ function Navbar({ data }) {
             }
 
 
-            /* =========================================
+            /* =================================================
                HOME
-            ========================================= */
+            ================================================= */
 
             if (
               item.link === "/"
@@ -761,7 +776,7 @@ function Navbar({ data }) {
                   onClick={goHome}
                 >
 
-                  {item.title}
+                  {itemTitle}
 
                 </Link>
 
@@ -770,9 +785,9 @@ function Navbar({ data }) {
             }
 
 
-            /* =========================================
+            /* =================================================
                NORMAL LINK
-            ========================================= */
+            ================================================= */
 
             return (
 
@@ -781,7 +796,7 @@ function Navbar({ data }) {
                 to={item.link}
               >
 
-                {item.title}
+                {itemTitle}
 
               </Link>
 

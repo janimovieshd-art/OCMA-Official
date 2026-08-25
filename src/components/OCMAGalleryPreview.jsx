@@ -1,462 +1,209 @@
 import { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
-
 import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
-
-
 import { getData } from "../services/firestoreService";
-
 
 import "./OCMAGalleryPreview.css";
 
-
-
 function OCMAGalleryPreview() {
 
+  const [gallery, setGallery] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  const [websiteShortName, setWebsiteShortName] =
+    useState("OCMA");
 
-const [gallery,setGallery] = useState([]);
+  const [sectionTitle, setSectionTitle] = useState(
+    "OCMA Official Gallery"
+  );
 
+  const [sectionDescription, setSectionDescription] = useState(
+    "Events • Ceremonies • Meetings • Association Activities"
+  );
 
-const [loading,setLoading] = useState(true);
+  const [buttonText, setButtonText] = useState(
+    "View Complete Gallery"
+  );
 
+  const loadGallerySettings = async () => {
 
+    try {
 
-const [sectionTitle,setSectionTitle] = useState(
-"OCMA Official Gallery"
-);
+      const ref = doc(
+        db,
+        "websiteSettings",
+        "main"
+      );
 
+      const snap = await getDoc(ref);
 
+      if (snap.exists()) {
 
-const [sectionDescription,setSectionDescription] = useState(
-"Events • Ceremonies • Meetings • Association Activities"
-);
+        const data = snap.data();
 
+        const shortName =
+          data.website?.shortName?.trim() || "OCMA";
 
+        setWebsiteShortName(shortName);
 
-const [buttonText,setButtonText] = useState(
-"View Complete Gallery"
-);
+        const settings =
+          data.homepage?.ocmaGallery;
 
+        if (settings) {
 
+          setSectionTitle(
+            settings.title ||
+            `${shortName} Official Gallery`
+          );
 
+          setSectionDescription(
+            settings.description ||
+            "Events • Ceremonies • Meetings • Association Activities"
+          );
 
+          setButtonText(
+            settings.buttonText ||
+            "View Complete Gallery"
+          );
 
+        } else {
 
+          setSectionTitle(
+            `${shortName} Official Gallery`
+          );
 
+        }
 
+      }
 
-const loadGallerySettings = async()=>{
+    } catch (error) {
 
+      console.log(
+        "Gallery Settings Error:",
+        error
+      );
 
-try{
+    }
 
+  };
 
-const ref = doc(
+  useEffect(() => {
 
-db,
+    const loadGallery = async () => {
 
-"websiteSettings",
+      try {
 
-"main"
+        const data =
+          await getData("gallery");
 
-);
+        const activePosts =
+          data.filter(
+            (item) =>
+              item.status === "ACTIVE" &&
+              item.image
+          );
 
+        setGallery(
+          activePosts.slice(0, 8)
+        );
 
+      } catch (error) {
 
-const snap = await getDoc(ref);
+        console.log(
+          "Gallery Load Error:",
+          error
+        );
 
+      } finally {
 
+        setLoading(false);
 
-if(snap.exists()){
+      }
 
+    };
 
-const data=snap.data();
+    loadGallery();
+    loadGallerySettings();
 
+  }, []);
 
+  return (
 
-const settings = data.homepage?.ocmaGallery;
+    <section className="ocma-preview">
 
+      <div className="preview-title">
 
+        <h1>
+          {sectionTitle}
+        </h1>
 
-if(settings){
+        <p>
+          {sectionDescription}
+        </p>
 
+      </div>
 
+      {loading && (
 
-setSectionTitle(
+        <div className="preview-loading">
+          Loading Gallery...
+        </div>
 
-settings.title ||
+      )}
 
-"OCMA Official Gallery"
+      {!loading && gallery.length === 0 && (
 
-);
+        <div className="preview-empty">
+          No Gallery Available
+        </div>
 
+      )}
 
+      <div className="preview-grid">
 
-setSectionDescription(
+        {gallery.map((item) => (
 
-settings.description ||
+          <div
+            className="preview-card"
+            key={item.id}
+          >
 
-"Events • Ceremonies • Meetings • Association Activities"
+            <img
+              src={item.image}
+              alt={item.title}
+            />
 
-);
+            <div className="preview-overlay">
 
+              <h3>
+                {item.title}
+              </h3>
 
+            </div>
 
-setButtonText(
+          </div>
 
-settings.buttonText ||
+        ))}
 
-"View Complete Gallery"
+      </div>
 
-);
+      <div className="preview-button">
 
+        <Link
+          to="/ocma-gallery"
+          className="gallery-btn"
+        >
+          {buttonText}
+        </Link>
 
+      </div>
+
+    </section>
+
+  );
 
 }
-
-
-
-}
-
-
-
-}
-
-
-
-catch(error){
-
-
-console.log(
-
-"Gallery Settings Error:",
-
-error
-
-);
-
-
-}
-
-
-};
-
-
-
-
-
-
-
-
-
-useEffect(()=>{
-
-
-const loadGallery = async()=>{
-
-
-try{
-
-
-const data = await getData("gallery");
-
-
-
-const activePosts = data.filter(
-
-
-item =>
-
-
-item.status==="ACTIVE"
-
-&&
-
-item.image
-
-
-);
-
-
-
-setGallery(
-
-activePosts.slice(0,8)
-
-);
-
-
-
-}
-
-
-catch(error){
-
-
-console.log(
-
-"Gallery Load Error:",
-
-error
-
-);
-
-
-}
-
-
-
-finally{
-
-
-setLoading(false);
-
-
-}
-
-
-
-};
-
-
-
-
-
-loadGallery();
-
-
-loadGallerySettings();
-
-
-
-},[]);
-
-
-
-
-
-
-
-
-
-return(
-
-
-
-<section className="ocma-preview">
-
-
-
-
-
-
-<div className="preview-title">
-
-
-
-<h1>
-
-{sectionTitle}
-
-</h1>
-
-
-
-
-<p>
-
-{sectionDescription}
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{
-
-loading &&
-
-
-<div className="preview-loading">
-
-
-Loading Gallery...
-
-
-</div>
-
-
-}
-
-
-
-
-
-
-
-
-
-{
-
-!loading && gallery.length===0 &&
-
-
-<div className="preview-empty">
-
-
-No Gallery Available
-
-
-</div>
-
-
-}
-
-
-
-
-
-
-
-
-
-<div className="preview-grid">
-
-
-
-
-
-{
-
-
-gallery.map((item)=>(
-
-
-
-<div
-
-
-className="preview-card"
-
-
-key={item.id}
-
-
->
-
-
-
-
-<img
-
-
-src={item.image}
-
-
-alt={item.title}
-
-
-/>
-
-
-
-
-
-
-<div className="preview-overlay">
-
-
-
-<h3>
-
-{item.title}
-
-</h3>
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-))
-
-
-}
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div className="preview-button">
-
-
-
-<Link
-
-
-to="/ocma-gallery"
-
-
-className="gallery-btn"
-
-
->
-
-
-{buttonText}
-
-
-</Link>
-
-
-
-</div>
-
-
-
-
-
-
-
-</section>
-
-
-
-);
-
-
-}
-
-
 
 export default OCMAGalleryPreview;

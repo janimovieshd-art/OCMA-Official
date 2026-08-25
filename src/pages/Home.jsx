@@ -26,7 +26,7 @@ const defaultSettings = {
   },
 
   loadingScreen: {
-    title: "Loading OCMA Website...",
+    title: "Loading Website...",
     message: "Please wait while the website loads.",
   },
 
@@ -39,7 +39,7 @@ const defaultSettings = {
     subtitle: "Professional Cameramen Community",
     description: "",
     smallText: "",
-    buttonOne: "Join OCMA",
+    buttonOne: "Join",
     buttonTwo: "View Members",
     banner: "",
     showHero: true,
@@ -56,13 +56,13 @@ const defaultSettings = {
       { title: "Gallery", link: "/gallery" },
       { title: "Training", link: "/training" },
       { title: "Announcements", link: "/announcements" },
-      { title: "Join OCMA", link: "/join" },
+      { title: "Join", link: "/join" },
     ],
   },
 
   homepage: {
     about: {
-      title: "About OCMA",
+      title: "About",
       show: true,
     },
     registeredMembers: {
@@ -74,7 +74,7 @@ const defaultSettings = {
       show: true,
     },
     ocmaGallery: {
-      title: "OCMA Gallery",
+      title: "Gallery",
       show: true,
     },
     announcements: {
@@ -104,7 +104,7 @@ const defaultSettings = {
   },
 
   footer: {
-    aboutTitle: "About OCMA",
+    aboutTitle: "About",
     aboutDescription: "",
     adminSectionTitle: "Admin / Developer",
     adminName: "",
@@ -159,7 +159,7 @@ function Home() {
           }
         } catch (cacheError) {
           console.warn(
-            "OCMA: Local settings cache could not be read.",
+            "Website settings cache could not be read.",
             cacheError
           );
         }
@@ -290,7 +290,7 @@ function Home() {
             );
           } catch (cacheError) {
             console.warn(
-              "OCMA: Could not save settings to local cache.",
+              "Could not save settings to local cache.",
               cacheError
             );
           }
@@ -322,13 +322,13 @@ function Home() {
           );
         } catch (cacheError) {
           console.warn(
-            "OCMA: Could not save default settings cache.",
+            "Could not save default settings cache.",
             cacheError
           );
         }
       } catch (err) {
         console.error(
-          "OCMA Homepage Settings Error:",
+          "Homepage Settings Error:",
           err
         );
 
@@ -338,6 +338,7 @@ function Home() {
         setLoadingScreen(
           defaultSettings.loadingScreen
         );
+
         setError(
           "Website settings could not be loaded from Firebase. Default settings are being used."
         );
@@ -356,19 +357,31 @@ function Home() {
   if (loading) {
     return (
       <div className="home-loading">
+
         <div className="home-loading-content">
+
           <div className="loading-spinner"></div>
 
-          <h2>{loadingScreen.title}</h2>
+          <h2>
+            {loadingScreen.title}
+          </h2>
 
-          <p>{loadingScreen.message}</p>
+          <p>
+            {loadingScreen.message}
+          </p>
+
         </div>
+
       </div>
     );
   }
 
   const websiteSettings =
     settings || defaultSettings;
+
+  const website =
+    websiteSettings.website ||
+    defaultSettings.website;
 
   const homepage =
     websiteSettings.homepage ||
@@ -381,6 +394,9 @@ function Home() {
   const homeTheme =
     websiteSettings.homeTheme ||
     defaultSettings.homeTheme;
+
+  const websiteShortName =
+    website.shortName?.trim() || "OCMA";
 
   const themeColor =
     /^#[0-9A-Fa-f]{6}$/.test(
@@ -396,6 +412,7 @@ function Home() {
         "--home-theme": themeColor,
       }}
     >
+
       {error && (
         <div
           style={{
@@ -475,6 +492,7 @@ function Home() {
       )}
 
       <Footer data={websiteSettings} />
+
     </div>
   );
 }

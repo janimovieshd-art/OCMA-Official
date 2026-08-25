@@ -1,31 +1,53 @@
 import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import {
   collection,
   getDocs,
   query,
   where,
   doc,
-  updateDoc
+  updateDoc,
 } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
 import { getData, addData } from "../services/firestoreService";
 import GoogleLogin from "../components/GoogleLogin";
+
 import "./MemberProfile.css";
 
-function MemberProfile() {
+
+function MemberProfile({ data }) {
+
   const { memberId } = useParams();
+
+  const settings = data || {};
+  const navbar = settings.navbar || {};
+  const website = settings.website || {};
+
+  const brandName =
+    navbar.name?.trim() ||
+    website.shortName?.trim() ||
+      "";
+
 
   const [member, setMember] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
+  /* =====================================================
+     IMAGE POPUP
+  ===================================================== */
+
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
-  const [shareMessage, setShareMessage] = useState("");
   const [imageZoom, setImageZoom] = useState(1);
-  const [imagePan, setImagePan] = useState({ x: 0, y: 0 });
+
+  const [imagePan, setImagePan] = useState({
+    x: 0,
+    y: 0,
+  });
 
   const imagePopupRef = useRef(null);
   const imageRef = useRef(null);
@@ -35,7 +57,7 @@ function MemberProfile() {
     startX: 0,
     startY: 0,
     startPanX: 0,
-    startPanY: 0
+    startPanY: 0,
   });
 
   const imageTouchRef = useRef({
@@ -45,11 +67,28 @@ function MemberProfile() {
     startX: 0,
     startY: 0,
     startPanX: 0,
-    startPanY: 0
+    startPanY: 0,
   });
+
+
+  /* =====================================================
+     VIDEO POPUP
+  ===================================================== */
 
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
+
+
+  /* =====================================================
+     SHARE
+  ===================================================== */
+
+  const [shareMessage, setShareMessage] = useState("");
+
+
+  /* =====================================================
+     RATINGS
+  ===================================================== */
 
   const [ocmaRating, setOcmaRating] = useState(0);
   const [ocmaReviewCount, setOcmaReviewCount] = useState(0);
@@ -57,320 +96,804 @@ function MemberProfile() {
 
   const [selectedRating, setSelectedRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
+
   const [ratingLoading, setRatingLoading] = useState(false);
   const [ratingMessage, setRatingMessage] = useState("");
+
   const [ratingUser, setRatingUser] = useState(null);
   const [alreadyRated, setAlreadyRated] = useState(false);
   const [existingReviewId, setExistingReviewId] = useState("");
+
   const [editingReview, setEditingReview] = useState(false);
   const [showGoogleLogin, setShowGoogleLogin] = useState(false);
 
+
+  /* =====================================================
+     LOAD MEMBER
+  ===================================================== */
+
   const loadMember = async () => {
+
     try {
+
       const data = await getData("members");
-      setMember(data.find(item => item.memberId === memberId));
+
+      setMember(
+        data.find(
+          (item) => item.memberId === memberId
+        )
+      );
+
     } catch (error) {
-      console.log("Member Profile Error:", error);
+
+      console.log(
+        "Member Profile Error:",
+        error
+      );
+
     } finally {
+
       setLoading(false);
+
     }
+
   };
 
+
   useEffect(() => {
+
     loadMember();
+
   }, [memberId]);
 
+
+  /* =====================================================
+     LOAD RATINGS
+  ===================================================== */
+
   const loadOCMARatings = async () => {
+
     try {
-      const ref = collection(db, "member_ratings");
-      const q = query(ref, where("memberId", "==", memberId));
+
+      const ref = collection(
+        db,
+        "member_ratings"
+      );
+
+      const q = query(
+        ref,
+        where(
+          "memberId",
+          "==",
+          memberId
+        )
+      );
+
       const snapshot = await getDocs(q);
 
-      const ratings = snapshot.docs.map(item => ({
-        id: item.id,
-        ...item.data()
-      }));
+      const ratings = snapshot.docs.map(
+        (item) => ({
+          id: item.id,
+          ...item.data(),
+        })
+      );
+
 
       if (!ratings.length) {
+
         setOcmaRating(0);
         setOcmaReviewCount(0);
         setOcmaReviews([]);
+
         return;
+
       }
 
+
       const total = ratings.reduce(
-        (sum, item) => sum + Number(item.rating || 0),
+        (sum, item) =>
+          sum + Number(item.rating || 0),
         0
       );
 
-      setOcmaRating(Number((total / ratings.length).toFixed(1)));
-      setOcmaReviewCount(ratings.length);
+
+      setOcmaRating(
+        Number(
+          (
+            total / ratings.length
+          ).toFixed(1)
+        )
+      );
+
+
+      setOcmaReviewCount(
+        ratings.length
+      );
+
 
       setOcmaReviews(
         ratings.sort(
           (a, b) =>
-            new Date(b.updatedAt || b.createdAt || 0).getTime() -
-            new Date(a.updatedAt || a.createdAt || 0).getTime()
+            new Date(
+              b.updatedAt ||
+              b.createdAt ||
+              0
+            ).getTime() -
+            new Date(
+              a.updatedAt ||
+              a.createdAt ||
+              0
+            ).getTime()
         )
       );
+
     } catch (error) {
-      console.log("OCMA Rating Load Error:", error);
-    }
-  };
 
-  useEffect(() => {
-    if (memberId) loadOCMARatings();
-  }, [memberId]);
-
-  const checkAlreadyRated = async user => {
-    if (!user?.uid || !memberId) return false;
-
-    try {
-      const ref = collection(db, "member_ratings");
-      const q = query(
-        ref,
-        where("memberId", "==", memberId),
-        where("userId", "==", user.uid)
+      console.log(
+        "Rating Load Error:",
+        error
       );
 
-      const snapshot = await getDocs(q);
+    }
+
+  };
+
+
+  useEffect(() => {
+
+    if (memberId) {
+      loadOCMARatings();
+    }
+
+  }, [memberId]);
+
+
+  /* =====================================================
+     CHECK EXISTING REVIEW
+  ===================================================== */
+
+  const checkAlreadyRated = async (user) => {
+
+    if (!user?.uid || !memberId) {
+      return false;
+    }
+
+    try {
+
+      const ref = collection(
+        db,
+        "member_ratings"
+      );
+
+      const q = query(
+        ref,
+        where(
+          "memberId",
+          "==",
+          memberId
+        ),
+        where(
+          "userId",
+          "==",
+          user.uid
+        )
+      );
+
+      const snapshot =
+        await getDocs(q);
+
 
       if (snapshot.empty) {
+
         setAlreadyRated(false);
         setExistingReviewId("");
         setEditingReview(false);
+
         return false;
+
       }
 
-      const existing = snapshot.docs[0];
+
+      const existing =
+        snapshot.docs[0];
+
+      const reviewData =
+        existing.data();
+
 
       setAlreadyRated(true);
-      setExistingReviewId(existing.id);
-      setSelectedRating(Number(existing.data().rating || 0));
-      setReviewText(existing.data().review || "");
+
+      setExistingReviewId(
+        existing.id
+      );
+
+      setSelectedRating(
+        Number(
+          reviewData.rating || 0
+        )
+      );
+
+      setReviewText(
+        reviewData.review || ""
+      );
 
       return true;
+
     } catch (error) {
-      console.log("Rating Check Error:", error);
+
+      console.log(
+        "Rating Check Error:",
+        error
+      );
+
       return false;
+
     }
+
   };
 
-  const handleRatingGoogleLogin = async user => {
+
+  /* =====================================================
+     GOOGLE LOGIN
+  ===================================================== */
+
+  const handleRatingGoogleLogin = async (
+    user
+  ) => {
+
     setRatingMessage("");
     setRatingUser(user);
     setShowGoogleLogin(false);
 
-    const hasRated = await checkAlreadyRated(user);
+    const hasRated =
+      await checkAlreadyRated(user);
+
 
     if (hasRated) {
+
       setEditingReview(false);
+
       return;
+
     }
+
 
     setSelectedRating(0);
     setReviewText("");
     setExistingReviewId("");
     setAlreadyRated(false);
     setEditingReview(true);
+
   };
 
+
+  /* =====================================================
+     EDIT REVIEW
+  ===================================================== */
+
   const startEditingReview = () => {
+
     if (!existingReviewId) {
-      setRatingMessage("Review not found.");
+
+      setRatingMessage(
+        "Review not found."
+      );
+
       return;
+
     }
 
     setEditingReview(true);
     setRatingMessage("");
+
   };
 
+
   const cancelEditingReview = async () => {
+
     setEditingReview(false);
 
-    if (ratingUser && existingReviewId) {
-      await checkAlreadyRated(ratingUser);
+    if (
+      ratingUser &&
+      existingReviewId
+    ) {
+
+      await checkAlreadyRated(
+        ratingUser
+      );
+
     }
 
     setRatingMessage("");
+
   };
 
+
+  /* =====================================================
+     SUBMIT REVIEW
+  ===================================================== */
+
   const submitOCMARating = async () => {
+
     if (!ratingUser) {
-      setRatingMessage("Please sign in with Google first.");
+
+      setRatingMessage(
+        "Please sign in with Google first."
+      );
+
       return;
+
     }
 
-    if (selectedRating < 1 || selectedRating > 5) {
-      setRatingMessage("Please select a rating.");
+
+    if (
+      selectedRating < 1 ||
+      selectedRating > 5
+    ) {
+
+      setRatingMessage(
+        "Please select a rating."
+      );
+
       return;
+
     }
 
-    const cleanReview = reviewText.trim();
+
+    const cleanReview =
+      reviewText.trim();
+
 
     if (!cleanReview) {
-      setRatingMessage("Please write your review.");
+
+      setRatingMessage(
+        "Please write your review."
+      );
+
       return;
+
     }
+
 
     if (cleanReview.length > 500) {
-      setRatingMessage("Review can contain maximum 500 characters.");
+
+      setRatingMessage(
+        "Review can contain maximum 500 characters."
+      );
+
       return;
+
     }
 
+
     try {
+
       setRatingLoading(true);
       setRatingMessage("");
 
-      if (editingReview && existingReviewId) {
-        await updateDoc(doc(db, "member_ratings", existingReviewId), {
-          rating: Number(selectedRating),
-          review: cleanReview,
-          updatedAt: new Date().toISOString()
-        });
+
+      /* EDIT */
+
+      if (
+        editingReview &&
+        existingReviewId
+      ) {
+
+        await updateDoc(
+          doc(
+            db,
+            "member_ratings",
+            existingReviewId
+          ),
+          {
+            rating:
+              Number(selectedRating),
+
+            review:
+              cleanReview,
+
+            updatedAt:
+              new Date().toISOString(),
+          }
+        );
+
 
         setEditingReview(false);
         setAlreadyRated(true);
-        setRatingMessage("Your review has been updated.");
+
+        setRatingMessage(
+          "Your review has been updated."
+        );
 
         await loadOCMARatings();
+
         return;
+
       }
 
-      const ref = collection(db, "member_ratings");
-      const q = query(
-        ref,
-        where("memberId", "==", memberId),
-        where("userId", "==", ratingUser.uid)
+
+      /* DUPLICATE CHECK */
+
+      const ref = collection(
+        db,
+        "member_ratings"
       );
 
-      const duplicate = await getDocs(q);
+      const q = query(
+        ref,
+        where(
+          "memberId",
+          "==",
+          memberId
+        ),
+        where(
+          "userId",
+          "==",
+          ratingUser.uid
+        )
+      );
+
+      const duplicate =
+        await getDocs(q);
+
 
       if (!duplicate.empty) {
-        const existing = duplicate.docs[0];
+
+        const existing =
+          duplicate.docs[0];
+
+        const reviewData =
+          existing.data();
+
 
         setAlreadyRated(true);
-        setExistingReviewId(existing.id);
-        setSelectedRating(Number(existing.data().rating || 0));
-        setReviewText(existing.data().review || "");
+
+        setExistingReviewId(
+          existing.id
+        );
+
+        setSelectedRating(
+          Number(
+            reviewData.rating || 0
+          )
+        );
+
+        setReviewText(
+          reviewData.review || ""
+        );
+
         setEditingReview(false);
-        setRatingMessage("You have already reviewed this member.");
+
+        setRatingMessage(
+          "You have already reviewed this member."
+        );
+
         return;
+
       }
 
-      await addData("member_ratings", {
-        memberId,
-        memberName: member?.name || "",
-        userId: ratingUser.uid,
-        userName: ratingUser.displayName || "",
-        userEmail: ratingUser.email || "",
-        userPhoto: ratingUser.photoURL || "",
-        rating: Number(selectedRating),
-        review: cleanReview,
-        createdAt: new Date().toISOString()
-      });
+
+      /* NEW REVIEW */
+
+      await addData(
+        "member_ratings",
+        {
+          memberId,
+
+          memberName:
+            member?.name || "",
+
+          userId:
+            ratingUser.uid,
+
+          userName:
+            ratingUser.displayName || "",
+
+          userEmail:
+            ratingUser.email || "",
+
+          userPhoto:
+            ratingUser.photoURL || "",
+
+          rating:
+            Number(selectedRating),
+
+          review:
+            cleanReview,
+
+          createdAt:
+            new Date().toISOString(),
+        }
+      );
+
 
       setAlreadyRated(true);
       setEditingReview(false);
-      setRatingMessage("Your review has been submitted.");
 
-      await loadOCMARatings();
-    } catch (error) {
-      console.log("OCMA Rating Submit Error:", error);
-      setRatingMessage("Review could not be saved. Please try again.");
-    } finally {
-      setRatingLoading(false);
-    }
-  };
-
-  const portfolioPhotos = member?.portfolio?.photos || [];
-  const videos = member?.portfolio?.videos || [];
-
-  const whatsappNumber = member?.phone
-    ? member.phone.replace(/\D/g, "").replace(/^0/, "92")
-    : "";
-
-  const googleRating = Number(member?.googleRating || 0);
-  const googleReviewCount = Number(member?.googleReviewCount || 0);
-  const googleAddress = member?.googleAddress || "";
-  const joiningDate = member?.joiningDate || "";
-
-  const formatJoiningDate = date => {
-    if (!date) return "Not Added";
-
-    try {
-      const parsed = new Date(date);
-      if (isNaN(parsed.getTime())) return date;
-
-      return parsed.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-      });
-    } catch {
-      return date;
-    }
-  };
-
-  const resetImageZoom = () => {
-    setImageZoom(1);
-    setImagePan({ x: 0, y: 0 });
-  };
-
-  const zoomImage = amount => {
-    setImageZoom(current => {
-      const zoom = Math.min(
-        5,
-        Math.max(1, Number((current + amount).toFixed(2)))
+      setRatingMessage(
+        "Your review has been submitted."
       );
 
-      if (zoom === 1) setImagePan({ x: 0, y: 0 });
-      return zoom;
-    });
+      await loadOCMARatings();
+
+    } catch (error) {
+
+      console.log(
+        "Rating Submit Error:",
+        error
+      );
+
+      setRatingMessage(
+        "Review could not be saved. Please try again."
+      );
+
+    } finally {
+
+      setRatingLoading(false);
+
+    }
+
   };
+
+
+  /* =====================================================
+     PORTFOLIO DATA
+  ===================================================== */
+
+  const portfolioPhotos =
+    member?.portfolio?.photos || [];
+
+  const videos =
+    member?.portfolio?.videos || [];
+
+
+  /* =====================================================
+     MEMBER DATA
+  ===================================================== */
+
+  const whatsappNumber =
+    member?.phone
+      ? member.phone
+          .replace(/\D/g, "")
+          .replace(/^0/, "92")
+      : "";
+
+
+  const googleRating =
+    Number(
+      member?.googleRating || 0
+    );
+
+
+  const googleReviewCount =
+    Number(
+      member?.googleReviewCount || 0
+    );
+
+
+  const googleAddress =
+    member?.googleAddress || "";
+
+
+  const joiningDate =
+    member?.joiningDate || "";
+
+
+  const formatJoiningDate = (date) => {
+
+    if (!date) {
+      return "Not Added";
+    }
+
+    try {
+
+      const parsed =
+        new Date(date);
+
+      if (
+        isNaN(parsed.getTime())
+      ) {
+
+        return date;
+
+      }
+
+      return parsed.toLocaleDateString(
+        "en-GB",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }
+      );
+
+    } catch {
+
+      return date;
+
+    }
+
+  };
+
+
+  /* =====================================================
+     IMAGE ZOOM
+  ===================================================== */
+
+  const resetImageZoom = () => {
+
+    setImageZoom(1);
+
+    setImagePan({
+      x: 0,
+      y: 0,
+    });
+
+  };
+
+
+  const zoomImage = (amount) => {
+
+    setImageZoom((current) => {
+
+      const zoom =
+        Math.min(
+          5,
+          Math.max(
+            1,
+            Number(
+              (
+                current + amount
+              ).toFixed(2)
+            )
+          )
+        );
+
+
+      if (zoom === 1) {
+
+        setImagePan({
+          x: 0,
+          y: 0,
+        });
+
+      }
+
+
+      return zoom;
+
+    });
+
+  };
+
+
+  /* =====================================================
+     OPEN PROFILE PHOTO
+  ===================================================== */
 
   const openProfileImage = () => {
+
     setSelectedPhotoIndex(0);
-    setSelectedImage(member.image || "/assets/ocma-logo.png");
+
+    setSelectedImage(
+      member.image ||
+      "/assets/ocma-logo.png"
+    );
+
     resetImageZoom();
+
   };
 
-  const openPortfolioImage = index => {
+
+  /* =====================================================
+     OPEN PORTFOLIO PHOTO
+  ===================================================== */
+
+  const openPortfolioImage = (
+    index
+  ) => {
+
+    if (!portfolioPhotos[index]) {
+      return;
+    }
+
     setSelectedPhotoIndex(index);
-    setSelectedImage(portfolioPhotos[index]);
+
+    setSelectedImage(
+      portfolioPhotos[index]
+    );
+
     resetImageZoom();
+
   };
 
-  const nextPhoto = e => {
-    e?.stopPropagation();
-    if (!portfolioPhotos.length) return;
 
-    const index = (selectedPhotoIndex + 1) % portfolioPhotos.length;
-    setSelectedPhotoIndex(index);
-    setSelectedImage(portfolioPhotos[index]);
-    resetImageZoom();
-  };
+  /* =====================================================
+     NEXT PHOTO
+  ===================================================== */
 
-  const previousPhoto = e => {
+  const nextPhoto = (e) => {
+
     e?.stopPropagation();
-    if (!portfolioPhotos.length) return;
+
+    if (!portfolioPhotos.length) {
+      return;
+    }
 
     const index =
-      (selectedPhotoIndex - 1 + portfolioPhotos.length) %
+      (
+        selectedPhotoIndex + 1
+      ) %
       portfolioPhotos.length;
 
+
     setSelectedPhotoIndex(index);
-    setSelectedImage(portfolioPhotos[index]);
+
+    setSelectedImage(
+      portfolioPhotos[index]
+    );
+
     resetImageZoom();
+
   };
+
+
+  /* =====================================================
+     PREVIOUS PHOTO
+  ===================================================== */
+
+  const previousPhoto = (e) => {
+
+    e?.stopPropagation();
+
+    if (!portfolioPhotos.length) {
+      return;
+    }
+
+    const index =
+      (
+        selectedPhotoIndex -
+        1 +
+        portfolioPhotos.length
+      ) %
+      portfolioPhotos.length;
+
+
+    setSelectedPhotoIndex(index);
+
+    setSelectedImage(
+      portfolioPhotos[index]
+    );
+
+    resetImageZoom();
+
+  };
+
+
+  /* =====================================================
+     CLOSE IMAGE
+  ===================================================== */
 
   const closeImage = () => {
+
     setSelectedImage("");
+
     resetImageZoom();
+
   };
 
-  const handleImageMouseDown = e => {
-    if (imageZoom <= 1) return;
+
+  /* =====================================================
+     MOUSE DRAG
+  ===================================================== */
+
+  const handleImageMouseDown = (
+    e
+  ) => {
+
+    if (imageZoom <= 1) {
+      return;
+    }
 
     e.preventDefault();
 
@@ -379,136 +902,292 @@ function MemberProfile() {
       startX: e.clientX,
       startY: e.clientY,
       startPanX: imagePan.x,
-      startPanY: imagePan.y
+      startPanY: imagePan.y,
     };
+
   };
 
-  const handleImageMouseMove = e => {
-    if (!imageDragRef.current.dragging || imageZoom <= 1) return;
+
+  const handleImageMouseMove = (
+    e
+  ) => {
+
+    if (
+      !imageDragRef.current.dragging ||
+      imageZoom <= 1
+    ) {
+
+      return;
+
+    }
 
     e.preventDefault();
 
     setImagePan({
       x:
-        imageDragRef.current.startPanX +
+        imageDragRef.current
+          .startPanX +
         e.clientX -
-        imageDragRef.current.startX,
+        imageDragRef.current
+          .startX,
+
       y:
-        imageDragRef.current.startPanY +
+        imageDragRef.current
+          .startPanY +
         e.clientY -
-        imageDragRef.current.startY
+        imageDragRef.current
+          .startY,
     });
+
   };
+
 
   const handleImageMouseUp = () => {
-    imageDragRef.current.dragging = false;
+
+    imageDragRef.current.dragging =
+      false;
+
   };
 
-  const getTouchDistance = (a, b) => {
-    const dx = a.clientX - b.clientX;
-    const dy = a.clientY - b.clientY;
-    return Math.sqrt(dx * dx + dy * dy);
+
+  /* =====================================================
+     TOUCH ZOOM
+  ===================================================== */
+
+  const getTouchDistance = (
+    a,
+    b
+  ) => {
+
+    const dx =
+      a.clientX - b.clientX;
+
+    const dy =
+      a.clientY - b.clientY;
+
+    return Math.sqrt(
+      dx * dx + dy * dy
+    );
+
   };
 
-  const handleImageTouchStart = e => {
-    if (!e.touches.length) return;
+
+  const handleImageTouchStart = (
+    e
+  ) => {
+
+    if (!e.touches.length) {
+      return;
+    }
+
 
     if (e.touches.length === 2) {
+
       imageTouchRef.current = {
         mode: "pinch",
-        startDistance: getTouchDistance(e.touches[0], e.touches[1]),
+
+        startDistance:
+          getTouchDistance(
+            e.touches[0],
+            e.touches[1]
+          ),
+
         startZoom: imageZoom,
+
         startX: 0,
         startY: 0,
-        startPanX: imagePan.x,
-        startPanY: imagePan.y
+
+        startPanX:
+          imagePan.x,
+
+        startPanY:
+          imagePan.y,
       };
+
       return;
+
     }
 
-    if (e.touches.length === 1 && imageZoom > 1) {
-      const touch = e.touches[0];
-
-      imageTouchRef.current = {
-        mode: "drag",
-        startDistance: 0,
-        startZoom: imageZoom,
-        startX: touch.clientX,
-        startY: touch.clientY,
-        startPanX: imagePan.x,
-        startPanY: imagePan.y
-      };
-    }
-  };
-
-  const handleImageTouchMove = e => {
-    if (!e.touches.length) return;
-
-    e.preventDefault();
-
-    if (
-      e.touches.length === 2 &&
-      imageTouchRef.current.mode === "pinch"
-    ) {
-      const distance = getTouchDistance(
-        e.touches[0],
-        e.touches[1]
-      );
-
-      if (!imageTouchRef.current.startDistance) return;
-
-      const zoom = Math.min(
-        5,
-        Math.max(
-          1,
-          Number(
-            (
-              imageTouchRef.current.startZoom *
-              (distance / imageTouchRef.current.startDistance)
-            ).toFixed(2)
-          )
-        )
-      );
-
-      setImageZoom(zoom);
-
-      if (zoom <= 1) setImagePan({ x: 0, y: 0 });
-      return;
-    }
 
     if (
       e.touches.length === 1 &&
-      imageTouchRef.current.mode === "drag" &&
       imageZoom > 1
     ) {
-      const touch = e.touches[0];
+
+      const touch =
+        e.touches[0];
+
+      imageTouchRef.current = {
+        mode: "drag",
+
+        startDistance: 0,
+
+        startZoom: imageZoom,
+
+        startX:
+          touch.clientX,
+
+        startY:
+          touch.clientY,
+
+        startPanX:
+          imagePan.x,
+
+        startPanY:
+          imagePan.y,
+      };
+
+    }
+
+  };
+
+
+  const handleImageTouchMove = (
+    e
+  ) => {
+
+    if (!e.touches.length) {
+      return;
+    }
+
+    e.preventDefault();
+
+
+    if (
+      e.touches.length === 2 &&
+      imageTouchRef.current.mode ===
+        "pinch"
+    ) {
+
+      const distance =
+        getTouchDistance(
+          e.touches[0],
+          e.touches[1]
+        );
+
+
+      if (
+        !imageTouchRef.current
+          .startDistance
+      ) {
+
+        return;
+
+      }
+
+
+      const zoom =
+        Math.min(
+          5,
+          Math.max(
+            1,
+            Number(
+              (
+                imageTouchRef.current
+                  .startZoom *
+                (
+                  distance /
+                  imageTouchRef.current
+                    .startDistance
+                )
+              ).toFixed(2)
+            )
+          )
+        );
+
+
+      setImageZoom(zoom);
+
+
+      if (zoom <= 1) {
+
+        setImagePan({
+          x: 0,
+          y: 0,
+        });
+
+      }
+
+      return;
+
+    }
+
+
+    if (
+      e.touches.length === 1 &&
+      imageTouchRef.current.mode ===
+        "drag" &&
+      imageZoom > 1
+    ) {
+
+      const touch =
+        e.touches[0];
+
 
       setImagePan({
         x:
-          imageTouchRef.current.startPanX +
+          imageTouchRef.current
+            .startPanX +
           touch.clientX -
-          imageTouchRef.current.startX,
+          imageTouchRef.current
+            .startX,
+
         y:
-          imageTouchRef.current.startPanY +
+          imageTouchRef.current
+            .startPanY +
           touch.clientY -
-          imageTouchRef.current.startY
+          imageTouchRef.current
+            .startY,
       });
+
     }
+
   };
+
 
   const handleImageTouchEnd = () => {
-    imageTouchRef.current.mode = null;
+
+    imageTouchRef.current.mode =
+      null;
+
   };
 
-  const handleImageWheel = e => {
+
+  /* =====================================================
+     MOUSE WHEEL
+  ===================================================== */
+
+  const handleImageWheel = (e) => {
+
     e.preventDefault();
     e.stopPropagation();
-    zoomImage(e.deltaY < 0 ? 0.25 : -0.25);
+
+    zoomImage(
+      e.deltaY < 0
+        ? 0.25
+        : -0.25
+    );
+
   };
 
-  const getVideoRawUrl = video => {
-    if (!video) return "";
-    if (typeof video === "string") return video.trim();
+
+  /* =====================================================
+     VIDEO HELPERS
+  ===================================================== */
+
+  const getVideoRawUrl = (video) => {
+
+    if (!video) {
+      return "";
+    }
+
+    if (
+      typeof video === "string"
+    ) {
+
+      return video.trim();
+
+    }
 
     return (
       video.embed ||
@@ -517,290 +1196,723 @@ function MemberProfile() {
       video.videoUrl ||
       ""
     ).trim();
+
   };
 
-  const getVideoType = video => {
-    const url = getVideoRawUrl(video).toLowerCase();
 
-    if (url.includes("instagram.com")) return "instagram";
-    if (url.includes("youtube.com") || url.includes("youtu.be")) {
-      return "youtube";
+  const getVideoType = (video) => {
+
+    const url =
+      getVideoRawUrl(
+        video
+      ).toLowerCase();
+
+
+    if (
+      url.includes(
+        "instagram.com"
+      )
+    ) {
+
+      return "instagram";
+
     }
-    if (url.includes("facebook.com")) return "facebook";
+
+
+    if (
+      url.includes(
+        "youtube.com"
+      ) ||
+      url.includes(
+        "youtu.be"
+      )
+    ) {
+
+      return "youtube";
+
+    }
+
+
+    if (
+      url.includes(
+        "facebook.com"
+      )
+    ) {
+
+      return "facebook";
+
+    }
+
 
     return "other";
+
   };
 
-  const getYouTubeId = url => {
-    if (!url) return "";
+
+  const getYouTubeId = (url) => {
+
+    if (!url) {
+      return "";
+    }
 
     try {
-      const parsed = new URL(url);
 
-      if (parsed.hostname.includes("youtube.com")) {
-        const id = parsed.searchParams.get("v");
-        if (id) return id;
+      const parsed =
+        new URL(url);
 
-        const shorts = parsed.pathname.match(/\/shorts\/([^/?#]+)/);
-        if (shorts) return shorts[1];
 
-        const embed = parsed.pathname.match(/\/embed\/([^/?#]+)/);
-        if (embed) return embed[1];
+      if (
+        parsed.hostname.includes(
+          "youtube.com"
+        )
+      ) {
+
+        const id =
+          parsed.searchParams.get(
+            "v"
+          );
+
+        if (id) {
+          return id;
+        }
+
+
+        const shorts =
+          parsed.pathname.match(
+            /\/shorts\/([^/?#]+)/
+          );
+
+        if (shorts) {
+          return shorts[1];
+        }
+
+
+        const embed =
+          parsed.pathname.match(
+            /\/embed\/([^/?#]+)/
+          );
+
+        if (embed) {
+          return embed[1];
+        }
+
       }
 
-      if (parsed.hostname.includes("youtu.be")) {
-        return parsed.pathname.replace("/", "").trim();
+
+      if (
+        parsed.hostname.includes(
+          "youtu.be"
+        )
+      ) {
+
+        return parsed.pathname
+          .replace(
+            "/",
+            ""
+          )
+          .trim();
+
       }
+
     } catch (error) {
-      console.log("YouTube ID Error:", error);
+
+      console.log(
+        "YouTube ID Error:",
+        error
+      );
+
     }
 
     return "";
+
   };
 
-  const getInstagramEmbedUrl = url => {
-    if (!url) return "";
+
+  const getInstagramEmbedUrl = (
+    url
+  ) => {
+
+    if (!url) {
+      return "";
+    }
 
     try {
-      const parsed = new URL(url);
-      const pathname = parsed.pathname;
 
-      if (pathname.includes("/embed")) return url;
+      const parsed =
+        new URL(url);
 
-      const reel = pathname.match(/\/reel\/([^/?#]+)/);
+      const pathname =
+        parsed.pathname;
+
+
+      if (
+        pathname.includes(
+          "/embed"
+        )
+      ) {
+
+        return url;
+
+      }
+
+
+      const reel =
+        pathname.match(
+          /\/reel\/([^/?#]+)/
+        );
+
       if (reel) {
+
         return `https://www.instagram.com/reel/${reel[1]}/embed/`;
+
       }
 
-      const post = pathname.match(/\/p\/([^/?#]+)/);
+
+      const post =
+        pathname.match(
+          /\/p\/([^/?#]+)/
+        );
+
       if (post) {
+
         return `https://www.instagram.com/p/${post[1]}/embed/`;
+
       }
 
-      const tv = pathname.match(/\/tv\/([^/?#]+)/);
+
+      const tv =
+        pathname.match(
+          /\/tv\/([^/?#]+)/
+        );
+
       if (tv) {
+
         return `https://www.instagram.com/tv/${tv[1]}/embed/`;
+
       }
+
     } catch (error) {
-      console.log("Instagram URL Error:", error);
+
+      console.log(
+        "Instagram URL Error:",
+        error
+      );
+
     }
 
     return "";
+
   };
 
-  const getVideoEmbedUrl = video => {
-    const rawUrl = getVideoRawUrl(video);
-    if (!rawUrl) return "";
 
-    const type = getVideoType(video);
+  const getVideoEmbedUrl = (
+    video
+  ) => {
 
-    if (type === "instagram") {
-      return getInstagramEmbedUrl(rawUrl);
+    const rawUrl =
+      getVideoRawUrl(video);
+
+
+    if (!rawUrl) {
+      return "";
     }
 
-    if (type === "youtube") {
-      const id = getYouTubeId(rawUrl);
+
+    const type =
+      getVideoType(video);
+
+
+    if (
+      type === "instagram"
+    ) {
+
+      return getInstagramEmbedUrl(
+        rawUrl
+      );
+
+    }
+
+
+    if (
+      type === "youtube"
+    ) {
+
+      const id =
+        getYouTubeId(rawUrl);
+
 
       if (id) {
+
         return `https://www.youtube.com/embed/${id}?rel=0&autoplay=1`;
+
       }
+
     }
 
-    if (type === "facebook") {
+
+    if (
+      type === "facebook"
+    ) {
+
       return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
         rawUrl
       )}&show_text=false&autoplay=true`;
+
     }
+
 
     return rawUrl;
+
   };
 
-  const getVideoThumbnail = video => {
-    const type = getVideoType(video);
-    const rawUrl = getVideoRawUrl(video);
 
-    if (type === "youtube") {
-      const id = getYouTubeId(rawUrl);
+  const getVideoThumbnail = (
+    video
+  ) => {
+
+    const type =
+      getVideoType(video);
+
+    const rawUrl =
+      getVideoRawUrl(video);
+
+
+    if (
+      type === "youtube"
+    ) {
+
+      const id =
+        getYouTubeId(rawUrl);
+
 
       if (id) {
+
         return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+
       }
+
     }
 
-    if (typeof video === "object" && video) {
-      return video.thumbnail || video.thumbnailUrl || "";
+
+    if (
+      typeof video === "object" &&
+      video
+    ) {
+
+      return (
+        video.thumbnail ||
+        video.thumbnailUrl ||
+        ""
+      );
+
     }
+
 
     return "";
+
   };
 
-  const openVideo = index => {
-    const video = videos[index];
-    if (!video) return;
 
-    const embedUrl = getVideoEmbedUrl(video);
-    if (!embedUrl) return;
+  /* =====================================================
+     OPEN VIDEO
+  ===================================================== */
 
-    setSelectedVideoIndex(index);
+  const openVideo = (index) => {
+
+    const video =
+      videos[index];
+
+
+    if (!video) {
+      return;
+    }
+
+
+    const embedUrl =
+      getVideoEmbedUrl(
+        video
+      );
+
+
+    if (!embedUrl) {
+      return;
+    }
+
+
+    setSelectedVideoIndex(
+      index
+    );
+
+
     setSelectedVideo({
       url: embedUrl,
-      type: getVideoType(video)
+      type: getVideoType(video),
     });
+
   };
+
 
   const closeVideo = () => {
+
     setSelectedVideo(null);
+
   };
 
-  const nextVideo = e => {
-    e?.stopPropagation();
-    if (!videos.length) return;
 
-    openVideo((selectedVideoIndex + 1) % videos.length);
-  };
+  const nextVideo = (e) => {
 
-  const previousVideo = e => {
     e?.stopPropagation();
-    if (!videos.length) return;
+
+    if (!videos.length) {
+      return;
+    }
+
 
     openVideo(
-      (selectedVideoIndex - 1 + videos.length) %
-        videos.length
+      (
+        selectedVideoIndex + 1
+      ) %
+      videos.length
     );
+
   };
+
+
+  const previousVideo = (e) => {
+
+    e?.stopPropagation();
+
+    if (!videos.length) {
+      return;
+    }
+
+
+    openVideo(
+      (
+        selectedVideoIndex -
+        1 +
+        videos.length
+      ) %
+      videos.length
+    );
+
+  };
+
+
+  /* =====================================================
+     SHARE PROFILE
+  ===================================================== */
 
   const handleShare = async () => {
-    const profileUrl = window.location.href;
+
+    const profileUrl =
+      window.location.href;
+
     setShareMessage("");
 
+
     try {
+
       if (navigator.share) {
+
         await navigator.share({
-          title: `OCMA Member - ${member.name}`,
-          text: `OCMA Registered Member - ${member.name}`,
-          url: profileUrl
+          title:
+            `${brandName} Member - ${member.name}`,
+
+          text:
+            `${brandName} Registered Member - ${member.name}`,
+
+          url: profileUrl,
         });
 
-        setShareMessage("Profile successfully shared.");
+
+        setShareMessage(
+          "Profile successfully shared."
+        );
+
         return;
+
       }
+
 
       if (navigator.clipboard) {
-        await navigator.clipboard.writeText(profileUrl);
-        setShareMessage("Profile link copied successfully.");
+
+        await navigator.clipboard.writeText(
+          profileUrl
+        );
+
+
+        setShareMessage(
+          "Profile link copied successfully."
+        );
+
         return;
+
       }
 
-      const textArea = document.createElement("textarea");
-      textArea.value = profileUrl;
-      document.body.appendChild(textArea);
+
+      const textArea =
+        document.createElement(
+          "textarea"
+        );
+
+      textArea.value =
+        profileUrl;
+
+      document.body.appendChild(
+        textArea
+      );
+
       textArea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textArea);
 
-      setShareMessage("Profile link copied successfully.");
+      document.execCommand(
+        "copy"
+      );
+
+      document.body.removeChild(
+        textArea
+      );
+
+
+      setShareMessage(
+        "Profile link copied successfully."
+      );
+
     } catch (error) {
-      console.log("Share Error:", error);
 
-      if (error?.name === "AbortError") return;
+      console.log(
+        "Share Error:",
+        error
+      );
 
-      setShareMessage("Profile share failed. Please try again.");
+
+      if (
+        error?.name ===
+        "AbortError"
+      ) {
+
+        return;
+
+      }
+
+
+      setShareMessage(
+        "Profile share failed. Please try again."
+      );
+
     }
+
   };
 
+
+  /* =====================================================
+     POPUP BODY LOCK + KEYBOARD
+  ===================================================== */
+
   useEffect(() => {
-    const popupOpen = Boolean(selectedImage || selectedVideo);
-    if (!popupOpen) return;
 
-    const body = document.body;
-    const html = document.documentElement;
+    const popupOpen =
+      Boolean(
+        selectedImage ||
+        selectedVideo
+      );
 
-    const oldBodyOverflow = body.style.overflow;
-    const oldHtmlOverflow = html.style.overflow;
-    const oldPaddingRight = body.style.paddingRight;
 
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-
-    body.style.overflow = "hidden";
-    html.style.overflow = "hidden";
-
-    if (scrollbarWidth > 0) {
-      body.style.paddingRight = `${scrollbarWidth}px`;
+    if (!popupOpen) {
+      return;
     }
 
-    const handleKeyDown = e => {
+
+    const body =
+      document.body;
+
+    const html =
+      document.documentElement;
+
+
+    const oldBodyOverflow =
+      body.style.overflow;
+
+    const oldHtmlOverflow =
+      html.style.overflow;
+
+    const oldPaddingRight =
+      body.style.paddingRight;
+
+
+    const scrollbarWidth =
+      window.innerWidth -
+      document.documentElement
+        .clientWidth;
+
+
+    body.style.overflow =
+      "hidden";
+
+    html.style.overflow =
+      "hidden";
+
+
+    if (scrollbarWidth > 0) {
+
+      body.style.paddingRight =
+        `${scrollbarWidth}px`;
+
+    }
+
+
+    const handleKeyDown = (e) => {
+
       if (e.key === "Escape") {
-        if (selectedImage) closeImage();
-        if (selectedVideo) closeVideo();
+
+        if (selectedImage) {
+          closeImage();
+        }
+
+        if (selectedVideo) {
+          closeVideo();
+        }
+
         return;
+
       }
+
 
       if (selectedImage) {
-        if (e.key === "ArrowRight") {
+
+        if (
+          e.key === "ArrowRight"
+        ) {
+
           e.preventDefault();
           nextPhoto();
-        } else if (e.key === "ArrowLeft") {
+
+        } else if (
+          e.key === "ArrowLeft"
+        ) {
+
           e.preventDefault();
           previousPhoto();
-        } else if (e.key === "+" || e.key === "=") {
+
+        } else if (
+          e.key === "+" ||
+          e.key === "="
+        ) {
+
           e.preventDefault();
           zoomImage(0.25);
-        } else if (e.key === "-") {
+
+        } else if (
+          e.key === "-"
+        ) {
+
           e.preventDefault();
           zoomImage(-0.25);
-        } else if (e.key === "0") {
+
+        } else if (
+          e.key === "0"
+        ) {
+
           e.preventDefault();
           resetImageZoom();
+
         }
+
       }
+
 
       if (selectedVideo) {
-        if (e.key === "ArrowRight") {
+
+        if (
+          e.key === "ArrowRight"
+        ) {
+
           e.preventDefault();
           nextVideo();
-        } else if (e.key === "ArrowLeft") {
+
+        } else if (
+          e.key === "ArrowLeft"
+        ) {
+
           e.preventDefault();
           previousVideo();
+
         }
+
       }
+
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+
+    window.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
 
     return () => {
-      body.style.overflow = oldBodyOverflow;
-      html.style.overflow = oldHtmlOverflow;
-      body.style.paddingRight = oldPaddingRight;
-      window.removeEventListener("keydown", handleKeyDown);
+
+      body.style.overflow =
+        oldBodyOverflow;
+
+      html.style.overflow =
+        oldHtmlOverflow;
+
+      body.style.paddingRight =
+        oldPaddingRight;
+
+
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown
+      );
+
     };
+
   }, [
     selectedImage,
     selectedVideo,
     selectedPhotoIndex,
     selectedVideoIndex,
     imageZoom,
-    imagePan
+    imagePan,
   ]);
 
+
+  /* =====================================================
+     LOADING
+  ===================================================== */
+
   if (loading) {
+
     return (
       <div className="profile-loading">
         Loading Member Profile...
       </div>
     );
+
   }
 
+
   if (!member) {
+
     return (
       <div className="profile-loading">
         Member Not Found
       </div>
     );
+
   }
 
+
   return (
+
     <section className="member-profile">
+
+
+      {/* =================================================
+          PROFILE
+      ================================================= */}
 
       <div className="profile-card">
 
@@ -808,10 +1920,16 @@ function MemberProfile() {
 
           <div
             className="profile-image-wrapper"
-            onClick={openProfileImage}
+            onClick={
+              openProfileImage
+            }
           >
+
             <img
-              src={member.image || "/assets/ocma-logo.png"}
+              src={
+                member.image ||
+                "/assets/ocma-logo.png"
+              }
               alt={member.name}
               className="profile-image"
             />
@@ -819,95 +1937,143 @@ function MemberProfile() {
             <div className="photo-click-hint">
               🔍 Click to View
             </div>
+
           </div>
+
 
           <div className="registered-member-badge">
-            ✓ Registered OCMA Member
+            ✓ Registered {brandName} Member
           </div>
 
-          <h1>{member.name}</h1>
+
+          <h1>
+            {member.name}
+          </h1>
+
 
           <h3 className="profile-id">
             {member.memberId}
           </h3>
 
+
           <div className="member-joining-date">
-            📅 <b>Joined OCMA:</b>{" "}
-            {formatJoiningDate(joiningDate)}
+
+            📅 <b>Joined {brandName}:</b>{" "}
+
+            {formatJoiningDate(
+              joiningDate
+            )}
+
           </div>
 
+
           {googleRating > 0 && (
+
             <div className="profile-google-rating">
 
               <div className="profile-rating-stars">
-                {"★".repeat(Math.round(googleRating))}
-                {"☆".repeat(5 - Math.round(googleRating))}
+
+                {"★".repeat(
+                  Math.round(
+                    googleRating
+                  )
+                )}
+
+                {"☆".repeat(
+                  5 -
+                  Math.round(
+                    googleRating
+                  )
+                )}
+
               </div>
 
+
               <span className="profile-rating-number">
+
                 {googleRating.toFixed(1)}
+
               </span>
 
+
               {googleReviewCount > 0 && (
+
                 <span className="profile-review-count">
+
                   ({googleReviewCount} reviews)
+
                 </span>
+
               )}
 
             </div>
+
           )}
 
         </div>
 
+
         <div className="profile-info">
 
           <p>
-            📍 <b>City:</b> {member.city || "Not Added"}
+            📍 <b>City:</b>{" "}
+            {member.city ||
+              "Not Added"}
           </p>
 
           <p>
             🎥 <b>Profession:</b>{" "}
-            {member.specialty || "Not Added"}
+            {member.specialty ||
+              "Not Added"}
           </p>
 
           <p>
             👨‍👦 <b>Father Name:</b>{" "}
-            {member.fatherName || "Not Added"}
+            {member.fatherName ||
+              "Not Added"}
           </p>
 
           <p>
             🏢 <b>Studio:</b>{" "}
-            {member.studio || "Not Added"}
+            {member.studio ||
+              "Not Added"}
           </p>
 
           <p>
             ⭐ <b>Experience:</b>{" "}
-            {member.experience || "Not Added"}
+            {member.experience ||
+              "Not Added"}
           </p>
 
           <p>
             📷 <b>Camera:</b>{" "}
-            {member.cameraDetails || "Not Added"}
+            {member.cameraDetails ||
+              "Not Added"}
           </p>
 
           <p>
             🩸 <b>Blood:</b>{" "}
-            {member.bloodGroup || "Not Added"}
+            {member.bloodGroup ||
+              "Not Added"}
           </p>
 
           <p>
             🏠 <b>Address:</b>{" "}
-            {member.address || "Not Added"}
+            {member.address ||
+              "Not Added"}
           </p>
 
           <p>
             💬 <b>Message:</b>{" "}
-            {member.message || "Not Added"}
+            {member.message ||
+              "Not Added"}
           </p>
 
         </div>
 
+
         {whatsappNumber && (
+
           <a
             href={`https://wa.me/${whatsappNumber}`}
             target="_blank"
@@ -916,127 +2082,267 @@ function MemberProfile() {
           >
             💬 WhatsApp Contact
           </a>
+
         )}
 
       </div>
 
-      {videos.length > 0 && (
-        <div className="member-videos">
 
-          <h2>Video Portfolio</h2>
+      {/* =================================================
+          PHOTO PORTFOLIO
+      ================================================= */}
 
-          <div className="video-gallery">
+      {portfolioPhotos.length > 0 && (
 
-            {videos.map((video, index) => {
-              const type = getVideoType(video);
-              const embedUrl = getVideoEmbedUrl(video);
-              const thumbnail = getVideoThumbnail(video);
+        <div className="member-photo-portfolio">
 
-              return (
-                <div
-                  className={`video-item video-card-${type}`}
-                  key={index}
+          <h2>
+            Photo Portfolio
+          </h2>
+
+
+          <div className="photo-gallery">
+
+            {portfolioPhotos.map(
+              (photo, index) => (
+
+                <button
+                  type="button"
+                  className="photo-portfolio-item"
+                  key={`${photo}-${index}`}
+                  onClick={() =>
+                    openPortfolioImage(
+                      index
+                    )
+                  }
+                  aria-label={`View Photo ${
+                    index + 1
+                  }`}
                 >
 
-                  {embedUrl ? (
+                  <div className="photo-thumbnail-wrapper">
 
-                    <button
-                      type="button"
-                      className={`video-preview-button video-preview-${type}`}
-                      onClick={() => openVideo(index)}
-                    >
+                    <img
+                      src={photo}
+                      alt={`${member.name} Portfolio ${
+                        index + 1
+                      }`}
+                      className="portfolio-photo"
+                      loading="lazy"
+                    />
 
-                      {thumbnail ? (
 
-                        <div className="video-thumbnail">
+                    <div className="photo-preview-overlay">
 
-                          <img
-                            src={thumbnail}
-                            alt="Video Thumbnail"
-                          />
+                      <span>
+                        🔍
+                      </span>
 
-                          <div className="video-thumbnail-overlay">
-                            <div className="video-play-icon">
-                              ▶
-                            </div>
-                          </div>
+                      <strong>
+                        View Photo
+                      </strong>
 
-                        </div>
+                    </div>
 
-                      ) : type === "instagram" ? (
+                  </div>
 
-                        <div className="instagram-preview-wrapper">
 
-                          <iframe
-                            src={embedUrl}
-                            title={`Instagram Preview ${index + 1}`}
-                            className="instagram-preview-iframe"
-                            scrolling="no"
-                            frameBorder="0"
-                          />
+                  <div className="photo-thumbnail-number">
 
-                          <div className="instagram-preview-overlay">
-                            <div className="video-play-icon">
-                              ▶
-                            </div>
-                          </div>
+                    Photo {index + 1}
 
-                        </div>
+                  </div>
 
-                      ) : (
+                </button>
 
-                        <div className="video-thumbnail video-generic-thumbnail">
-                          <div className="video-play-icon">
-                            ▶
-                          </div>
-                        </div>
-
-                      )}
-
-                      <div className="video-card-info">
-
-                        <span>
-                          {type === "instagram"
-                            ? "Instagram Reel"
-                            : type === "youtube"
-                            ? "YouTube Video"
-                            : type === "facebook"
-                            ? "Facebook Video"
-                            : "Video Portfolio"}
-                        </span>
-
-                        <strong>
-                          ▶ Watch Video
-                        </strong>
-
-                      </div>
-
-                    </button>
-
-                  ) : (
-
-                    <p className="video-error">
-                      Video Preview Not Available
-                    </p>
-
-                  )}
-
-                </div>
-              );
-            })}
+              )
+            )}
 
           </div>
 
         </div>
+
       )}
 
+
+      {/* =================================================
+          VIDEO PORTFOLIO
+      ================================================= */}
+
+      {videos.length > 0 && (
+
+        <div className="member-videos">
+
+          <h2>
+            Video Portfolio
+          </h2>
+
+
+          <div className="video-gallery">
+
+            {videos.map(
+              (video, index) => {
+
+                const type =
+                  getVideoType(
+                    video
+                  );
+
+                const embedUrl =
+                  getVideoEmbedUrl(
+                    video
+                  );
+
+                const thumbnail =
+                  getVideoThumbnail(
+                    video
+                  );
+
+
+                return (
+
+                  <div
+                    className={`video-item video-card-${type}`}
+                    key={index}
+                  >
+
+                    {embedUrl ? (
+
+                      <button
+                        type="button"
+                        className={`video-preview-button video-preview-${type}`}
+                        onClick={() =>
+                          openVideo(
+                            index
+                          )
+                        }
+                      >
+
+                        {thumbnail ? (
+
+                          <div className="video-thumbnail">
+
+                            <img
+                              src={thumbnail}
+                              alt="Video Thumbnail"
+                            />
+
+
+                            <div className="video-thumbnail-overlay">
+
+                              <div className="video-play-icon">
+                                ▶
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                        ) : type === "instagram" ? (
+
+                          <div className="instagram-preview-wrapper">
+
+                            <iframe
+                              src={
+                                embedUrl
+                              }
+                              title={`Instagram Preview ${
+                                index + 1
+                              }`}
+                              className="instagram-preview-iframe"
+                              scrolling="no"
+                              frameBorder="0"
+                            />
+
+
+                            <div className="instagram-preview-overlay">
+
+                              <div className="video-play-icon">
+                                ▶
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                        ) : (
+
+                          <div className="video-thumbnail video-generic-thumbnail">
+
+                            <div className="video-play-icon">
+                              ▶
+                            </div>
+
+                          </div>
+
+                        )}
+
+
+                        <div className="video-card-info">
+
+                          <span>
+
+                            {type ===
+                            "instagram"
+                              ? "Instagram Reel"
+                              : type ===
+                                "youtube"
+                              ? "YouTube Video"
+                              : type ===
+                                "facebook"
+                              ? "Facebook Video"
+                              : "Video Portfolio"}
+
+                          </span>
+
+
+                          <strong>
+                            ▶ Watch Video
+                          </strong>
+
+                        </div>
+
+                      </button>
+
+                    ) : (
+
+                      <p className="video-error">
+                        Video Preview Not Available
+                      </p>
+
+                    )}
+
+                  </div>
+
+                );
+
+              }
+            )}
+
+          </div>
+
+        </div>
+
+      )}
+
+
+      {/* =================================================
+          CERTIFICATE
+      ================================================= */}
+
       {member.certificate && (
+
         <div className="member-certificate">
 
-          <h2>OCMA Certificate</h2>
+          <h2>
+            {brandName} Certificate
+          </h2>
+
 
           <a
-            href={member.certificate}
+            href={
+              member.certificate
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="certificate-btn"
@@ -1045,17 +2351,29 @@ function MemberProfile() {
           </a>
 
         </div>
+
       )}
 
+
+      {/* =================================================
+          GOOGLE LOCATION
+      ================================================= */}
+
       {googleAddress && (
+
         <div className="member-location">
 
-          <h2>📍 Google Location</h2>
+          <h2>
+            📍 Google Location
+          </h2>
+
 
           <p>
-            View this member's location, Google rating
-            and latest reviews directly on Google Maps.
+            View this member's location,
+            Google rating and latest
+            reviews directly on Google Maps.
           </p>
+
 
           <a
             href={googleAddress}
@@ -1067,38 +2385,53 @@ function MemberProfile() {
           </a>
 
         </div>
+
       )}
+
+
+      {/* =================================================
+          SHARE
+      ================================================= */}
 
       <div className="share-profile">
 
-        <h2>Share Member Profile</h2>
+        <h2>
+          Share Member Profile
+        </h2>
+
 
         <button
           type="button"
           className="share-btn"
-          onClick={handleShare}
+          onClick={
+            handleShare
+          }
         >
           🔗 Share Profile
         </button>
 
+
         {shareMessage && (
+
           <p className="share-message">
             {shareMessage}
           </p>
+
         )}
 
       </div>
 
-      {/* =====================================================
-          OCMA RATING & REVIEWS
-          LAST SECTION BEFORE QR
-      ===================================================== */}
+
+      {/* =================================================
+          RATING & REVIEWS
+      ================================================= */}
 
       <div className="profile-rating-section">
 
         <h2 className="profile-rating-title">
-  {member.name} — Rating & Reviews
-</h2>
+          {member.name} — {brandName} Rating & Reviews
+        </h2>
+
 
         <div className="profile-rating-summary">
 
@@ -1106,43 +2439,65 @@ function MemberProfile() {
 
             <div className="profile-rating-stars-live">
 
-              {[1, 2, 3, 4, 5].map(star => {
-                const fill = Math.max(
-                  0,
-                  Math.min(1, ocmaRating - star + 1)
-                );
+              {[1, 2, 3, 4, 5].map(
+                (star) => {
 
-                return (
-                  <span
-                    key={star}
-                    className={
-                      fill >= 1
-                        ? "rating-display-star filled"
-                        : fill > 0
-                        ? "rating-display-star half"
-                        : "rating-display-star empty"
-                    }
-                  >
-                    ★
-                  </span>
-                );
-              })}
+                  const fill =
+                    Math.max(
+                      0,
+                      Math.min(
+                        1,
+                        ocmaRating -
+                        star +
+                        1
+                      )
+                    );
+
+
+                  return (
+
+                    <span
+                      key={star}
+                      className={
+                        fill >= 1
+                          ? "rating-display-star filled"
+                          : fill > 0
+                          ? "rating-display-star half"
+                          : "rating-display-star empty"
+                      }
+                    >
+                      ★
+                    </span>
+
+                  );
+
+                }
+              )}
 
             </div>
+
 
             <div className="profile-rating-score-row">
 
               <strong className="profile-rating-score-number">
+
                 {ocmaRating > 0
-                  ? ocmaRating.toFixed(1)
+                  ? ocmaRating.toFixed(
+                      1
+                    )
                   : "0.0"}
+
               </strong>
 
+
               <span className="profile-rating-reviews-count">
+
                 {ocmaReviewCount}{" "}
+
                 {ocmaReviewCount === 1
                   ? "review"
                   : "reviews"}
+
               </span>
 
             </div>
@@ -1151,81 +2506,108 @@ function MemberProfile() {
 
         </div>
 
+
         {ocmaReviews.length > 0 ? (
 
           <div className="profile-reviews-list">
 
-            {ocmaReviews.map(review => (
+            {ocmaReviews.map(
+              (review) => (
 
-              <div
-                className="profile-review-card"
-                key={review.id}
-              >
+                <div
+                  className="profile-review-card"
+                  key={review.id}
+                >
 
-                <div className="profile-review-user">
+                  <div className="profile-review-user">
 
-                  <img
-                    src={
-                      review.userPhoto ||
-                      "/assets/ocma-logo.png"
-                    }
-                    alt={
-                      review.userName ||
-                      "Google Account"
-                    }
-                    className="profile-review-user-image"
-                  />
+                    <img
+                      src={
+                        review.userPhoto ||
+                        "/assets/ocma-logo.png"
+                      }
+                      alt={
+                        review.userName ||
+                        "Google Account"
+                      }
+                      className="profile-review-user-image"
+                    />
 
-                  <div className="profile-review-user-details">
 
-                    <h4 className="profile-review-user-name">
-                      {review.userName || "Google Account"}
-                    </h4>
+                    <div className="profile-review-user-details">
 
-                    <span className="profile-review-verified">
-                      Google Account
-                    </span>
+                      <h4 className="profile-review-user-name">
+
+                        {review.userName ||
+                          "Google Account"}
+
+                      </h4>
+
+
+                      <span className="profile-review-verified">
+
+                        Google Account
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="profile-review-stars">
+
+                    {"★".repeat(
+                      Math.min(
+                        5,
+                        Number(
+                          review.rating ||
+                          0
+                        )
+                      )
+                    )}
+
+                    {"☆".repeat(
+                      Math.max(
+                        0,
+                        5 -
+                        Number(
+                          review.rating ||
+                          0
+                        )
+                      )
+                    )}
+
+                  </div>
+
+
+                  <p className="profile-review-text">
+
+                    {review.review}
+
+                  </p>
+
+
+                  <div className="profile-review-date">
+
+                    {new Date(
+                      review.updatedAt ||
+                      review.createdAt
+                    ).toLocaleDateString(
+                      "en-GB",
+                      {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      }
+                    )}
 
                   </div>
 
                 </div>
 
-                <div className="profile-review-stars">
-                  {"★".repeat(
-                    Math.min(
-                      5,
-                      Number(review.rating || 0)
-                    )
-                  )}
-                  {"☆".repeat(
-                    Math.max(
-                      0,
-                      5 - Number(review.rating || 0)
-                    )
-                  )}
-                </div>
-
-                <p className="profile-review-text">
-                  {review.review}
-                </p>
-
-                <div className="profile-review-date">
-                  {new Date(
-                    review.updatedAt ||
-                    review.createdAt
-                  ).toLocaleDateString(
-                    "en-GB",
-                    {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric"
-                    }
-                  )}
-                </div>
-
-              </div>
-
-            ))}
+              )
+            )}
 
           </div>
 
@@ -1237,6 +2619,7 @@ function MemberProfile() {
 
         )}
 
+
         {!ratingUser ? (
 
           <div className="profile-review-action">
@@ -1247,8 +2630,13 @@ function MemberProfile() {
                 type="button"
                 className="profile-write-review-btn"
                 onClick={() => {
+
                   setRatingMessage("");
-                  setShowGoogleLogin(true);
+
+                  setShowGoogleLogin(
+                    true
+                  );
+
                 }}
               >
                 Write a Review
@@ -1259,7 +2647,9 @@ function MemberProfile() {
               <div className="profile-google-login-box">
 
                 <GoogleLogin
-                  onLogin={handleRatingGoogleLogin}
+                  onLogin={
+                    handleRatingGoogleLogin
+                  }
                 />
 
               </div>
@@ -1268,14 +2658,17 @@ function MemberProfile() {
 
           </div>
 
-        ) : alreadyRated && !editingReview ? (
+        ) : alreadyRated &&
+          !editingReview ? (
 
           <div className="profile-review-action">
 
             <button
               type="button"
               className="profile-write-review-btn"
-              onClick={startEditingReview}
+              onClick={
+                startEditingReview
+              }
             >
               Edit Your Review
             </button>
@@ -1299,6 +2692,7 @@ function MemberProfile() {
                 }
               />
 
+
               <div>
 
                 <strong>
@@ -1314,80 +2708,110 @@ function MemberProfile() {
 
             </div>
 
+
             <div className="rating-stars-selector">
 
-              {[1, 2, 3, 4, 5].map(star => (
+              {[1, 2, 3, 4, 5].map(
+                (star) => (
 
-                <button
-                  type="button"
-                  key={star}
-                  className={
-                    star <= selectedRating
-                      ? "rating-star active"
-                      : "rating-star"
-                  }
-                  onClick={() =>
-                    setSelectedRating(star)
-                  }
-                  disabled={ratingLoading}
-                  aria-label={`${star} Star`}
-                >
-                  ★
-                </button>
+                  <button
+                    type="button"
+                    key={star}
+                    className={
+                      star <=
+                      selectedRating
+                        ? "rating-star active"
+                        : "rating-star"
+                    }
+                    onClick={() =>
+                      setSelectedRating(
+                        star
+                      )
+                    }
+                    disabled={
+                      ratingLoading
+                    }
+                    aria-label={`${star} Star`}
+                  >
+                    ★
+                  </button>
 
-              ))}
+                )
+              )}
 
             </div>
+
 
             <div className="review-input-wrapper">
 
               <label htmlFor="member-review">
+
                 {editingReview
                   ? "Edit Your Review"
                   : "Write Your Review"}
+
               </label>
+
 
               <textarea
                 id="member-review"
                 value={reviewText}
-                onChange={e =>
-                  setReviewText(e.target.value)
+                onChange={(e) =>
+                  setReviewText(
+                    e.target.value
+                  )
                 }
                 placeholder="Write your review..."
                 maxLength={500}
-                disabled={ratingLoading}
+                disabled={
+                  ratingLoading
+                }
               />
 
+
               <div className="review-character-count">
+
                 {reviewText.length} / 500
+
               </div>
 
             </div>
 
+
             <button
               type="button"
               className="submit-rating-button"
-              onClick={submitOCMARating}
+              onClick={
+                submitOCMARating
+              }
               disabled={
                 ratingLoading ||
-                selectedRating === 0 ||
+                selectedRating ===
+                  0 ||
                 !reviewText.trim()
               }
             >
+
               {ratingLoading
                 ? "Saving..."
                 : editingReview
                 ? "Save Changes"
                 : "Submit Review"}
+
             </button>
+
 
             {editingReview && (
 
               <button
                 type="button"
                 className="cancel-edit-review-button"
-                onClick={cancelEditingReview}
-                disabled={ratingLoading}
+                onClick={
+                  cancelEditingReview
+                }
+                disabled={
+                  ratingLoading
+                }
               >
                 Cancel
               </button>
@@ -1398,24 +2822,35 @@ function MemberProfile() {
 
         )}
 
+
         {ratingMessage && (
+
           <p className="rating-message">
             {ratingMessage}
           </p>
+
         )}
 
       </div>
 
-      {/* QR - REVIEWS KE BILKUL BAAD */}
+
+      {/* =================================================
+          QR
+      ================================================= */}
 
       <div className="member-qr">
 
-        <h2>OCMA Profile QR</h2>
+        <h2>
+          {brandName} Profile QR
+        </h2>
+
 
         <div className="qr-wrapper">
 
           <QRCodeCanvas
-            value={window.location.href}
+            value={
+              window.location.href
+            }
             size={220}
             bgColor="#ffffff"
             fgColor="#000000"
@@ -1425,82 +2860,120 @@ function MemberProfile() {
 
         </div>
 
+
         <p>
           Scan to open Member Profile
         </p>
 
       </div>
 
-      {/* IMAGE POPUP */}
+
+      {/* =================================================
+          IMAGE POPUP
+      ================================================= */}
 
       {selectedImage && (
+
         <div
           className="image-popup"
           ref={imagePopupRef}
           onClick={closeImage}
-          onWheel={handleImageWheel}
+          onWheel={
+            handleImageWheel
+          }
         >
 
           <button
             type="button"
             className="popup-close"
-            onClick={e => {
+            onClick={(e) => {
+
               e.stopPropagation();
               closeImage();
+
             }}
             aria-label="Close"
           >
             ✕
           </button>
 
+
           <div
             className="image-zoom-controls"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) =>
+              e.stopPropagation()
+            }
           >
 
             <button
               type="button"
-              onClick={() => zoomImage(-0.25)}
-              disabled={imageZoom <= 1}
+              onClick={() =>
+                zoomImage(-0.25)
+              }
+              disabled={
+                imageZoom <= 1
+              }
             >
               −
             </button>
 
+
             <span>
-              {Math.round(imageZoom * 100)}%
+
+              {Math.round(
+                imageZoom * 100
+              )}
+              %
+
             </span>
+
 
             <button
               type="button"
-              onClick={() => zoomImage(0.25)}
-              disabled={imageZoom >= 5}
+              onClick={() =>
+                zoomImage(0.25)
+              }
+              disabled={
+                imageZoom >= 5
+              }
             >
               +
             </button>
 
+
             <button
               type="button"
               className="zoom-reset-btn"
-              onClick={resetImageZoom}
+              onClick={
+                resetImageZoom
+              }
             >
               ↻
             </button>
 
           </div>
 
+
           {portfolioPhotos.length > 1 && (
+
             <button
               type="button"
               className="popup-prev"
-              onClick={previousPhoto}
+              onClick={
+                previousPhoto
+              }
             >
               ❮
             </button>
+
           )}
+
 
           <div
             className="popup-image-stage"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) =>
+              e.stopPropagation()
+            }
           >
 
             <img
@@ -1513,27 +2986,47 @@ function MemberProfile() {
                   : "popup-image"
               }
               style={{
-                transform: `translate3d(${imagePan.x}px, ${imagePan.y}px, 0) scale(${imageZoom})`
+                transform:
+                  `translate3d(${imagePan.x}px, ${imagePan.y}px, 0) scale(${imageZoom})`,
               }}
-              onMouseDown={handleImageMouseDown}
-              onMouseMove={handleImageMouseMove}
-              onMouseUp={handleImageMouseUp}
-              onMouseLeave={handleImageMouseUp}
-              onTouchStart={handleImageTouchStart}
-              onTouchMove={handleImageTouchMove}
-              onTouchEnd={handleImageTouchEnd}
-              onDoubleClick={e => {
+              onMouseDown={
+                handleImageMouseDown
+              }
+              onMouseMove={
+                handleImageMouseMove
+              }
+              onMouseUp={
+                handleImageMouseUp
+              }
+              onMouseLeave={
+                handleImageMouseUp
+              }
+              onTouchStart={
+                handleImageTouchStart
+              }
+              onTouchMove={
+                handleImageTouchMove
+              }
+              onTouchEnd={
+                handleImageTouchEnd
+              }
+              onDoubleClick={(e) => {
+
                 e.stopPropagation();
+
                 imageZoom > 1
                   ? resetImageZoom()
                   : setImageZoom(2);
+
               }}
               draggable={false}
             />
 
           </div>
 
+
           {portfolioPhotos.length > 1 && (
+
             <button
               type="button"
               className="popup-next"
@@ -1541,59 +3034,88 @@ function MemberProfile() {
             >
               ❯
             </button>
+
           )}
+
 
           {portfolioPhotos.length > 1 && (
+
             <div className="popup-counter">
-              {selectedPhotoIndex + 1} /{" "}
+
+              {selectedPhotoIndex + 1}
+              {" / "}
               {portfolioPhotos.length}
+
             </div>
+
           )}
 
+
           <div className="zoom-help">
+
             Scroll / Pinch to Zoom • Drag to Move • Double Click to Zoom
+
           </div>
 
         </div>
+
       )}
 
-      {/* VIDEO POPUP */}
+
+      {/* =================================================
+          VIDEO POPUP
+      ================================================= */}
 
       {selectedVideo && (
+
         <div
           className="video-popup"
-          onClick={closeVideo}
+          onClick={
+            closeVideo
+          }
         >
 
           <button
             type="button"
             className="video-popup-close"
-            onClick={e => {
+            onClick={(e) => {
+
               e.stopPropagation();
               closeVideo();
+
             }}
           >
             ✕
           </button>
 
+
           {videos.length > 1 && (
+
             <button
               type="button"
               className="video-popup-prev"
-              onClick={previousVideo}
+              onClick={
+                previousVideo
+              }
             >
               ❮
             </button>
+
           )}
+
 
           <div
             className={`video-popup-container video-popup-${selectedVideo.type}`}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) =>
+              e.stopPropagation()
+            }
           >
 
             <iframe
-              src={selectedVideo.url}
-              title="OCMA Member Video"
+              src={
+                selectedVideo.url
+              }
+              title={`${brandName} Member Video`}
               className="video-popup-iframe"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
@@ -1601,27 +3123,43 @@ function MemberProfile() {
 
           </div>
 
+
           {videos.length > 1 && (
+
             <button
               type="button"
               className="video-popup-next"
-              onClick={nextVideo}
+              onClick={
+                nextVideo
+              }
             >
               ❯
             </button>
+
           )}
 
+
           {videos.length > 1 && (
+
             <div className="video-popup-counter">
-              {selectedVideoIndex + 1} / {videos.length}
+
+              {selectedVideoIndex + 1}
+              {" / "}
+              {videos.length}
+
             </div>
+
           )}
 
         </div>
+
       )}
 
     </section>
+
   );
+
 }
+
 
 export default MemberProfile;

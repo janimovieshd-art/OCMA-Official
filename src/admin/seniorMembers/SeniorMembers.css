@@ -1,334 +1,894 @@
-/* =====================================
-   OCMA SENIOR MEMBERS ADMIN TABLE
-===================================== */
+/* =====================================================
+   SENIOR MEMBERS ADMIN
+   PREMIUM EXECUTIVE / VISITING CARD DESIGN
+===================================================== */
+
+.senior-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 30px;
+  background: #f3f4f6;
+  color: #222;
+  box-sizing: border-box;
+}
 
 
-.senior-container{
+/* =====================================================
+   PAGE TITLE
+===================================================== */
 
-width:100%;
+.senior-container h1 {
+  margin: 0 0 28px;
+  text-align: center;
+  color: #151515;
+  font-size: 30px;
+  font-weight: 700;
+}
 
-min-height:100vh;
 
-padding:20px;
+/* =====================================================
+   FORM
+===================================================== */
 
-box-sizing:border-box;
+.senior-form {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 35px;
+  padding: 24px;
 
-background:linear-gradient(
-135deg,
-#080808,
-#171717
-);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
 
-color:white;
+  background: #fff;
+
+  border: 1px solid #e2e2e2;
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, .06);
+
+  box-sizing: border-box;
+}
+
+
+.form-title {
+  grid-column: 1 / -1;
+
+  margin-bottom: 3px;
+
+  color: #151515;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.senior-form input {
+  width: 100%;
+  min-width: 0;
+
+  padding: 12px 14px;
+
+  background: #fff;
+
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #222;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.senior-form input::placeholder {
+  color: #888;
+}
+
+
+.senior-form input:focus {
+  border-color: #c9a227;
+
+  box-shadow:
+    0 0 0 3px rgba(201, 162, 39, .10);
+}
+
+
+/* =====================================================
+   RATING INPUT
+===================================================== */
+
+.rating-input {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  min-height: 45px;
+}
+
+
+.rating-input > span {
+  color: #444;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+
+.rating-stars button {
+  margin: 0;
+  padding: 0 2px;
+
+  background: transparent;
+
+  border: 0;
+
+  color: #d5d5d5;
+
+  font-size: 25px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+
+.rating-stars button.active {
+  color: #f4b400;
+
+  text-shadow:
+    0 0 6px rgba(244, 180, 0, .25);
+}
+
+
+/* =====================================================
+   FORM BUTTONS
+===================================================== */
+
+.form-buttons {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-top: 2px;
+}
+
+
+.form-buttons button {
+  margin: 0;
+
+  padding: 11px 20px;
+
+  border: 0;
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+
+.form-buttons button:hover {
+  transform: translateY(-1px);
+}
+
+
+/* SAVE */
+
+.save-btn {
+  background: #d4af37;
+  color: #111;
+
+  box-shadow:
+    0 5px 14px rgba(212, 175, 55, .20);
+}
+
+
+.save-btn:hover {
+  background: #c29d2f;
+
+  box-shadow:
+    0 7px 18px rgba(212, 175, 55, .28);
+}
+
+
+/* CANCEL */
+
+.cancel-btn {
+  background: #ececec;
+  color: #333;
+}
+
+
+.cancel-btn:hover {
+  background: #ddd;
+}
+
+
+/* =====================================================
+   CARD GRID
+===================================================== */
+
+.senior-grid {
+  width: 100%;
+  max-width: 1250px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+
+/* =====================================================
+   VISITING CARD
+===================================================== */
+
+.senior-card {
+  position: relative;
+
+  display: flex;
+
+  min-width: 0;
+  min-height: 235px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111 0%,
+      #181818 48%,
+      #0b0b0b 100%
+    );
+
+  border: 1px solid rgba(212, 175, 55, .35);
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, .16);
+
+  transition:
+    transform .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+
+.senior-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  width: 130px;
+  height: 130px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212, 175, 55, .12),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+
+.senior-card:hover {
+  transform: translateY(-4px);
+
+  border-color:
+    rgba(212, 175, 55, .75);
+
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, .24),
+    0 0 22px rgba(212, 175, 55, .08);
+}
+
+
+/* =====================================================
+   PHOTO AREA
+===================================================== */
+
+.senior-photo {
+  position: relative;
+
+  width: 190px;
+  min-width: 190px;
+
+  height: 235px;
+
+  overflow: hidden;
+
+  background: #171717;
+}
+
+
+/*
+   PHOTO — RECTANGULAR
+   NO CIRCLE
+*/
+
+.senior-photo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  border: 0;
+
+  border-radius: 0;
+
+  transition:
+    transform .45s ease;
+}
+
+
+/* PHOTO FADE / FEATHER */
+
+.senior-photo::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  right: -1px;
+  bottom: 0;
+
+  width: 55px;
+
+  background:
+    linear-gradient(
+      to right,
+      transparent,
+      #111
+    );
+
+  pointer-events: none;
+}
+
+
+.senior-card:hover .senior-photo img {
+  transform: scale(1.035);
+}
+
+
+/* =====================================================
+   INFORMATION
+===================================================== */
+
+.senior-info {
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+  min-width: 0;
+
+  padding: 22px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   NAME
+===================================================== */
+
+.senior-info h2 {
+  margin: 0 0 5px;
+
+  color: #d4af37;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  word-break: break-word;
+
+  text-shadow:
+    0 0 10px rgba(212, 175, 55, .16);
+}
+
+
+/* =====================================================
+   GOOGLE STYLE RATING
+===================================================== */
+
+.senior-rating {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-bottom: 9px;
+}
+
+
+.stars {
+  color: #f4b400;
+
+  font-size: 17px;
+
+  letter-spacing: 1px;
+
+  line-height: 1;
+
+  text-shadow:
+    0 0 7px rgba(244, 180, 0, .20);
+}
+
+
+.rating-number {
+  color: #aaa;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+/* =====================================================
+   DESIGNATION
+===================================================== */
+
+.senior-info p {
+  margin: 3px 0;
+
+  color: #c7c7c7;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+}
+
+
+.senior-info .designation {
+  margin-bottom: 9px;
+
+  color: #f0f0f0;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   LABELS
+===================================================== */
+
+.senior-info strong {
+  color: #d4af37;
+
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.senior-actions {
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 14px;
+}
+
+
+.senior-actions a,
+.senior-actions button {
+  margin: 0;
+
+  padding: 7px 11px;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+
+.senior-actions a:hover,
+.senior-actions button:hover {
+  transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+.whatsapp-btn {
+  background:
+    linear-gradient(
+      135deg,
+      #d4af37,
+      #b89120
+    );
+
+  color: #111;
+
+  box-shadow:
+    0 4px 12px rgba(212, 175, 55, .18);
+}
+
+
+.whatsapp-btn:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #e2c052,
+      #c9a227
+    );
+
+  box-shadow:
+    0 6px 16px rgba(212, 175, 55, .28);
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+.edit-btn {
+  background: #292929;
+
+  color: #d4af37;
+
+  border: 1px solid rgba(212, 175, 55, .4) !important;
+}
+
+
+.edit-btn:hover {
+  background: #333;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, .25);
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+.delete-btn {
+  background: #8f2525;
+
+  color: #fff;
+}
+
+
+.delete-btn:hover {
+  background: #b52d2d;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1050px) {
+
+  .senior-container {
+    padding: 25px 20px;
+  }
+
+  .senior-grid {
+    grid-template-columns: 1fr;
+
+    max-width: 760px;
+  }
 
 }
 
 
+/* =====================================================
+   MOBILE / TABLET
+===================================================== */
+
+@media (max-width: 700px) {
+
+  .senior-container {
+    padding: 20px 14px;
+  }
 
 
+  .senior-container h1 {
+    font-size: 25px;
 
-.senior-container h1{
-
-text-align:center;
-
-color:#d4af37;
-
-font-size:30px;
-
-margin-bottom:25px;
-
-}
+    margin-bottom: 22px;
+  }
 
 
+  .senior-form {
+    grid-template-columns: 1fr;
+
+    padding: 20px;
+  }
 
 
-
-/* FORM */
-
-
-.senior-form{
-
-background:#151515;
-
-border:1px solid rgba(212,175,55,.4);
-
-border-radius:15px;
-
-padding:20px;
-
-display:flex;
-
-gap:10px;
-
-flex-wrap:wrap;
-
-margin-bottom:30px;
-
-}
+  .form-title,
+  .form-buttons {
+    grid-column: auto;
+  }
 
 
+  .rating-input {
+    justify-content: flex-start;
+  }
 
 
-
-.senior-form input{
-
-padding:12px;
-
-background:#222;
-
-border:1px solid #444;
-
-border-radius:8px;
-
-color:white;
-
-flex:1;
-
-min-width:180px;
-
-}
+  .senior-card {
+    min-height: 220px;
+  }
 
 
+  .senior-photo {
+    width: 155px;
+    min-width: 155px;
+
+    height: 220px;
+  }
 
 
+  .senior-photo::after {
+    width: 45px;
+  }
 
-.senior-form button{
 
-background:#d4af37;
+  .senior-info {
+    padding: 18px 16px;
+  }
 
-color:#111;
 
-border:none;
+  .senior-info h2 {
+    font-size: 19px;
+  }
 
-border-radius:8px;
 
-padding:12px 25px;
+  .senior-info p {
+    font-size: 12px;
+  }
 
-font-weight:bold;
 
-cursor:pointer;
+  .senior-actions {
+    margin-top: 11px;
+  }
 
 }
 
 
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+  .senior-card {
+    display: flex;
+
+    min-height: 190px;
+
+    border-radius: 13px;
+  }
 
 
+  .senior-photo {
+    width: 125px;
+    min-width: 125px;
 
-/* TABLE */
-
-
-.senior-table{
-
-display:flex;
-
-flex-direction:column;
-
-gap:10px;
-
-}
+    height: 190px;
+  }
 
 
+  .senior-photo::after {
+    width: 40px;
+  }
 
 
-.senior-row{
-
-display:grid;
-
-grid-template-columns:
-
-65px
-180px
-220px
-150px
-150px
-auto;
+  .senior-info {
+    padding: 15px 13px;
+  }
 
 
-align-items:center;
+  .senior-info h2 {
+    font-size: 17px;
+
+    margin-bottom: 4px;
+  }
 
 
-gap:15px;
+  .senior-rating {
+    gap: 5px;
+
+    margin-bottom: 6px;
+  }
 
 
-background:#151515;
+  .stars {
+    font-size: 15px;
+
+    letter-spacing: 0;
+  }
 
 
-border:1px solid rgba(212,175,55,.35);
+  .rating-number {
+    font-size: 11px;
+  }
 
 
-border-radius:10px;
+  .senior-info .designation {
+    font-size: 12px;
+
+    margin-bottom: 6px;
+  }
 
 
-padding:10px 15px;
+  .senior-info p {
+    margin: 2px 0;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+  }
 
 
-min-height:75px;
+  .senior-actions {
+    gap: 5px;
+
+    margin-top: 9px;
+  }
 
 
-}
+  .senior-actions a,
+  .senior-actions button {
+    padding: 6px 8px;
 
-
-
-
-
-.senior-row:hover{
-
-border-color:#d4af37;
-
-}
-
-
-
-
-
-/* IMAGE */
-
-
-.senior-photo img{
-
-width:55px;
-
-height:55px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:2px solid #d4af37;
-
-}
-
-
-
-
-
-.senior-name{
-
-font-size:18px;
-
-font-weight:bold;
-
-color:#d4af37;
+    font-size: 10px;
+  }
 
 }
 
 
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 370px) {
+
+  .senior-container {
+    padding: 16px 10px;
+  }
 
 
-
-.senior-designation{
-
-color:#ffd966;
-
-}
+  .senior-card {
+    min-height: 175px;
+  }
 
 
+  .senior-photo {
+    width: 105px;
+    min-width: 105px;
+
+    height: 175px;
+  }
 
 
-
-.senior-phone{
-
-color:#25D366;
-
-}
+  .senior-info {
+    padding: 13px 10px;
+  }
 
 
+  .senior-info h2 {
+    font-size: 15px;
+  }
 
 
-
-.senior-stars{
-
-font-size:18px;
-
-}
+  .senior-info p {
+    font-size: 10px;
+  }
 
 
+  .senior-actions a,
+  .senior-actions button {
+    padding: 5px 7px;
 
-
-
-.senior-actions{
-
-display:flex;
-
-gap:8px;
-
-justify-content:flex-end;
-
-}
-
-
-
-
-
-.whatsapp-btn{
-
-background:#25D366;
-
-color:white;
-
-padding:8px 12px;
-
-border-radius:8px;
-
-text-decoration:none;
-
-font-size:12px;
-
-font-weight:bold;
+    font-size: 9px;
+  }
 
 }
+/* =====================================================
+   SENIOR MEMBER CODE
+===================================================== */
 
+.senior-member-code {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 3;
 
+  padding: 5px 9px;
 
+  background: rgba(0, 0, 0, .78);
+  border: 1px solid rgba(212, 175, 55, .65);
+  border-radius: 5px;
 
+  color: #d4af37;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
 
-.delete-btn{
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, .35);
 
-background:#d32f2f;
-
-color:white;
-
-border:none;
-
-padding:8px 15px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-}
-
-
-
-
-
-
-@media(max-width:1000px){
-
-
-.senior-row{
-
-grid-template-columns:1fr;
-
-text-align:center;
-
-}
-
-
-.senior-actions{
-
-justify-content:center;
-
-}
-
-
-.senior-photo{
-
-margin:auto;
-
-}
-
-
+  backdrop-filter: blur(4px);
 }

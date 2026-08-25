@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 import {
@@ -19,6 +18,51 @@ function Announcements() {
   const [loading, setLoading] = useState(true);
 
   const [hidden, setHidden] = useState(false);
+
+  const [brandName, setBrandName] = useState("OCMA");
+
+
+  // ==========================================
+  // LOAD SETTINGS
+  // ==========================================
+
+  useEffect(() => {
+
+    const loadSettings = async () => {
+
+      try {
+
+        const data = await getData(
+          "websiteSettings"
+        );
+
+        const settings = (data || []).find(
+          (item) => item.id === "main"
+        );
+
+        if (settings?.navbar?.name) {
+
+          setBrandName(
+            settings.navbar.name
+          );
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Settings Load Error:",
+          error
+        );
+
+      }
+
+    };
+
+
+    loadSettings();
+
+  }, []);
 
 
   // ==========================================
@@ -170,7 +214,7 @@ function Announcements() {
           <span className="announcement-live-dot" />
 
           <span>
-            OCMA Announcement
+            {brandName} Announcement
           </span>
 
         </div>
@@ -198,7 +242,7 @@ function Announcements() {
 
                   <img
                     src={item.image}
-                    alt="OCMA Announcement"
+                    alt={`${brandName} Announcement`}
                   />
 
                   <div className="announcement-image-overlay">
@@ -225,7 +269,7 @@ function Announcements() {
         <div className="announcement-panel-footer">
 
           <span>
-            Official OCMA Notice
+            Official {brandName} Notice
           </span>
 
         </div>
@@ -267,7 +311,7 @@ function Announcements() {
 
             <img
               src={selectedImage}
-              alt="OCMA Announcement"
+              alt={`${brandName} Announcement`}
               className="announcement-full-image"
             />
 
@@ -285,4 +329,3 @@ function Announcements() {
 
 
 export default Announcements;
-

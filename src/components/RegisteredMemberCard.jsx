@@ -4,15 +4,40 @@ import {
   collection,
   onSnapshot,
   query,
-  where
+  where,
+  doc,
+  getDoc
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import "./RegisteredMemberCard.css";
 
 function RegisteredMemberCard({ member }) {
   const navigate = useNavigate();
+
   const [ocmaRating, setOcmaRating] = useState(0);
   const [ocmaReviewCount, setOcmaReviewCount] = useState(0);
+  const [navbarName, setNavbarName] = useState("OCMA");
+
+  useEffect(() => {
+    const loadNavbarName = async () => {
+      try {
+        const settingsRef = doc(db, "websiteSettings", "main");
+        const snap = await getDoc(settingsRef);
+
+        if (snap.exists()) {
+          const name = snap.data()?.navbar?.name;
+
+          if (name?.trim()) {
+            setNavbarName(name.trim());
+          }
+        }
+      } catch (error) {
+        console.log("Navbar Name Load Error:", error);
+      }
+    };
+
+    loadNavbarName();
+  }, []);
 
   useEffect(() => {
     if (!member?.memberId) {
@@ -83,7 +108,7 @@ function RegisteredMemberCard({ member }) {
         <div className="office-photo">
           <img
             src={member.image || "/assets/ocma-logo.png"}
-            alt={member.name || "OCMA Member"}
+            alt={member.name || `${navbarName} Member`}
           />
         </div>
 
@@ -97,12 +122,12 @@ function RegisteredMemberCard({ member }) {
         </div>
 
         <div className="office-id">
-          {member.memberId || "OCMA Member"}
+          {member.memberId || `${navbarName} Member`}
         </div>
       </div>
 
       <div className="office-info">
-        <h3>{member.name || "OCMA Member"}</h3>
+        <h3>{member.name || `${navbarName} Member`}</h3>
 
         <div className="member-card-rating">
           <div className="member-card-rating-stars">

@@ -1,17 +1,69 @@
-function GalleryPage(){
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
 
-  return(
+import { db } from "../firebase/firebase";
 
-    <section style={{
-      padding:"80px",
-      color:"white",
-      background:"#050505",
-      textAlign:"center"
-    }}>
+
+function GalleryPage() {
+
+  const [websiteName, setWebsiteName] =
+    useState("OCMA");
+
+
+  useEffect(() => {
+
+    const loadSettings = async () => {
+
+      try {
+
+        const snap = await getDoc(
+          doc(db, "websiteSettings", "main")
+        );
+
+
+        if (snap.exists()) {
+
+          const data = snap.data();
+
+          setWebsiteName(
+            data.website?.shortName?.trim() ||
+            "OCMA"
+          );
+
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Gallery Settings Error:",
+          error
+        );
+
+      }
+
+    };
+
+
+    loadSettings();
+
+  }, []);
+
+
+  return (
+
+    <section
+      style={{
+        padding: "80px",
+        color: "white",
+        background: "#050505",
+        textAlign: "center"
+      }}
+    >
 
       <h1>
-        OCMA Gallery
+        {websiteName} Gallery
       </h1>
+
 
       <p>
         Gallery will be managed from Admin Panel.

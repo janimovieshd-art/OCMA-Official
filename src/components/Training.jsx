@@ -6,7 +6,6 @@ import { db } from "../firebase/firebase";
 
 import "./Training.css";
 
-
 function Training() {
 
   // =========================================================
@@ -24,96 +23,65 @@ function Training() {
 
     {
       title: "Photography Training",
-
       text:
         "Professional photography techniques, camera settings, lighting, composition and practical shooting skills.",
-
       price: "10,000 PKR / Week",
-
       seats: 3
     },
-
 
     {
       title: "Video Editing Training",
-
       text:
         "Learn professional video editing, color grading, transitions, audio editing and complete cinematic workflow.",
-
       price: "30,000 PKR / 30 Days",
-
       seats: 5
     },
-
 
     {
       title: "Cinematography Training",
-
       text:
         "Learn camera movements, storytelling, framing, composition and professional filmmaking techniques.",
-
       price: "10,000 PKR / Week",
-
       seats: 2
     },
-
 
     {
       title: "Graphic Designing Training",
-
       text:
         "Learn professional graphic design, Photoshop, Illustrator, social media designs, posters and branding.",
-
       price: "10,000 PKR / Week",
-
       seats: 4
     },
 
-
     {
       title: "Social Media Management",
-
       text:
         "Learn professional social media management, content planning, page growth, audience engagement and digital marketing.",
-
       price: "10,000 PKR / Week",
-
       seats: 3
     },
 
-
     {
       title: "Drone Camera Training",
-
       text:
         "Learn safe drone operation, aerial photography, cinematic drone shots and professional drone videography.",
-
       price: "10,000 PKR / Week",
-
       seats: 5
     },
 
-
     {
       title: "Digital Marketing Training",
-
       text:
         "Learn digital marketing basics, online promotion, content strategy, audience targeting and business growth techniques.",
-
       price: "10,000 PKR / Week",
-
       seats: 2
     },
 
-
     {
       title: "Professional Camera & Lighting",
-
       text:
         "Learn professional camera operation, exposure, lenses, studio lighting, outdoor lighting and practical setup techniques.",
-
       price: "10,000 PKR / Week",
-
       seats: 4
     }
 
@@ -128,17 +96,17 @@ function Training() {
     defaultCourses
   );
 
+  const [websiteShortName, setWebsiteShortName] =
+    useState("OCMA");
 
   const [sectionTitle, setSectionTitle] = useState(
     "OCMA Training Programs"
   );
 
-
   const [sectionDescription, setSectionDescription] =
     useState(
       "Professional training programs for cameramen, photographers and creative professionals to improve their skills and grow professionally."
     );
-
 
   const [buttonText, setButtonText] = useState(
     "Join Training"
@@ -159,42 +127,36 @@ function Training() {
         "main"
       );
 
-
       const snap = await getDoc(ref);
-
 
       if (snap.exists()) {
 
         const data = snap.data();
 
+        const shortName =
+          data.website?.shortName?.trim() || "OCMA";
+
+        setWebsiteShortName(shortName);
 
         const settings =
           data.homepage?.training;
-
 
         if (settings) {
 
           setSectionTitle(
             settings.title ||
-            "OCMA Training Programs"
+            `${shortName} Training Programs`
           );
-
 
           setSectionDescription(
             settings.description ||
             "Professional training programs for cameramen, photographers and creative professionals to improve their skills and grow professionally."
           );
 
-
           setButtonText(
             settings.buttonText ||
             "Join Training"
           );
-
-
-          // =================================================
-          // FIRESTORE COURSES
-          // =================================================
 
           if (
             Array.isArray(settings.courses) &&
@@ -207,13 +169,17 @@ function Training() {
 
           }
 
+        } else {
+
+          setSectionTitle(
+            `${shortName} Training Programs`
+          );
+
         }
 
       }
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
       console.log(
         "Training Settings Error:",
@@ -244,18 +210,16 @@ function Training() {
 
     const message =
       `Assalam-o-Alaikum Jani,\n\n` +
-      `I want to join an OCMA Training Program.\n\n` +
+      `I want to join an ${websiteShortName} Training Program.\n\n` +
       `Course: ${course.title}\n` +
       `Fee: ${course.price || "Please confirm fee"}\n` +
       `Available Seats: ${course.seats || "Please confirm"}\n\n` +
       `Please provide complete registration details.`;
 
-
     const whatsappURL =
       `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(
         message
       )}`;
-
 
     window.open(
       whatsappURL,
@@ -277,7 +241,6 @@ function Training() {
       id="training"
     >
 
-
       {/* =====================================================
           SECTION HEADING
       ===================================================== */}
@@ -285,14 +248,12 @@ function Training() {
       <div className="training-heading">
 
         <span className="training-section-label">
-          OCMA PROFESSIONAL TRAINING
+          {websiteShortName} PROFESSIONAL TRAINING
         </span>
-
 
         <h2>
           {sectionTitle}
         </h2>
-
 
         <p className="training-intro">
           {sectionDescription}
@@ -314,7 +275,6 @@ function Training() {
               className="training-card"
               key={index}
             >
-
 
               {/* COURSE ICON */}
 
@@ -340,7 +300,6 @@ function Training() {
               {/* COURSE DETAILS */}
 
               <div className="training-details">
-
 
                 {/* AVAILABLE SEATS */}
 
@@ -391,7 +350,6 @@ function Training() {
 
               </button>
 
-
             </article>
 
           )
@@ -399,12 +357,10 @@ function Training() {
 
       </div>
 
-
     </section>
 
   );
 
 }
-
 
 export default Training;
