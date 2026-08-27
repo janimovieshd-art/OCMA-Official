@@ -21,10 +21,6 @@
   position: relative;
 }
 
-/* =========================================
-   GOLD LINE
-========================================= */
-
 .office-member-card::before {
   content: "";
   position: absolute;
@@ -36,15 +32,12 @@
   border-radius: 10px;
 }
 
-/* =========================================
-   HOVER
-========================================= */
-
 .office-member-card:hover {
   transform: translateY(-5px);
   border-color: rgba(212, 175, 55, .65);
   box-shadow: 0 20px 50px rgba(0, 0, 0, .6);
 }
+
 
 /* =========================================
    LEFT SIDE
@@ -59,6 +52,7 @@
   align-items: center;
   text-align: center;
 }
+
 
 /* =========================================
    PHOTO
@@ -82,6 +76,7 @@
   border-radius: 14px;
 }
 
+
 /* =========================================
    REGISTERED MEMBER
 ========================================= */
@@ -99,6 +94,7 @@
   font-weight: 700;
   white-space: nowrap;
 }
+
 
 /* =========================================
    JOINING DATE
@@ -125,6 +121,7 @@
   font-weight: 600;
 }
 
+
 /* =========================================
    OCMA ID
 ========================================= */
@@ -141,7 +138,11 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 /* =========================================
    RIGHT INFORMATION
@@ -153,6 +154,7 @@
   width: 100%;
   overflow: hidden;
 }
+
 
 /* =========================================
    NAME
@@ -168,8 +170,9 @@
   overflow-wrap: anywhere;
 }
 
+
 /* =========================================
-   OCMA LIVE MEMBER RATING
+   RATING
 ========================================= */
 
 .member-card-rating {
@@ -246,6 +249,7 @@
   font-weight: 600;
 }
 
+
 /* =========================================
    DETAILS
 ========================================= */
@@ -280,6 +284,7 @@
   color: #d4af37;
 }
 
+
 /* =========================================
    BUTTONS
 ========================================= */
@@ -292,10 +297,6 @@
   margin-top: 15px;
   max-width: 100%;
 }
-
-/* =========================================
-   LOCATION + WHATSAPP
-========================================= */
 
 .office-location,
 .office-whatsapp {
@@ -313,10 +314,6 @@
   transition: .25s ease;
 }
 
-/* =========================================
-   GOOGLE LOCATION
-========================================= */
-
 .office-location {
   color: #ddd;
   background: #222;
@@ -327,10 +324,6 @@
   color: #d4af37;
   border-color: #d4af37;
 }
-
-/* =========================================
-   WHATSAPP
-========================================= */
 
 .office-whatsapp {
   color: #fff;
@@ -343,11 +336,13 @@
   transform: translateY(-2px);
 }
 
+
 /* =========================================
    TABLET
 ========================================= */
 
 @media (max-width: 800px) {
+
   .office-member-card {
     gap: 22px;
     padding: 20px;
@@ -368,17 +363,19 @@
   }
 }
 
+
 /* =========================================
    MOBILE
 ========================================= */
 
 @media (max-width: 650px) {
+
   .office-member-card {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 20px;
-    padding: 25px 18px;
+    gap: 17px;
+    padding: 22px 15px;
   }
 
   .office-member-card::before {
@@ -396,8 +393,8 @@
   }
 
   .office-photo {
-    width: 135px;
-    height: 135px;
+    width: 125px;
+    height: 125px;
   }
 
   .office-info {
@@ -405,92 +402,228 @@
     text-align: center;
   }
 
+
+  /* NAME — MOBILE CONTROL */
+
   .office-info h3 {
-    font-size: 23px;
-    margin-bottom: 18px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 13px;
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 750;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
+
+
+  /* RATING */
 
   .member-card-rating {
     justify-content: center;
+    gap: 6px;
+    margin: 7px 0 10px;
   }
+
+  .member-rating-star {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .member-card-rating-number {
+    font-size: 13px;
+  }
+
+  .member-card-review-count,
+  .member-card-no-rating {
+    font-size: 11px;
+  }
+
+
+  /* DETAILS */
 
   .member-detail {
     justify-content: center;
     flex-direction: column;
-    gap: 3px;
-    margin: 11px 0;
+    gap: 2px;
+    margin: 9px 0;
   }
 
   .detail-label {
     width: auto;
     min-width: 0;
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .detail-value {
-    font-size: 14px;
     max-width: 100%;
+    font-size: 13px;
   }
+
+
+  /* OCMA ID — MOBILE */
+
+  .office-id {
+    max-width: 85%;
+    padding: 4px 10px;
+    font-size: 10px;
+    letter-spacing: .3px;
+  }
+
+
+  /* REGISTERED BADGE */
+
+  .registered-badge {
+    font-size: 10px;
+    padding: 4px 9px;
+  }
+
+
+  /* BUTTON AREA */
 
   .member-card-actions {
     justify-content: center;
+    align-items: center;
     width: 100%;
+    gap: 7px;
+    margin-top: 13px;
+  }
+
+  .office-location,
+  .office-whatsapp {
+    min-height: 36px;
+    padding: 0 13px;
+    font-size: 11px;
   }
 }
+
 
 /* =========================================
    SMALL MOBILE
 ========================================= */
 
 @media (max-width: 420px) {
+
   .office-member-card {
-    padding: 22px 14px;
+    gap: 15px;
+    padding: 20px 12px;
   }
 
   .office-photo {
-    width: 125px;
-    height: 125px;
+    width: 115px;
+    height: 115px;
   }
+
+
+  /* NAME SMALL + CONTROLLED */
 
   .office-info h3 {
-    font-size: 21px;
+    font-size: 18px;
+    line-height: 1.25;
+    margin-bottom: 11px;
   }
 
-  .member-card-rating-stars {
-    gap: 1px;
+
+  /* RATING */
+
+  .member-card-rating {
+    gap: 5px;
   }
 
   .member-rating-star {
-    width: 17px;
-    height: 17px;
-    font-size: 17px;
-    line-height: 17px;
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+    line-height: 15px;
   }
 
   .member-card-rating-number {
-    font-size: 14px;
-  }
-
-  .member-card-review-count {
     font-size: 12px;
   }
 
+  .member-card-review-count,
+  .member-card-no-rating {
+    font-size: 10px;
+  }
+
+
+  /* DETAILS */
+
+  .detail-label {
+    font-size: 9px;
+  }
+
+  .detail-value {
+    font-size: 12px;
+  }
+
+
+  /* ID */
+
+  .office-id {
+    max-width: 80%;
+    padding: 3px 9px;
+    font-size: 9px;
+  }
+
+
+  /* BUTTONS */
+
   .member-card-actions {
-    flex-direction: column;
     width: 100%;
+    gap: 6px;
   }
 
   .office-location,
   .office-whatsapp {
-    width: 100%;
+    min-height: 34px;
+    padding: 0 11px;
+    font-size: 10px;
   }
 }
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 350px) {
+
+  .office-member-card {
+    padding: 18px 10px;
+  }
+
+  .office-photo {
+    width: 105px;
+    height: 105px;
+  }
+
+  .office-info h3 {
+    font-size: 17px;
+  }
+
+  .office-id {
+    max-width: 75%;
+    font-size: 8px;
+  }
+
+  .office-location,
+  .office-whatsapp {
+    min-height: 32px;
+    padding: 0 9px;
+    font-size: 9px;
+  }
+}
+
 
 /* =========================================
    REDUCE MOTION
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   .office-member-card,
   .office-location,
   .office-whatsapp {

@@ -1,13 +1,5 @@
-
 /* =====================================
-   OCMA ADMIN
-   MEMBERSHIP REQUESTS
-   PREMIUM ADMIN STYLE
-   ===================================== */
-
-
-/* =====================================
-   PAGE
+   OCMA ADMIN — MEMBERSHIP REQUESTS
    ===================================== */
 
 .member-request-admin {
@@ -15,690 +7,644 @@
   min-height: 100vh;
   padding: 35px;
   box-sizing: border-box;
-
   background:
     radial-gradient(
       circle at top right,
       rgba(212, 175, 55, 0.08),
       transparent 35%
     ),
-    linear-gradient(
-      135deg,
-      #080808,
-      #111111,
-      #171717
-    );
-
-  color: #ffffff;
-
-  font-family:
-    "Inter",
-    "Poppins",
-    Arial,
-    sans-serif;
-
-  box-sizing: border-box;
+    linear-gradient(135deg, #080808, #111, #171717);
+  color: #fff;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
 }
 
-
-/* =====================================
-   MAIN HEADING
-   ===================================== */
+/* HEADING */
 
 .member-request-admin > h1 {
   margin: 0 0 30px;
-
   color: #d4af37;
-
   font-size: 34px;
-
   font-weight: 800;
-
-  letter-spacing: 0.5px;
-
   text-align: center;
-
-  text-shadow:
-    0 3px 15px
-    rgba(212, 175, 55, 0.15);
+  letter-spacing: 0.5px;
+  text-shadow: 0 3px 15px rgba(212, 175, 55, 0.15);
 }
 
-
-/* =====================================
-   LOADING / EMPTY MESSAGE
-   ===================================== */
+/* LOADING / EMPTY */
 
 .member-request-admin > h2 {
   width: 100%;
-
   margin: 30px 0;
-
   padding: 25px;
-
   box-sizing: border-box;
-
-  border:
-    1px solid
-    rgba(212, 175, 55, 0.25);
-
+  border: 1px solid rgba(212, 175, 55, 0.25);
   border-radius: 15px;
-
-  background:
-    rgba(255, 255, 255, 0.04);
-
-  color: #cccccc;
-
+  background: rgba(255, 255, 255, 0.04);
+  color: #ccc;
   font-size: 18px;
-
   font-weight: 500;
-
   text-align: center;
 }
 
-
-/* =====================================
-   REQUEST GRID
-   ===================================== */
+/* REQUEST GRID */
 
 .request-grid {
   width: 100%;
-
   display: grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fill,
-      minmax(280px, 1fr)
-    );
-
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
-
-  align-items: stretch;
 }
 
-
-/* =====================================
-   REQUEST CARD
-   ===================================== */
+/* REQUEST CARD */
 
 .request-card {
   position: relative;
-
   display: flex;
-
   flex-direction: column;
-
   min-width: 0;
-
   padding: 22px;
-
   box-sizing: border-box;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(31, 31, 31, 0.98),
-      rgba(18, 18, 18, 0.98)
-    );
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.08);
-
-  border-radius: 20px;
-
   overflow: hidden;
-
-  box-shadow:
-    0 12px 35px
-    rgba(0, 0, 0, 0.35);
-
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: linear-gradient(
+    145deg,
+    rgba(31, 31, 31, 0.98),
+    rgba(18, 18, 18, 0.98)
+  );
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+  transition: 0.3s ease;
 }
-
-
-/* CARD TOP GOLD LINE */
 
 .request-card::before {
   content: "";
-
   position: absolute;
-
   top: 0;
   left: 0;
-
   width: 100%;
   height: 3px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #d4af37,
-      transparent
-    );
-
-  opacity: 0.7;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d4af37,
+    transparent
+  );
 }
-
-
-/* CARD HOVER */
 
 .request-card:hover {
   transform: translateY(-5px);
-
-  border-color:
-    rgba(212, 175, 55, 0.45);
-
-  box-shadow:
-    0 18px 45px
-    rgba(0, 0, 0, 0.5);
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
 }
 
+/* CARD PHOTO */
 
-/* =====================================
-   MEMBER IMAGE
-   ===================================== */
-
-.request-card > img {
+.request-card-photo {
   display: block;
-
   width: 105px;
   height: 105px;
-
   margin: 5px auto 18px;
-
+  border: 3px solid #d4af37;
   border-radius: 50%;
-
   object-fit: cover;
-
   background: #080808;
-
-  border:
-    3px solid
-    #d4af37;
-
-  box-shadow:
-    0 8px 25px
-    rgba(0, 0, 0, 0.45);
-}
-
-
-/* =====================================
-   MEMBER NAME
-   ===================================== */
-
-.request-card h3 {
-  margin: 0 0 15px;
-
-  color: #ffffff;
-
-  font-size: 21px;
-
-  font-weight: 700;
-
-  text-align: center;
-
-  line-height: 1.4;
-
-  word-break: break-word;
-}
-
-
-/* =====================================
-   CARD INFORMATION
-   ===================================== */
-
-.request-card p {
-  margin: 5px 0;
-
-  color: #bdbdbd;
-
-  font-size: 14px;
-
-  line-height: 1.7;
-
-  word-break: break-word;
-}
-
-
-.request-card p b {
-  color: #d4af37;
-
-  font-weight: 700;
-}
-
-
-/* =====================================
-   STATUS
-   ===================================== */
-
-.request-card p:nth-last-of-type(1) {
-  display: inline-flex;
-
-  align-self: flex-start;
-
-  margin-top: 12px;
-
-  padding: 5px 12px;
-
-  border:
-    1px solid
-    rgba(255, 193, 7, 0.35);
-
-  border-radius: 20px;
-
-  background:
-    rgba(255, 193, 7, 0.08);
-
-  color: #ffc107;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.5px;
-}
-
-
-/* =====================================
-   VIEW DETAILS BUTTON
-   ===================================== */
-
-.request-card > button {
-  width: 100%;
-
-  margin-top: 18px;
-
-  padding: 11px 16px;
-
-  border:
-    1px solid
-    rgba(212, 175, 55, 0.55);
-
-  border-radius: 10px;
-
-  background:
-    rgba(212, 175, 55, 0.08);
-
-  color: #d4af37;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
   cursor: pointer;
-
   transition: 0.25s ease;
 }
 
-
-.request-card > button:hover {
-  background: #d4af37;
-
-  color: #111111;
-
-  transform: translateY(-1px);
+.request-card-photo:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.22);
 }
 
+/* CARD TEXT */
 
-/* =====================================
-   ACTION BUTTON AREA
-   ===================================== */
-
-.request-buttons {
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr 1fr;
-
-  gap: 8px;
-
-  margin-top: 10px;
-}
-
-
-/* =====================================
-   ALL ACTION BUTTONS
-   ===================================== */
-
-.request-buttons button {
-  min-height: 42px;
-
-  padding: 8px 6px;
-
-  border: none;
-
-  border-radius: 9px;
-
-  font-size: 12px;
-
+.request-card h3 {
+  margin: 0 0 15px;
+  color: #fff;
+  font-size: 21px;
   font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-
-/* APPROVE */
-
-.request-buttons button:not(.reject):not(.delete) {
-  background:
-    linear-gradient(
-      135deg,
-      #d4af37,
-      #b88a0a
-    );
-
-  color: #111111;
-}
-
-
-.request-buttons button:not(.reject):not(.delete):hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 6px 15px
-    rgba(212, 175, 55, 0.25);
-}
-
-
-/* REJECT */
-
-.request-buttons .reject {
-  background:
-    #8f2424;
-
-  color: #ffffff;
-}
-
-
-.request-buttons .reject:hover {
-  background: #b72c2c;
-
-  transform: translateY(-2px);
-}
-
-
-/* DELETE */
-
-.request-buttons .delete {
-  background:
-    #292929;
-
-  color: #dddddd;
-
-  border:
-    1px solid
-    #444444;
-}
-
-
-.request-buttons .delete:hover {
-  background: #444444;
-
-  color: #ffffff;
-
-  transform: translateY(-2px);
-}
-
-
-/* =====================================
-   POPUP BACKDROP
-   ===================================== */
-
-.member-popup {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 9999;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  padding: 25px;
-
-  box-sizing: border-box;
-
-  background:
-    rgba(0, 0, 0, 0.78);
-
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
-
-  animation:
-    popupFadeIn 0.25s ease;
-}
-
-
-/* =====================================
-   POPUP BOX
-   ===================================== */
-
-.popup-box {
-  position: relative;
-
-  width: 100%;
-
-  max-width: 650px;
-
-  max-height: 90vh;
-
-  overflow-y: auto;
-
-  padding: 32px;
-
-  box-sizing: border-box;
-
-  border:
-    1px solid
-    rgba(212, 175, 55, 0.45);
-
-  border-radius: 22px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #1d1d1d,
-      #101010
-    );
-
-  box-shadow:
-    0 25px 80px
-    rgba(0, 0, 0, 0.75);
-
-  animation:
-    popupSlideUp 0.3s ease;
-}
-
-
-/* =====================================
-   POPUP HEADING
-   ===================================== */
-
-.popup-box h2 {
-  margin: 0 0 25px;
-
-  color: #d4af37;
-
-  font-size: 28px;
-
-  font-weight: 800;
-
+  line-height: 1.4;
   text-align: center;
-}
-
-
-/* =====================================
-   POPUP MEMBER IMAGE
-   ===================================== */
-
-.popup-member-image {
-  display: block;
-
-  width: 130px;
-  height: 130px;
-
-  margin: 0 auto 25px;
-
-  border-radius: 50%;
-
-  object-fit: cover;
-
-  background: #080808;
-
-  border:
-    4px solid
-    #d4af37;
-
-  box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.5);
-}
-
-
-/* =====================================
-   POPUP DETAILS
-   ===================================== */
-
-.popup-box p {
-  margin: 0;
-
-  padding: 12px 0;
-
-  border-bottom:
-    1px solid
-    rgba(255, 255, 255, 0.07);
-
-  color: #cccccc;
-
-  font-size: 14px;
-
-  line-height: 1.8;
-
   word-break: break-word;
 }
 
+.request-card p {
+  margin: 5px 0;
+  color: #bdbdbd;
+  font-size: 14px;
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.request-card p b {
+  color: #d4af37;
+}
+
+/* STATUS */
+
+.request-card p:last-of-type {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 193, 7, 0.35);
+  border-radius: 20px;
+  background: rgba(255, 193, 7, 0.08);
+  color: #ffc107;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* CARD VIEW BUTTON */
+
+.request-card > button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 11px 16px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 10px;
+  background: rgba(212, 175, 55, 0.08);
+  color: #d4af37;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.request-card > button:hover {
+  background: #d4af37;
+  color: #111;
+  transform: translateY(-1px);
+}
+
+/* CARD ACTIONS */
+
+.request-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.request-buttons button,
+.popup-actions button {
+  min-height: 42px;
+  padding: 8px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #d4af37, #b88a0a);
+  color: #111;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.request-buttons button:hover,
+.popup-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(212, 175, 55, 0.25);
+}
+
+.request-buttons .reject,
+.popup-actions .reject {
+  background: #8f2424;
+  color: #fff;
+}
+
+.request-buttons .reject:hover,
+.popup-actions .reject:hover {
+  background: #b72c2c;
+}
+
+.request-buttons .delete,
+.popup-actions .delete {
+  background: #292929;
+  color: #ddd;
+  border: 1px solid #444;
+}
+
+.request-buttons .delete:hover,
+.popup-actions .delete:hover {
+  background: #444;
+  color: #fff;
+}
+
+/* POPUP */
+
+.member-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: popupFadeIn 0.25s ease;
+}
+
+.popup-box {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-sizing: border-box;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 22px;
+  background: linear-gradient(145deg, #1d1d1d, #101010);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.75);
+  animation: popupSlideUp 0.3s ease;
+}
+
+.popup-box h2 {
+  margin: 0 0 25px;
+  color: #d4af37;
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.popup-box h3 {
+  margin: 22px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+  color: #d4af37;
+  font-size: 17px;
+}
+
+.popup-box p {
+  margin: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.8;
+  word-break: break-word;
+}
 
 .popup-box p:last-of-type {
   border-bottom: none;
 }
 
-
 .popup-box p b {
   display: inline-block;
-
   min-width: 165px;
-
   color: #d4af37;
-
-  font-weight: 700;
 }
 
+/* POPUP PROFILE PHOTO */
 
-/* =====================================
-   POPUP ACTIONS
-   ===================================== */
-
-.popup-actions {
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr 1fr;
-
-  gap: 10px;
-
-  margin-top: 25px;
-}
-
-
-.popup-actions button {
-  min-height: 45px;
-
-  padding: 10px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background:
-    #d4af37;
-
-  color: #111111;
-
-  font-size: 13px;
-
-  font-weight: 700;
-
+.popup-member-image {
+  display: block;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 25px;
+  border: 4px solid #d4af37;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #080808;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-
   transition: 0.25s ease;
 }
 
-
-.popup-actions button:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 7px 20px
-    rgba(212, 175, 55, 0.22);
+.popup-member-image:hover {
+  transform: scale(1.04);
 }
 
+/* PORTFOLIO */
 
-/* POPUP REJECT */
+.admin-portfolio-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  margin: 12px 0 20px;
+}
 
-.popup-actions .reject {
+.admin-portfolio-preview img,
+.admin-portfolio-item img {
+  display: block;
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 10px;
+  background: #080808;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.admin-portfolio-preview img:hover,
+.admin-portfolio-item img:hover {
+  transform: scale(1.03);
+  border-color: #d4af37;
+}
+
+.admin-portfolio-item {
+  position: relative;
+}
+
+.admin-portfolio-item button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
   background: #8f2424;
-
-  color: #ffffff;
+  color: #fff;
+  font-size: 18px;
+  line-height: 27px;
+  cursor: pointer;
 }
 
-
-.popup-actions .reject:hover {
+.admin-portfolio-item button:hover {
   background: #b72c2c;
 }
 
+.no-portfolio {
+  color: #777 !important;
+}
 
-/* =====================================
-   POPUP SCROLLBAR
-   ===================================== */
+/* VIDEOS */
+
+.admin-edit-video {
+  margin-bottom: 15px;
+}
+
+.admin-edit-video input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 11px 12px;
+  border: 1px solid #444;
+  border-radius: 9px;
+  outline: none;
+  background: #181818;
+  color: #fff;
+  font-family: inherit;
+}
+
+.admin-edit-video input:focus {
+  border-color: #d4af37;
+}
+
+.admin-edit-video iframe {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
+}
+
+.admin-edit-video > button {
+  min-height: 36px;
+  margin-bottom: 8px;
+  padding: 7px 13px;
+  border: 1px solid #8f2424;
+  border-radius: 8px;
+  background: #8f2424;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-edit-video > button:hover {
+  background: #b72c2c;
+}
+
+/* EDIT FIELDS */
+
+.popup-box input,
+.popup-box select,
+.popup-box textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  outline: none;
+  background: #181818;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.popup-box input::placeholder,
+.popup-box textarea::placeholder {
+  color: #777;
+}
+
+.popup-box input:focus,
+.popup-box select:focus,
+.popup-box textarea:focus {
+  border-color: #d4af37;
+  background: #1d1d1d;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.08);
+}
+
+.popup-box select {
+  cursor: pointer;
+}
+
+.popup-box select option {
+  background: #181818;
+  color: #fff;
+}
+
+.popup-box textarea {
+  min-height: 95px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* PROFILE PHOTO EDIT */
+
+.admin-edit-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.admin-edit-photo img {
+  width: 130px;
+  height: 130px;
+  border: 3px solid #d4af37;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #080808;
+  cursor: pointer;
+}
+
+.admin-edit-photo button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #8f2424;
+  border-radius: 8px;
+  background: #8f2424;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-edit-photo button:hover {
+  background: #b72c2c;
+}
+
+/* FILE INPUT */
+
+.popup-box input[type="file"] {
+  padding: 8px;
+  cursor: pointer;
+  background: #151515;
+  color: #aaa;
+}
+
+.popup-box input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 7px;
+  background: #d4af37;
+  color: #111;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* POPUP ADD VIDEO */
+
+.popup-box > button[type="button"] {
+  min-height: 40px;
+  margin: 5px 0 15px;
+  padding: 9px 15px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 9px;
+  background: rgba(212, 175, 55, 0.08);
+  color: #d4af37;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.popup-box > button[type="button"]:hover {
+  background: #d4af37;
+  color: #111;
+}
+
+/* POPUP ACTIONS */
+
+.popup-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.popup-actions button {
+  min-height: 45px;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.popup-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* LARGE PHOTO */
+
+.large-photo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  cursor: zoom-out;
+  animation: largePhotoFade 0.2s ease;
+}
+
+.large-photo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 94vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.8);
+  cursor: default;
+  animation: largePhotoOpen 0.25s ease;
+}
+
+.large-photo-close {
+  position: absolute;
+  top: 18px;
+  right: 25px;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+  font-size: 30px;
+  line-height: 42px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.large-photo-close:hover {
+  transform: scale(1.08);
+  background: #d4af37;
+}
+
+/* SCROLLBAR */
 
 .popup-box::-webkit-scrollbar {
   width: 7px;
 }
 
-
 .popup-box::-webkit-scrollbar-track {
-  background: #111111;
-
-  border-radius: 10px;
+  background: #111;
 }
-
 
 .popup-box::-webkit-scrollbar-thumb {
   background: #d4af37;
-
   border-radius: 10px;
 }
 
-
-/* =====================================
-   ANIMATIONS
-   ===================================== */
+/* ANIMATIONS */
 
 @keyframes popupFadeIn {
   from {
@@ -710,205 +656,211 @@
   }
 }
 
-
 @keyframes popupSlideUp {
   from {
     opacity: 0;
-
-    transform:
-      translateY(25px)
-      scale(0.97);
+    transform: translateY(25px) scale(0.97);
   }
 
   to {
     opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
+@keyframes largePhotoFade {
+  from {
+    opacity: 0;
+  }
 
-/* =====================================
-   TABLET
-   ===================================== */
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes largePhotoOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* TABLET */
 
 @media (max-width: 900px) {
-
   .member-request-admin {
     padding: 25px;
   }
 
   .request-grid {
-    grid-template-columns:
-      repeat(
-        auto-fill,
-        minmax(260px, 1fr)
-      );
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(260px, 1fr)
+    );
   }
 
   .popup-box {
     max-width: 600px;
-
     padding: 25px;
   }
-
 }
 
-
-/* =====================================
-   MOBILE
-   ===================================== */
+/* MOBILE */
 
 @media (max-width: 600px) {
-
   .member-request-admin {
     padding: 18px 12px;
   }
 
-
   .member-request-admin > h1 {
     font-size: 27px;
-
-    line-height: 1.35;
-
     margin-bottom: 22px;
   }
 
-
   .member-request-admin > h2 {
-    font-size: 16px;
-
     padding: 20px 12px;
+    font-size: 16px;
   }
-
 
   .request-grid {
     grid-template-columns: 1fr;
-
     gap: 18px;
   }
-
 
   .request-card {
     padding: 18px;
   }
 
-
-  .request-card > img {
+  .request-card-photo {
     width: 90px;
     height: 90px;
   }
-
 
   .request-card h3 {
     font-size: 19px;
   }
 
-
   .request-card p {
     font-size: 13px;
   }
-
 
   .request-buttons {
     gap: 6px;
   }
 
-
   .request-buttons button {
     min-height: 40px;
-
     font-size: 11px;
   }
-
 
   .member-popup {
     padding: 12px;
   }
 
-
   .popup-box {
     max-height: 94vh;
-
     padding: 20px;
-
     border-radius: 17px;
   }
 
-
   .popup-box h2 {
     font-size: 23px;
-
     margin-bottom: 20px;
   }
-
 
   .popup-member-image {
     width: 105px;
     height: 105px;
   }
 
-
   .popup-box p {
-    font-size: 13px;
-
     padding: 10px 0;
+    font-size: 13px;
   }
-
 
   .popup-box p b {
     display: block;
-
     min-width: auto;
-
     margin-bottom: 2px;
   }
 
-
-  .popup-actions {
-    grid-template-columns: 1fr;
-
+  .admin-portfolio-preview {
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
   }
 
+  .admin-portfolio-preview img,
+  .admin-portfolio-item img {
+    height: 90px;
+  }
+
+  .popup-actions {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 
   .popup-actions button {
     min-height: 44px;
   }
 
+  .large-photo-overlay {
+    padding: 15px;
+  }
+
+  .large-photo {
+    max-width: 96vw;
+    max-height: 86vh;
+  }
+
+  .large-photo-close {
+    top: 10px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 26px;
+    line-height: 38px;
+  }
 }
 
-
-/* =====================================
-   SMALL MOBILE
-   ===================================== */
+/* SMALL MOBILE */
 
 @media (max-width: 400px) {
-
   .member-request-admin {
     padding: 15px 10px;
   }
-
 
   .request-card {
     padding: 15px;
   }
 
-
   .request-buttons {
     grid-template-columns: 1fr;
   }
-
 
   .request-buttons button {
     width: 100%;
   }
 
-
   .popup-box {
     padding: 17px;
   }
 
+  .admin-portfolio-preview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-portfolio-preview img,
+  .admin-portfolio-item img {
+    height: 100px;
+  }
+
+  .large-photo {
+    max-width: 97vw;
+    max-height: 84vh;
+  }
 }

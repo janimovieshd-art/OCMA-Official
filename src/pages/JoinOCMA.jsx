@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -11,12 +12,8 @@ import {
 
 import "./JoinOCMA.css";
 
-
 function JoinOCMA() {
-
-  const [websiteName, setWebsiteName] =
-    useState("OCMA");
-
+  const [websiteName, setWebsiteName] = useState("OCMA");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -25,6 +22,7 @@ function JoinOCMA() {
     city: "",
     studio: "",
     googleAddress: "",
+    gender: "",
     specialty: "",
     experience: "",
     bloodGroup: "",
@@ -32,7 +30,6 @@ function JoinOCMA() {
     cameraDetails: "",
     message: ""
   });
-
 
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState("");
@@ -52,167 +49,128 @@ function JoinOCMA() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
-
   /* =====================================================
      LOAD WEBSITE NAME
   ===================================================== */
 
   useEffect(() => {
-
     const loadSettings = async () => {
-
       try {
-
         const snap = await getDoc(
           doc(db, "websiteSettings", "main")
         );
 
-
         if (snap.exists()) {
-
           const data = snap.data();
 
           setWebsiteName(
-            data.website?.shortName?.trim() ||
-            "OCMA"
+            data.website?.shortName?.trim() || "OCMA"
           );
-
         }
-
       } catch (error) {
-
-        console.log(
-          "Join Settings Error:",
-          error
-        );
-
+        console.log("Join Settings Error:", error);
       }
-
     };
 
-
     loadSettings();
-
   }, []);
 
+  /* =====================================================
+     FORM CHANGE
+  ===================================================== */
 
   const handleChange = (e) => {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
 
+    setError("");
+    setSuccess("");
   };
 
+  /* =====================================================
+     FILE SIZE
+  ===================================================== */
 
   const checkSize = (file) => {
-
     return file.size <= 5 * 1024 * 1024;
-
   };
 
+  /* =====================================================
+     PROFILE PHOTO
+  ===================================================== */
 
   const handleProfilePhoto = (e) => {
-
     const file = e.target.files[0];
 
     if (!file) return;
 
-
     if (!file.type.startsWith("image/")) {
-
       setError("صرف تصویر فائل اپلوڈ کریں۔");
-
       return;
-
     }
 
-
     if (!checkSize(file)) {
-
       setError(
         "پروفائل تصویر 5MB سے زیادہ نہیں ہونی چاہیے۔"
       );
-
       return;
-
     }
 
-
     setPhoto(file);
-    setPhotoPreview(
-      URL.createObjectURL(file)
-    );
+    setPhotoPreview(URL.createObjectURL(file));
 
     setError("");
     setSuccess("");
-
   };
 
+  /* =====================================================
+     PORTFOLIO PHOTOS
+  ===================================================== */
 
   const handlePortfolio = (e) => {
-
     const files = Array.from(e.target.files);
 
     let newFiles = [...portfolioPhotos];
     let newPreview = [...portfolioPreview];
 
-
     for (const file of files) {
-
       if (newFiles.length >= 10) {
-
         setError(
           "زیادہ سے زیادہ 10 Portfolio Photos شامل کی جا سکتی ہیں۔"
         );
-
         break;
-
       }
 
-
       if (!file.type.startsWith("image/")) {
-
         setError(
           `${file.name} تصویر فائل نہیں ہے۔`
         );
-
         continue;
-
       }
 
-
       if (!checkSize(file)) {
-
         setError(
           `${file.name} کا سائز 5MB سے زیادہ ہے۔`
         );
-
         continue;
-
       }
 
-
       newFiles.push(file);
-
-      newPreview.push(
-        URL.createObjectURL(file)
-      );
-
+      newPreview.push(URL.createObjectURL(file));
     }
-
 
     setPortfolioPhotos(newFiles);
     setPortfolioPreview(newPreview);
-
     setSuccess("");
-
   };
 
+  /* =====================================================
+     REMOVE PORTFOLIO PHOTO
+  ===================================================== */
 
   const removePortfolioPhoto = (index) => {
-
     const files = [...portfolioPhotos];
     const previews = [...portfolioPreview];
 
@@ -221,160 +179,125 @@ function JoinOCMA() {
 
     setPortfolioPhotos(files);
     setPortfolioPreview(previews);
-
   };
 
+  /* =====================================================
+     VIDEO CHANGE
+  ===================================================== */
 
   const handleVideoChange = (index, value) => {
-
     const updated = [...videos];
 
     updated[index] = value;
 
     setVideos(updated);
     setSuccess("");
-
   };
 
+  /* =====================================================
+     VIDEO EMBED URL
+  ===================================================== */
 
   const getEmbedUrl = (url) => {
-
     if (!url) return "";
 
-
     try {
-
       if (url.includes("youtube.com/watch")) {
-
-        const id =
-          new URL(url).searchParams.get("v");
+        const id = new URL(url).searchParams.get("v");
 
         if (id) {
-
           return `https://www.youtube.com/embed/${id}`;
-
         }
-
       }
 
-
       if (url.includes("youtu.be")) {
-
         const id = url
           .split("/")
           .pop()
           .split("?")[0];
 
         if (id) {
-
           return `https://www.youtube.com/embed/${id}`;
-
         }
-
       }
 
-
-      if (
-        url.includes(
-          "youtube.com/shorts/"
-        )
-      ) {
-
+      if (url.includes("youtube.com/shorts/")) {
         const id = url
           .split("/shorts/")[1]
           .split("?")[0];
 
         if (id) {
-
           return `https://www.youtube.com/embed/${id}`;
-
         }
-
       }
 
-
       if (url.includes("vimeo.com")) {
-
         const id = url
           .split("/")
           .pop()
           .split("?")[0];
 
         if (id) {
-
           return `https://player.vimeo.com/video/${id}`;
-
         }
-
       }
 
-
       if (url.includes("facebook.com")) {
-
         return (
           `https://www.facebook.com/plugins/video.php?href=` +
           `${encodeURIComponent(url)}` +
           `&show_text=false`
         );
-
       }
-
     } catch (error) {
-
       return "";
-
     }
 
-
     return "";
-
   };
 
+  /* =====================================================
+     SUBMIT
+  ===================================================== */
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     setError("");
     setSuccess("");
 
+    if (!formData.gender) {
+      setError("براہِ کرم Gender منتخب کریں۔");
+      return;
+    }
+
+    if (!formData.specialty) {
+      setError("براہِ کرم Profession منتخب کریں۔");
+      return;
+    }
 
     try {
-
       setLoading(true);
 
       let imageUrl = "";
       let workImages = [];
 
-
       if (photo) {
-
-        imageUrl =
-          await uploadImage(photo);
-
+        imageUrl = await uploadImage(photo);
       }
-
 
       if (portfolioPhotos.length > 0) {
-
-        workImages =
-          await uploadImages(
-            portfolioPhotos
-          );
-
+        workImages = await uploadImages(
+          portfolioPhotos
+        );
       }
 
-
       const videoData = videos
-        .filter(
-          (video) =>
-            video.trim() !== ""
-        )
+        .filter((video) => video.trim() !== "")
         .map((video) => ({
           url: video,
           embed: getEmbedUrl(video)
         }));
-
 
       await addData(
         "membership_requests",
@@ -393,16 +316,15 @@ function JoinOCMA() {
 
           status: "PENDING",
 
-          createdAt:
-            new Date().toISOString()
+          createdAt: new Date().toISOString()
         }
       );
 
-
       setSuccess(
-        `آپ کی ${websiteName} ممبرشپ درخواست کامیابی سے جمع ہوگئی ہے۔`
+        `ممبرشپ درخواست کامیابی سے جمع ہوگئی ہے۔`
       );
 
+      /* RESET FORM */
 
       setFormData({
         name: "",
@@ -411,6 +333,7 @@ function JoinOCMA() {
         city: "",
         studio: "",
         googleAddress: "",
+        gender: "",
         specialty: "",
         experience: "",
         bloodGroup: "",
@@ -419,13 +342,11 @@ function JoinOCMA() {
         message: ""
       });
 
-
       setPhoto(null);
       setPhotoPreview("");
 
       setPortfolioPhotos([]);
       setPortfolioPreview([]);
-
 
       setVideos([
         "",
@@ -435,57 +356,39 @@ function JoinOCMA() {
         ""
       ]);
 
-
       const fileInputs =
         document.querySelectorAll(
           '.join-box input[type="file"]'
         );
 
-
       fileInputs.forEach((input) => {
-
         input.value = "";
-
       });
-
-
     } catch (error) {
-
       console.log(
         `Join ${websiteName} Error:`,
         error
       );
-
 
       setError(
         "درخواست جمع نہیں ہو سکی، دوبارہ کوشش کریں۔"
       );
 
       setSuccess("");
-
-
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
-
   return (
-
     <div className="join-page">
-
       <div className="join-box">
 
         <h1>
           Join {websiteName}
         </h1>
 
-
         <p>
-
           Become an official registered member
           of {websiteName}.
 
@@ -493,20 +396,19 @@ function JoinOCMA() {
 
           اوکاڑہ کیمرہ مین ایسوسی ایشن کے
           آفیشل رجسٹرڈ ممبر بنیں۔
-
         </p>
 
-
         {error && (
-
           <div className="error-message">
             {error}
           </div>
-
         )}
 
-
         <form onSubmit={handleSubmit}>
+
+          {/* =====================================================
+              PERSONAL INFORMATION
+          ===================================================== */}
 
           <input
             name="name"
@@ -516,14 +418,12 @@ function JoinOCMA() {
             required
           />
 
-
           <input
             name="fatherName"
             placeholder="Father Name (والد کا نام)"
             value={formData.fatherName}
             onChange={handleChange}
           />
-
 
           <input
             name="phone"
@@ -533,7 +433,6 @@ function JoinOCMA() {
             required
           />
 
-
           <input
             name="city"
             placeholder="City (شہر)"
@@ -542,14 +441,12 @@ function JoinOCMA() {
             required
           />
 
-
           <input
             name="studio"
             placeholder="Studio Name (اسٹوڈیو نام)"
             value={formData.studio}
             onChange={handleChange}
           />
-
 
           <input
             name="googleAddress"
@@ -558,6 +455,32 @@ function JoinOCMA() {
             onChange={handleChange}
           />
 
+          {/* =====================================================
+              GENDER
+          ===================================================== */}
+
+          <select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+          >
+            <option value="">
+              Select Gender
+            </option>
+
+            <option value="Male">
+              Male
+            </option>
+
+            <option value="Female">
+              Female
+            </option>
+          </select>
+
+          {/* =====================================================
+              PROFESSION
+          ===================================================== */}
 
           <select
             name="specialty"
@@ -565,7 +488,6 @@ function JoinOCMA() {
             onChange={handleChange}
             required
           >
-
             <option value="">
               Select Profession
             </option>
@@ -597,20 +519,17 @@ function JoinOCMA() {
             <option value="Social Media Manager">
               Social Media Manager
             </option>
-
-            <option value="Other">
-              Other
-            </option>
-
           </select>
 
+          {/* =====================================================
+              EXPERIENCE
+          ===================================================== */}
 
           <select
             name="experience"
             value={formData.experience}
             onChange={handleChange}
           >
-
             <option value="">
               Experience
             </option>
@@ -618,26 +537,25 @@ function JoinOCMA() {
             {Array.from(
               { length: 50 },
               (_, i) => (
-
                 <option
                   key={i}
                   value={`${i + 1} Years`}
                 >
                   {i + 1} Years
                 </option>
-
               )
             )}
-
           </select>
 
+          {/* =====================================================
+              BLOOD GROUP
+          ===================================================== */}
 
           <select
             name="bloodGroup"
             value={formData.bloodGroup}
             onChange={handleChange}
           >
-
             <option value="">
               Blood Group
             </option>
@@ -650,25 +568,21 @@ function JoinOCMA() {
             <option value="AB-">AB-</option>
             <option value="O+">O+</option>
             <option value="O-">O-</option>
-
           </select>
 
+          {/* =====================================================
+              PROFILE PHOTO
+          ===================================================== */}
 
           <h3>
             Profile Photo (1×1)
           </h3>
 
-
           <p>
-
             Recommended: 1000 × 1000 Pixels
-
             <br />
-
             Maximum Size: 5MB
-
           </p>
-
 
           <input
             type="file"
@@ -676,17 +590,17 @@ function JoinOCMA() {
             onChange={handleProfilePhoto}
           />
 
-
           {photoPreview && (
-
             <img
               src={photoPreview}
               className="profile-preview"
               alt="profile"
             />
-
           )}
 
+          {/* =====================================================
+              OTHER INFORMATION
+          ===================================================== */}
 
           <textarea
             name="address"
@@ -695,14 +609,12 @@ function JoinOCMA() {
             onChange={handleChange}
           />
 
-
           <textarea
             name="cameraDetails"
             placeholder="Camera & Equipment Details"
             value={formData.cameraDetails}
             onChange={handleChange}
           />
-
 
           <textarea
             name="message"
@@ -711,6 +623,9 @@ function JoinOCMA() {
             onChange={handleChange}
           />
 
+          {/* =====================================================
+              PORTFOLIO
+          ===================================================== */}
 
           <div className="portfolio-box">
 
@@ -718,9 +633,7 @@ function JoinOCMA() {
               Professional Portfolio
             </h2>
 
-
             <p>
-
               Portrait Size: 5×7 inch
               <br />
               Landscape Size: 7×5 inch
@@ -728,9 +641,7 @@ function JoinOCMA() {
               Maximum 10 Photos
               <br />
               Maximum 5MB Each Photo
-
             </p>
-
 
             <input
               type="file"
@@ -739,22 +650,18 @@ function JoinOCMA() {
               onChange={handlePortfolio}
             />
 
-
             <div className="portfolio-preview">
 
               {portfolioPreview.map(
                 (img, index) => (
-
                   <div
                     className="portfolio-item"
                     key={index}
                   >
-
                     <img
                       src={img}
                       alt="portfolio"
                     />
-
 
                     <button
                       type="button"
@@ -764,33 +671,30 @@ function JoinOCMA() {
                     >
                       ×
                     </button>
-
                   </div>
-
                 )
               )}
 
             </div>
 
+            {/* =====================================================
+                VIDEO PORTFOLIO
+            ===================================================== */}
 
             <h2>
               Video Portfolio
             </h2>
 
-
             <p>
               YouTube / Facebook / Vimeo Links
             </p>
 
-
             {videos.map(
               (video, index) => (
-
                 <div
                   className="video-box"
                   key={index}
                 >
-
                   <input
                     type="text"
                     placeholder={`Video Link ${index + 1}`}
@@ -803,10 +707,8 @@ function JoinOCMA() {
                     }
                   />
 
-
                   {video &&
                     getEmbedUrl(video) && (
-
                       <iframe
                         title={`video-${index}`}
                         src={getEmbedUrl(video)}
@@ -815,46 +717,36 @@ function JoinOCMA() {
                         frameBorder="0"
                         allowFullScreen
                       />
-
                     )}
-
                 </div>
-
               )
             )}
 
           </div>
 
+          {/* =====================================================
+              SUBMIT
+          ===================================================== */}
 
           <button
             type="submit"
             disabled={loading}
           >
-
             {loading
               ? "Submitting..."
               : "Submit Membership Request"}
-
           </button>
 
-
           {success && (
-
             <div className="success-message">
               ✓ {success}
             </div>
-
           )}
 
         </form>
-
       </div>
-
     </div>
-
   );
-
 }
-
 
 export default JoinOCMA;

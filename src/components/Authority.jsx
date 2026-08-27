@@ -33,7 +33,7 @@ const [title,setTitle]=useState(
 
 
 const [description,setDescription]=useState(
-"Official leadership and management authority of OCMA."
+"Official leadership and management authority "
 );
 
 
@@ -131,7 +131,7 @@ setDescription(
 
 section.description ||
 
-"Official leadership and management authority of OCMA."
+"Official leadership and management authority "
 
 );
 

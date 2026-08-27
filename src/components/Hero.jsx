@@ -105,7 +105,11 @@ function Hero({ data }) {
             MAIN HEADING
         ===================================== */}
 
-        <h1>
+        <h1
+          style={{
+            whiteSpace: "pre-line",
+          }}
+        >
           {hero.heading}
         </h1>
 
@@ -113,7 +117,12 @@ function Hero({ data }) {
             SUBTITLE
         ===================================== */}
 
-        <p className="hero-subtitle">
+        <p
+          className="hero-subtitle"
+          style={{
+            whiteSpace: "pre-line",
+          }}
+        >
           {hero.subtitle}
         </p>
 
@@ -121,7 +130,12 @@ function Hero({ data }) {
             DESCRIPTION
         ===================================== */}
 
-        <p className="hero-text">
+        <p
+          className="hero-text"
+          style={{
+            whiteSpace: "pre-line",
+          }}
+        >
           {hero.description}
         </p>
 
@@ -129,7 +143,12 @@ function Hero({ data }) {
             SMALL TEXT
         ===================================== */}
 
-        <p className="hero-small">
+        <p
+          className="hero-small"
+          style={{
+            whiteSpace: "pre-line",
+          }}
+        >
           {hero.smallText}
         </p>
 

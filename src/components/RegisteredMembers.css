@@ -1,1131 +1,613 @@
+/* =========================================
+   OCMA REGISTERED MEMBERS
+   PREMIUM RESPONSIVE DESIGN
+========================================= */
+
 .registered-members {
-
-
-  padding:70px 5%;
-
-
-  background:
-
-
-  linear-gradient(
-
-    180deg,
-
-    #050505,
-
-    #111
-
-  );
-
-
-  color:white;
-
-
+  padding: 70px 5%;
+  background: linear-gradient(180deg, #050505, #111);
+  color: #fff;
 }
-
-
-
-
-
-
 
 .registered-header {
-
-
-  text-align:center;
-
-
-  max-width:900px;
-
-
-  margin:auto;
-
-
-  margin-bottom:55px;
-
-
+  max-width: 900px;
+  margin: 0 auto 55px;
+  text-align: center;
 }
-
-
-
-
-
-
 
 .registered-header h2 {
-
-
-  font-size:42px;
-
-
-  color:#d4af37;
-
-
-  font-weight:900;
-
-
-  letter-spacing:.5px;
-
-
-  margin-bottom:15px;
-
-
+  margin: 0 0 15px;
+  color: #d4af37;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: .5px;
 }
-
-
-
-
-
-
 
 .registered-header p {
-
-
-  color:#d0d0d0;
-
-
-  font-size:19px;
-
-
-  font-weight:600;
-
-
+  margin: 0;
+  color: #d0d0d0;
+  font-size: 19px;
+  font-weight: 600;
 }
 
 
-
-
-
-
-
+/* =========================================
+   SEARCH
+========================================= */
 
 .registered-header input {
-
-
-
-  margin-top:30px;
-
-
-
-  width:85%;
-
-
-
-  max-width:700px;
-
-
-
-  padding:18px 30px;
-
-
-
-  border-radius:50px;
-
-
-
-  border:1px solid rgba(212,175,55,.7);
-
-
-
-  background:
-
-
-  linear-gradient(
-
-    145deg,
-
-    #202020,
-
-    #111
-
-  );
-
-
-
-  color:white;
-
-
-
-  font-size:17px;
-
-
-
-  font-weight:600;
-
-
-
-  outline:none;
-
-
-
-  box-shadow:
-
-
-  0 15px 35px rgba(0,0,0,.5);
-
-
-
+  width: 85%;
+  max-width: 700px;
+  height: 56px;
+  margin-top: 30px;
+  padding: 0 25px;
+  border: 1px solid rgba(212,175,55,.7);
+  border-radius: 50px;
+  outline: none;
+  background: linear-gradient(145deg, #202020, #111);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 15px 35px rgba(0,0,0,.5);
+  box-sizing: border-box;
 }
-
-
-
-
-
-
-
 
 .registered-header input::placeholder {
-
-
-  color:#aaa;
-
-
+  color: #aaa;
 }
-
-
-
-
-
-
-
 
 .registered-header input:focus {
-
-
-
-  border-color:#fff0a8;
-
-
-
-  box-shadow:
-
-
-  0 0 25px rgba(212,175,55,.35);
-
-
-
+  border-color: #fff0a8;
+  box-shadow: 0 0 25px rgba(212,175,55,.35);
 }
 
 
-
-
-
-
-
-
-/* PROFESSION BUTTONS */
-
+/* =========================================
+   PROFESSION FILTER
+========================================= */
 
 .profession-filter {
-
-
-  display:flex;
-
-
-  justify-content:center;
-
-
-  flex-wrap:wrap;
-
-
-  gap:14px;
-
-
-  margin-top:35px;
-
-
-
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
 }
-
-
-
-
-
-
-
 
 .profession-filter button {
-
-
-
-  min-width:130px;
-
-
-
-  padding:13px 25px;
-
-
-
-  border-radius:35px;
-
-
-
-  border:1px solid rgba(212,175,55,.45);
-
-
-
-  background:
-
-
-  linear-gradient(
-
-    145deg,
-
-    #222,
-
-    #111
-
-  );
-
-
-
-  color:#eee;
-
-
-
-  font-size:16px;
-
-
-
-  font-weight:800;
-
-
-
-  cursor:pointer;
-
-
-
-  transition:.35s;
-
-
-
+  min-width: 120px;
+  height: 44px;
+  padding: 0 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(212,175,55,.45);
+  border-radius: 25px;
+  background: linear-gradient(145deg, #222, #111);
+  color: #eee;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: .25s ease;
+  box-sizing: border-box;
 }
-
-
-
-
-
-
-
 
 .profession-filter button:hover {
-
-
-
-  transform:translateY(-4px);
-
-
-
-  border-color:#d4af37;
-
-
-
+  transform: translateY(-2px);
+  border-color: #d4af37;
 }
-
-
-
-
-
-
-
 
 .profession-filter .active-filter {
-
-
-
-  background:
-
-
-  linear-gradient(
-
-    135deg,
-
-    #d4af37,
-
-    #b8860b
-
-  );
-
-
-
-  color:#000;
-
-
-
-  box-shadow:
-
-
-  0 10px 25px rgba(212,175,55,.35);
-
-
-
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #000;
+  border-color: #d4af37;
+  box-shadow: 0 8px 20px rgba(212,175,55,.25);
 }
 
 
-
-
-
-
-
-
-
-/* CITY FILTER */
-
+/* =========================================
+   CITY FILTER
+========================================= */
 
 .city-filter {
-
-
-  margin-top:30px;
-
-
-  width:320px;
-
-
-  height:58px;
-
-
-  padding:0 25px;
-
-
-  border-radius:35px;
-
-
-
-  border:1px solid rgba(212,175,55,.6);
-
-
-
-  background:
-
-
-  linear-gradient(
-
-    145deg,
-
-    #252525,
-
-    #111
-
-  );
-
-
-
-  color:white;
-
-
-
-  font-size:18px;
-
-
-
-  font-weight:800;
-
-
-
-  cursor:pointer;
-
-
-
-  outline:none;
-
-
-
-  box-shadow:
-
-
-  0 15px 35px rgba(0,0,0,.5);
-
-
-
+  width: 320px;
+  height: 50px;
+  margin-top: 22px;
+  padding: 0 20px;
+  border: 1px solid rgba(212,175,55,.6);
+  border-radius: 30px;
+  outline: none;
+  background: linear-gradient(145deg, #252525, #111);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0,0,0,.45);
+  box-sizing: border-box;
 }
-
-
-
-
-
-
-
 
 .city-filter:hover {
-
-
-
-  border-color:#fff0a8;
-
-
-
-  box-shadow:
-
-
-  0 0 25px rgba(212,175,55,.35);
-
-
-
+  border-color: #fff0a8;
+  box-shadow: 0 0 20px rgba(212,175,55,.3);
 }
-
-
-
-
-
-
-
 
 .city-filter option {
-
-
-  background:#151515;
-
-
-  color:white;
-
-
-  font-size:16px;
-
-
-  font-weight:700;
-
-
+  background: #151515;
+  color: #fff;
 }
 
 
+/* =========================================
+   RESULT COUNT
+========================================= */
+
+.registered-result-count {
+  margin-top: 18px;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+.registered-result-count strong {
+  color: #ffd700;
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0 3px;
+}
 
 
-
-
-
-
-/* MEMBER GRID */
-
+/* =========================================
+   MEMBER GRID
+========================================= */
 
 .registered-grid {
-
-
-
-  display:grid;
-
-
-
-  grid-template-columns:
-
-
-  repeat(
-
-    auto-fit,
-
-    minmax(420px,1fr)
-
-  );
-
-
-
-  gap:35px;
-
-
-
-  max-width:1450px;
-
-
-
-  margin:auto;
-
-
-
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 35px;
+  max-width: 1450px;
+  margin: auto;
 }
 
 
-
-
-
-
-
-
-
-/* MEMBER CARD */
-
+/* =========================================
+   MEMBER CARD
+========================================= */
 
 .office-member-card {
-
-
-
-  display:flex;
-
-
-
-  align-items:center;
-
-
-
-  min-height:210px;
-
-
-
-  padding:25px;
-
-
-
-  gap:30px;
-
-
-
-
-
-  background:
-
-
-  linear-gradient(
-
-    145deg,
-
-    #262626,
-
-    #101010
-
-  );
-
-
-
-
-
-  border-radius:28px;
-
-
-
-
-
-  border:1px solid rgba(212,175,55,.35);
-
-
-
-
-
+  width: 100%;
+  min-height: 210px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: linear-gradient(145deg, #262626, #101010);
+  border: 1px solid rgba(212,175,55,.35);
+  border-radius: 28px;
   box-shadow:
-
-
-  0 20px 45px rgba(0,0,0,.65),
-
-
-  inset 0 1px 15px rgba(255,255,255,.05);
-
-
-
-
-
-  cursor:pointer;
-
-
-
-  position:relative;
-
-
-
-  overflow:hidden;
-
-
-
-  transition:.35s;
-
-
-
+    0 20px 45px rgba(0,0,0,.65),
+    inset 0 1px 15px rgba(255,255,255,.05);
+  cursor: pointer;
+  transition: .35s;
 }
-
-
-
-
-
-
-
 
 .office-member-card:hover {
-
-
-
-  transform:translateY(-10px);
-
-
-
-  border-color:#d4af37;
-
-
-
-  box-shadow:
-
-
-  0 30px 60px rgba(212,175,55,.25);
-
-
-
+  transform: translateY(-8px);
+  border-color: #d4af37;
+  box-shadow: 0 30px 60px rgba(212,175,55,.25);
 }
-
-
-
-
-
-
-
 
 .office-member-card::before {
-
-
-
-  content:"";
-
-
-
-  position:absolute;
-
-
-
-  width:250px;
-
-
-
-  height:250px;
-
-
-
-  right:-100px;
-
-
-
-  top:-100px;
-
-
-
-  background:
-
-
-  radial-gradient(
-
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  right: -100px;
+  top: -100px;
+  background: radial-gradient(
     circle,
-
     rgba(212,175,55,.25),
-
     transparent 70%
-
   );
-
-
-
 }
 
 
-
-
-
-
-
+/* =========================================
+   PHOTO
+========================================= */
 
 .office-photo {
-
-
-
-  width:150px;
-
-
-
-  height:150px;
-
-
-
-  flex-shrink:0;
-
-
-
-  padding:5px;
-
-
-
-  border-radius:25px;
-
-
-
-  background:
-
-
-  linear-gradient(
-
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  padding: 5px;
+  border-radius: 25px;
+  background: linear-gradient(
     135deg,
-
     #d4af37,
-
     #fff0a8,
-
     #b8860b
-
   );
-
-
-
+  box-sizing: border-box;
 }
-
-
-
-
-
-
-
 
 .office-photo img {
-
-
-
-  width:100%;
-
-
-
-  height:100%;
-
-
-
-  object-fit:cover;
-
-
-
-  border-radius:20px;
-
-
-
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 
-
-
-
-
-
+/* =========================================
+   MEMBER INFO
+========================================= */
 
 .office-info {
-
-
-
-  position:relative;
-
-
-
-  z-index:2;
-
-
-
+  min-width: 0;
+  position: relative;
+  z-index: 2;
 }
-
-
-
-
-
-
-
 
 .office-id {
-
-
-
-  display:inline-block;
-
-
-
-  padding:7px 20px;
-
-
-
-  border-radius:30px;
-
-
-
-  background:#d4af37;
-
-
-
-  color:#000;
-
-
-
-  font-weight:900;
-
-
-
-  font-size:14px;
-
-
-
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 15px;
+  border-radius: 20px;
+  background: #d4af37;
+  color: #000;
+  font-size: 12px;
+  font-weight: 900;
+  box-sizing: border-box;
 }
-
-
-
-
-
-
-
 
 .office-info h3 {
-
-
-
-  margin:15px 0;
-
-
-
-  font-size:28px;
-
-
-
-  font-weight:900;
-
-
-
-  color:white;
-
-
-
+  margin: 13px 0;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
-
-
-
-
-
-
-
 
 .office-info p {
-
-
-
-  margin:10px 0;
-
-
-
-  color:#eee;
-
-
-
-  font-size:18px;
-
-
-
-  font-weight:700;
-
-
-
+  margin: 8px 0;
+  color: #eee;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 
-
-
-
-
-
+/* =========================================
+   WHATSAPP
+========================================= */
 
 .office-whatsapp {
-
-
-
-  display:inline-block;
-
-
-
-  margin-top:15px;
-
-
-
-  padding:12px 35px;
-
-
-
-  background:
-
-
-  linear-gradient(
-
-    135deg,
-
-    #25D366,
-
-    #128C7E
-
-  );
-
-
-
-  color:white;
-
-
-
-  border-radius:35px;
-
-
-
-  text-decoration:none;
-
-
-
-  font-weight:900;
-
-
-
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  margin-top: 12px;
+  padding: 0 25px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 900;
 }
 
 
-
-
-
-
-
+/* =========================================
+   NO MEMBERS
+========================================= */
 
 .no-members {
-
-
-  text-align:center;
-
-
-  margin-top:50px;
-
-
-  color:#d4af37;
-
-
-  font-size:24px;
-
-
+  margin-top: 50px;
+  color: #d4af37;
+  font-size: 24px;
+  text-align: center;
 }
 
 
+/* =========================================
+   TABLET
+========================================= */
 
+@media (max-width: 800px) {
 
+  .registered-members {
+    padding: 50px 18px;
+  }
 
+  .registered-header {
+    margin-bottom: 40px;
+  }
 
+  .registered-header h2 {
+    font-size: 32px;
+  }
 
+  .registered-header p {
+    font-size: 16px;
+  }
 
-@media(max-width:800px){
+  .registered-header input {
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
 
+  .profession-filter {
+    gap: 8px;
+    margin-top: 25px;
+  }
 
+  .profession-filter button {
+    min-width: 105px;
+    height: 42px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
 
-.registered-members{
+  .city-filter {
+    width: 100%;
+    max-width: 360px;
+  }
 
+  .registered-result-count {
+    margin-top: 15px;
+    font-size: 13px;
+  }
 
-padding:45px 15px;
+  .registered-result-count strong {
+    font-size: 18px;
+  }
 
+  .registered-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
 
+  .office-member-card {
+    gap: 22px;
+    padding: 20px;
+  }
+
+  .office-photo {
+    width: 125px;
+    height: 125px;
+  }
+
+  .office-info h3 {
+    font-size: 24px;
+  }
 }
 
 
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .registered-members {
+    padding: 42px 12px;
+  }
+
+  .registered-header {
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .registered-header h2 {
+    font-size: 27px;
+    line-height: 1.25;
+  }
+
+  .registered-header p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
 
 
+  /* SEARCH */
 
-.registered-header h2{
+  .registered-header input {
+    width: 100%;
+    height: 46px;
+    margin-top: 22px;
+    padding: 0 17px;
+    border-radius: 24px;
+    font-size: 13px;
+  }
 
 
-font-size:30px;
+  /* =====================================
+     PROFESSION BUTTONS
+     ALL SAME SIZE / ALIGNMENT
+  ===================================== */
+
+  .profession-filter {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .profession-filter button {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 6px;
+    border-radius: 22px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+  }
 
 
+  /* CITY */
+
+  .city-filter {
+    width: 100%;
+    height: 44px;
+    margin-top: 14px;
+    padding: 0 14px;
+    border-radius: 24px;
+    font-size: 13px;
+  }
+
+
+  /* RESULT COUNT */
+
+  .registered-result-count {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+
+  .registered-result-count strong {
+    font-size: 17px;
+  }
+
+
+  /* MEMBER GRID */
+
+  .registered-grid {
+    gap: 18px;
+  }
+
+  .office-member-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 17px;
+    padding: 22px 14px;
+    border-radius: 22px;
+  }
+
+  .office-member-card::before {
+    width: auto;
+    height: 3px;
+    left: 18px;
+    right: 18px;
+    top: 0;
+    bottom: auto;
+  }
+
+  .office-photo {
+    width: 115px;
+    height: 115px;
+    border-radius: 20px;
+  }
+
+  .office-photo img {
+    border-radius: 16px;
+  }
+
+  .office-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .office-id {
+    min-height: 28px;
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .office-info h3 {
+    margin: 11px 0;
+    font-size: 21px;
+    line-height: 1.25;
+  }
+
+  .office-info p {
+    font-size: 14px;
+  }
+
+  .office-whatsapp {
+    width: 100%;
+    max-width: 220px;
+    min-height: 36px;
+  }
 }
 
 
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
+@media (max-width: 380px) {
 
+  .registered-members {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 
-.registered-header input{
+  .registered-header h2 {
+    font-size: 24px;
+  }
 
+  .registered-header p {
+    font-size: 13px;
+  }
 
-width:100%;
+  .profession-filter {
+    gap: 7px;
+  }
 
+  .profession-filter button {
+    height: 38px;
+    font-size: 10px;
+    padding: 0 4px;
+  }
 
+  .city-filter {
+    height: 42px;
+    font-size: 12px;
+  }
+
+  .registered-result-count {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+
+  .registered-result-count strong {
+    font-size: 15px;
+  }
+
+  .office-photo {
+    width: 105px;
+    height: 105px;
+  }
+
+  .office-info h3 {
+    font-size: 19px;
+  }
 }
 
 
-
-
-
-.profession-filter button{
-
-
-width:auto;
-
-
-min-width:110px;
-
-
-padding:12px 18px;
-
-
-}
-
-
-
-
-
-.city-filter{
-
-
-width:100%;
-
-
-}
-
-
-
-
-
-.registered-grid{
-
-
-grid-template-columns:1fr;
-
-
-}
-
-
-
-
-
-.office-member-card{
-
-
-flex-direction:column;
-
-
-text-align:center;
-
-
-}
-
-
-
-
-
-.office-photo{
-
-
-width:130px;
-
-
-height:130px;
-
-
-}
-
-
-
-
-
-.office-info h3{
-
-
-font-size:25px;
-
-
-}
-
-
-
-
-
-.office-info p{
-
-
-font-size:16px;
-
-
-}
-
-
-
+/* =========================================
+   REDUCE MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .office-member-card,
+  .office-whatsapp,
+  .profession-filter button {
+    transition: none;
+  }
 }

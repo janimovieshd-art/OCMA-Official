@@ -44,9 +44,9 @@
 
   padding: 10px 34px;
 
-  position: sticky;
+  position: relative;
 
-  top: 0;
+ 
 
   z-index: 9999;
 

@@ -3112,3 +3112,156 @@ color:#000;
 
 
 }
+/* =====================================================
+   MOBILE AI CORE — FIXED CENTER ALIGNMENT
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+  .ai-core {
+    height: 270px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ALL CORE ELEMENTS SAME CENTER */
+
+  .ai-core .energy-ring,
+  .ai-core .gear,
+  .ai-core .electric-particles,
+  .ai-core .logo-core {
+    left: 50%;
+  }
+
+  /* ENERGY RING */
+
+  .ai-core .energy-ring {
+    top: 45px;
+    width: 150px;
+    height: 150px;
+    transform: translateX(-50%);
+  }
+
+  /* OUTER GEAR */
+
+  .ai-core .gear-one {
+    top: 25px;
+    width: 190px;
+    height: 190px;
+    transform: translateX(-50%);
+  }
+
+  /* INNER GEAR */
+
+  .ai-core .gear-two {
+    top: 48px;
+    width: 155px;
+    height: 155px;
+    transform: translateX(-50%);
+  }
+
+  /* LOGO */
+
+  .ai-core .logo-core {
+    top: 25px;
+    width: 105px;
+    height: 105px;
+    transform: translate(-50%, 0);
+  }
+
+  .ai-core .logo-core img {
+    width: 92px;
+    height: 92px;
+  }
+
+  /* PARTICLES */
+
+  .ai-core .electric-particles {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 190px;
+    height: 190px;
+    top: 30px;
+  }
+
+  /* AI CORE TITLE */
+
+  .ai-core h2 {
+    top: 195px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    font-size: 21px;
+    white-space: nowrap;
+  }
+
+  /* POWER STATUS */
+
+  .ai-core > span {
+    top: 232px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    padding: 5px 14px;
+    font-size: 9px;
+    white-space: nowrap;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+   ===================================================== */
+
+@media (max-width: 400px) {
+
+  .ai-core {
+    height: 245px;
+  }
+
+  .ai-core .energy-ring {
+    top: 48px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .ai-core .gear-one {
+    top: 35px;
+    width: 155px;
+    height: 155px;
+  }
+
+  .ai-core .gear-two {
+    top: 50px;
+    width: 130px;
+    height: 130px;
+  }
+
+  .ai-core .logo-core {
+    top: 63px;
+    width: 90px;
+    height: 90px;
+  }
+
+  .ai-core .logo-core img {
+    width: 78px;
+    height: 78px;
+  }
+
+  .ai-core .electric-particles {
+    top: 35px;
+    width: 155px;
+    height: 155px;
+  }
+
+  .ai-core h2 {
+    top: 174px;
+    font-size: 17px;
+  }
+
+  .ai-core > span {
+    top: 207px;
+    padding: 4px 10px;
+    font-size: 8px;
+  }
+}
