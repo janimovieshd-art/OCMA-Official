@@ -1,10 +1,7 @@
-
 import { useEffect, useRef, useState } from "react";
-
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { getData } from "../services/firestoreService";
-
 import "./MemberGallery.css";
 
 function MemberGallery() {
@@ -17,12 +14,8 @@ function MemberGallery() {
   const [reelVideos, setReelVideos] = useState([]);
   const [wideVideos, setWideVideos] = useState([]);
 
-  // IMAGE ZOOM
   const [imageZoom, setImageZoom] = useState(1);
-  const [imagePosition, setImagePosition] = useState({
-    x: 0,
-    y: 0
-  });
+  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
 
   const dragStartRef = useRef({
@@ -33,7 +26,7 @@ function MemberGallery() {
   });
 
   // =====================================================
-  // RANDOMIZE ARRAY
+  // RANDOMIZE
   // =====================================================
 
   const shuffle = (array) => {
@@ -41,11 +34,7 @@ function MemberGallery() {
 
     for (let i = result.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-
-      [result[i], result[j]] = [
-        result[j],
-        result[i]
-      ];
+      [result[i], result[j]] = [result[j], result[i]];
     }
 
     return result;
@@ -77,19 +66,12 @@ function MemberGallery() {
 
   const loadSiteName = async () => {
     try {
-      const ref = doc(
-        db,
-        "websiteSettings",
-        "main"
-      );
-
+      const ref = doc(db, "websiteSettings", "main");
       const snap = await getDoc(ref);
 
       if (snap.exists()) {
         const data = snap.data();
-
-        const name =
-          data.website?.siteName?.trim();
+        const name = data.website?.siteName?.trim();
 
         if (name) {
           setSiteName(name);
@@ -106,22 +88,18 @@ function MemberGallery() {
   }, []);
 
   // =====================================================
-  // BUILD RANDOM HOME GALLERY
-  // 10 PHOTOS + 5 REELS + 5 VIDEOS
+  // BUILD RANDOM GALLERY
   // =====================================================
 
   const createRandomGallery = () => {
-    if (!members.length) {
-      return;
-    }
+    if (!members.length) return;
 
     const allPhotos = [];
     const allReels = [];
     const allWideVideos = [];
 
     members.forEach((member) => {
-      const photos =
-        member.portfolio?.photos || [];
+      const photos = member.portfolio?.photos || [];
 
       photos.forEach((photo, index) => {
         if (!photo) return;
@@ -133,8 +111,7 @@ function MemberGallery() {
         });
       });
 
-      const videos =
-        member.portfolio?.videos || [];
+      const videos = member.portfolio?.videos || [];
 
       videos.forEach((video) => {
         if (!video) return;
@@ -152,17 +129,9 @@ function MemberGallery() {
       });
     });
 
-    setPhotoItems(
-      shuffle(allPhotos).slice(0, 12)
-    );
-
-    setReelVideos(
-      shuffle(allReels).slice(0, 5)
-    );
-
-    setWideVideos(
-      shuffle(allWideVideos).slice(0, 4)
-    );
+    setPhotoItems(shuffle(allPhotos).slice(0, 12));
+    setReelVideos(shuffle(allReels).slice(0, 5));
+    setWideVideos(shuffle(allWideVideos).slice(0, 4));
   };
 
   // =====================================================
@@ -170,9 +139,7 @@ function MemberGallery() {
   // =====================================================
 
   useEffect(() => {
-    if (!members.length) {
-      return;
-    }
+    if (!members.length) return;
 
     createRandomGallery();
 
@@ -184,7 +151,7 @@ function MemberGallery() {
   }, [members]);
 
   // =====================================================
-  // GET MEMBER CODE
+  // MEMBER CODE
   // =====================================================
 
   const getMemberCode = (member) => {
@@ -196,13 +163,11 @@ function MemberGallery() {
   };
 
   // =====================================================
-  // GET RAW VIDEO URL
+  // RAW VIDEO URL
   // =====================================================
 
   const getVideoRawUrl = (video) => {
-    if (!video) {
-      return "";
-    }
+    if (!video) return "";
 
     if (typeof video === "string") {
       return video.trim();
@@ -218,12 +183,11 @@ function MemberGallery() {
   };
 
   // =====================================================
-  // GET VIDEO TYPE
+  // VIDEO TYPE
   // =====================================================
 
   const getVideoType = (video) => {
-    const rawUrl =
-      getVideoRawUrl(video).toLowerCase();
+    const rawUrl = getVideoRawUrl(video).toLowerCase();
 
     if (rawUrl.includes("instagram.com")) {
       return "instagram";
@@ -251,52 +215,37 @@ function MemberGallery() {
   };
 
   // =====================================================
-  // GET YOUTUBE ID
+  // YOUTUBE ID
   // =====================================================
 
   const getYouTubeId = (url) => {
-    if (!url) {
-      return "";
-    }
+    if (!url) return "";
 
     try {
       const parsedUrl = new URL(url);
 
       if (
-        parsedUrl.hostname.includes(
-          "youtube.com"
-        )
+        parsedUrl.hostname.includes("youtube.com")
       ) {
-        const watchId =
-          parsedUrl.searchParams.get("v");
+        const watchId = parsedUrl.searchParams.get("v");
 
-        if (watchId) {
-          return watchId;
-        }
+        if (watchId) return watchId;
 
-        const shortsMatch =
-          parsedUrl.pathname.match(
-            /\/shorts\/([^/?#]+)/
-          );
+        const shortsMatch = parsedUrl.pathname.match(
+          /\/shorts\/([^/?#]+)/
+        );
 
-        if (shortsMatch) {
-          return shortsMatch[1];
-        }
+        if (shortsMatch) return shortsMatch[1];
 
-        const embedMatch =
-          parsedUrl.pathname.match(
-            /\/embed\/([^/?#]+)/
-          );
+        const embedMatch = parsedUrl.pathname.match(
+          /\/embed\/([^/?#]+)/
+        );
 
-        if (embedMatch) {
-          return embedMatch[1];
-        }
+        if (embedMatch) return embedMatch[1];
       }
 
       if (
-        parsedUrl.hostname.includes(
-          "youtu.be"
-        )
+        parsedUrl.hostname.includes("youtu.be")
       ) {
         return parsedUrl.pathname
           .replace("/", "")
@@ -310,13 +259,11 @@ function MemberGallery() {
   };
 
   // =====================================================
-  // GET INSTAGRAM EMBED URL
+  // INSTAGRAM EMBED
   // =====================================================
 
   const getInstagramEmbedUrl = (url) => {
-    if (!url) {
-      return "";
-    }
+    if (!url) return "";
 
     try {
       const parsedUrl = new URL(url);
@@ -326,28 +273,25 @@ function MemberGallery() {
         return url;
       }
 
-      const reelMatch =
-        pathname.match(
-          /\/reel\/([^/?#]+)/
-        );
+      const reelMatch = pathname.match(
+        /\/reel\/([^/?#]+)/
+      );
 
       if (reelMatch) {
         return `https://www.instagram.com/reel/${reelMatch[1]}/embed/`;
       }
 
-      const postMatch =
-        pathname.match(
-          /\/p\/([^/?#]+)/
-        );
+      const postMatch = pathname.match(
+        /\/p\/([^/?#]+)/
+      );
 
       if (postMatch) {
         return `https://www.instagram.com/p/${postMatch[1]}/embed/`;
       }
 
-      const tvMatch =
-        pathname.match(
-          /\/tv\/([^/?#]+)/
-        );
+      const tvMatch = pathname.match(
+        /\/tv\/([^/?#]+)/
+      );
 
       if (tvMatch) {
         return `https://www.instagram.com/tv/${tvMatch[1]}/embed/`;
@@ -360,79 +304,75 @@ function MemberGallery() {
   };
 
   // =====================================================
-  // GET VIDEO EMBED URL
+  // VIDEO EMBED URL
   // =====================================================
 
   const getVideoEmbedUrl = (video) => {
-    const rawUrl =
-      getVideoRawUrl(video);
+    const rawUrl = getVideoRawUrl(video);
 
-    if (!rawUrl) {
-      return "";
-    }
+    if (!rawUrl) return "";
 
-    const type =
-      getVideoType(video);
+    const type = getVideoType(video);
 
-    if (type === "instagram") {
-      return getInstagramEmbedUrl(rawUrl);
-    }
-
+    // YOUTUBE
     if (type === "youtube") {
-      const youtubeId =
-        getYouTubeId(rawUrl);
+      const youtubeId = getYouTubeId(rawUrl);
 
       if (youtubeId) {
         return `https://www.youtube.com/embed/${youtubeId}?rel=0`;
       }
+
+      return "";
     }
 
+    // INSTAGRAM
+    if (type === "instagram") {
+      return getInstagramEmbedUrl(rawUrl);
+    }
+
+    // FACEBOOK
     if (type === "facebook") {
       return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
         rawUrl
       )}&show_text=false`;
     }
 
+    // VIMEO
     if (type === "vimeo") {
       try {
-        const parsedUrl =
-          new URL(rawUrl);
+        const parsedUrl = new URL(rawUrl);
 
-        const pathParts =
-          parsedUrl.pathname
-            .split("/")
-            .filter(Boolean);
+        const pathParts = parsedUrl.pathname
+          .split("/")
+          .filter(Boolean);
 
-        const videoId =
-          pathParts.find((part) =>
-            /^\d+$/.test(part)
-          );
+        const videoId = pathParts.find((part) =>
+          /^\d+$/.test(part)
+        );
 
         if (videoId) {
           return `https://player.vimeo.com/video/${videoId}`;
         }
-      } catch {
-        return rawUrl;
+      } catch (error) {
+        console.log("Vimeo URL Error:", error);
       }
+
+      return "";
     }
 
     return rawUrl;
   };
 
   // =====================================================
-  // GET VIDEO THUMBNAIL
+  // VIDEO THUMBNAIL
   // =====================================================
 
   const getVideoThumbnail = (video) => {
-    const type =
-      getVideoType(video);
-
-    const rawUrl =
-      getVideoRawUrl(video);
+    const type = getVideoType(video);
+    const rawUrl = getVideoRawUrl(video);
 
     if (type === "youtube") {
-      const youtubeId =
-        getYouTubeId(rawUrl);
+      const youtubeId = getYouTubeId(rawUrl);
 
       if (youtubeId) {
         return `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
@@ -457,28 +397,17 @@ function MemberGallery() {
   // =====================================================
 
   const isReelVideo = (video) => {
-    const rawUrl =
-      getVideoRawUrl(video).toLowerCase();
+    const rawUrl = getVideoRawUrl(video).toLowerCase();
 
-    if (
-      rawUrl.includes(
-        "instagram.com/reel"
-      )
-    ) {
+    if (rawUrl.includes("instagram.com/reel")) {
       return true;
     }
 
-    if (
-      rawUrl.includes(
-        "youtube.com/shorts"
-      )
-    ) {
+    if (rawUrl.includes("youtube.com/shorts")) {
       return true;
     }
 
-    if (
-      rawUrl.includes("tiktok.com")
-    ) {
+    if (rawUrl.includes("tiktok.com")) {
       return true;
     }
 
@@ -497,17 +426,15 @@ function MemberGallery() {
   };
 
   // =====================================================
-  // RESET IMAGE VIEW
+  // RESET IMAGE
   // =====================================================
 
   const resetImageView = () => {
     setImageZoom(1);
-
     setImagePosition({
       x: 0,
       y: 0
     });
-
     setIsDragging(false);
   };
 
@@ -515,16 +442,10 @@ function MemberGallery() {
   // OPEN PHOTO
   // =====================================================
 
-  const openPhoto = (
-    member,
-    photoIndex
-  ) => {
-    const photos =
-      member.portfolio?.photos || [];
+  const openPhoto = (member, photoIndex) => {
+    const photos = member.portfolio?.photos || [];
 
-    if (!photos.length) {
-      return;
-    }
+    if (!photos.length) return;
 
     setSelectedImage({
       member,
@@ -540,21 +461,15 @@ function MemberGallery() {
   // =====================================================
 
   const nextPhoto = (e) => {
-    if (e) {
-      e.stopPropagation();
-    }
+    if (e) e.stopPropagation();
 
-    if (!selectedImage) {
-      return;
-    }
+    if (!selectedImage) return;
 
-    const total =
-      selectedImage.photos.length;
+    const total = selectedImage.photos.length;
 
     setSelectedImage((current) => ({
       ...current,
-      index:
-        (current.index + 1) % total
+      index: (current.index + 1) % total
     }));
 
     resetImageView();
@@ -565,32 +480,23 @@ function MemberGallery() {
   // =====================================================
 
   const previousPhoto = (e) => {
-    if (e) {
-      e.stopPropagation();
-    }
+    if (e) e.stopPropagation();
 
-    if (!selectedImage) {
-      return;
-    }
+    if (!selectedImage) return;
 
-    const total =
-      selectedImage.photos.length;
+    const total = selectedImage.photos.length;
 
     setSelectedImage((current) => ({
       ...current,
       index:
-        (
-          current.index -
-          1 +
-          total
-        ) % total
+        (current.index - 1 + total) % total
     }));
 
     resetImageView();
   };
 
   // =====================================================
-  // PHOTO WHEEL ZOOM
+  // IMAGE WHEEL ZOOM
   // =====================================================
 
   const handleImageWheel = (e) => {
@@ -621,9 +527,7 @@ function MemberGallery() {
         });
       }
 
-      return Number(
-        newZoom.toFixed(2)
-      );
+      return Number(newZoom.toFixed(2));
     });
   };
 
@@ -647,9 +551,7 @@ function MemberGallery() {
   // =====================================================
 
   const handleImageMouseDown = (e) => {
-    if (imageZoom <= 1) {
-      return;
-    }
+    if (imageZoom <= 1) return;
 
     e.preventDefault();
     e.stopPropagation();
@@ -669,19 +571,15 @@ function MemberGallery() {
   // =====================================================
 
   const handleImageMouseMove = (e) => {
-    if (!isDragging) {
-      return;
-    }
+    if (!isDragging) return;
 
     e.preventDefault();
 
     const deltaX =
-      e.clientX -
-      dragStartRef.current.x;
+      e.clientX - dragStartRef.current.x;
 
     const deltaY =
-      e.clientY -
-      dragStartRef.current.y;
+      e.clientY - dragStartRef.current.y;
 
     setImagePosition({
       x:
@@ -695,7 +593,7 @@ function MemberGallery() {
   };
 
   // =====================================================
-  // STOP IMAGE DRAG
+  // STOP DRAG
   // =====================================================
 
   const stopImageDrag = () => {
@@ -706,17 +604,16 @@ function MemberGallery() {
   // OPEN VIDEO
   // =====================================================
 
-  const openVideo = (
-    videoList,
-    index
-  ) => {
-    const video =
-      videoList[index];
+  const openVideo = (videoList, index) => {
+    const item = videoList[index];
 
-    const embedUrl =
-      getVideoEmbedUrl(video);
+    if (!item) return;
+
+    const video = item.video;
+    const embedUrl = getVideoEmbedUrl(video);
 
     if (!embedUrl) {
+      console.log("Invalid video URL:", video);
       return;
     }
 
@@ -750,37 +647,25 @@ function MemberGallery() {
   // =====================================================
 
   const nextVideo = (e) => {
-    if (e) {
-      e.stopPropagation();
-    }
+    if (e) e.stopPropagation();
 
-    if (!selectedVideo) {
-      return;
-    }
+    if (!selectedVideo) return;
 
-    const total =
-      selectedVideo.videos.length;
+    const total = selectedVideo.videos.length;
 
     const nextIndex =
-      (
-        selectedVideo.index +
-        1
-      ) % total;
+      (selectedVideo.index + 1) % total;
 
-    const next =
+    const nextItem =
       selectedVideo.videos[nextIndex];
 
+    const nextVideoData = nextItem.video;
+
     setSelectedVideo({
-      videos:
-        selectedVideo.videos,
-
+      videos: selectedVideo.videos,
       index: nextIndex,
-
-      url:
-        getVideoEmbedUrl(next),
-
-      type:
-        getVideoType(next)
+      url: getVideoEmbedUrl(nextVideoData),
+      type: getVideoType(nextVideoData)
     });
   };
 
@@ -789,41 +674,26 @@ function MemberGallery() {
   // =====================================================
 
   const previousVideo = (e) => {
-    if (e) {
-      e.stopPropagation();
-    }
+    if (e) e.stopPropagation();
 
-    if (!selectedVideo) {
-      return;
-    }
+    if (!selectedVideo) return;
 
-    const total =
-      selectedVideo.videos.length;
+    const total = selectedVideo.videos.length;
 
     const previousIndex =
-      (
-        selectedVideo.index -
-        1 +
-        total
-      ) % total;
+      (selectedVideo.index - 1 + total) % total;
 
-    const previous =
-      selectedVideo.videos[
-        previousIndex
-      ];
+    const previousItem =
+      selectedVideo.videos[previousIndex];
+
+    const previousVideoData =
+      previousItem.video;
 
     setSelectedVideo({
-      videos:
-        selectedVideo.videos,
-
-      index:
-        previousIndex,
-
-      url:
-        getVideoEmbedUrl(previous),
-
-      type:
-        getVideoType(previous)
+      videos: selectedVideo.videos,
+      index: previousIndex,
+      url: getVideoEmbedUrl(previousVideoData),
+      type: getVideoType(previousVideoData)
     });
   };
 
@@ -832,22 +702,14 @@ function MemberGallery() {
   // =====================================================
 
   useEffect(() => {
-    if (
-      !selectedImage &&
-      !selectedVideo
-    ) {
+    if (!selectedImage && !selectedVideo) {
       return;
     }
 
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        if (selectedImage) {
-          closeImage();
-        }
-
-        if (selectedVideo) {
-          closeVideo();
-        }
+        if (selectedImage) closeImage();
+        if (selectedVideo) closeVideo();
       }
 
       if (selectedImage) {
@@ -882,10 +744,7 @@ function MemberGallery() {
         handleKeyDown
       );
     };
-  }, [
-    selectedImage,
-    selectedVideo
-  ]);
+  }, [selectedImage, selectedVideo]);
 
   // =====================================================
   // VIDEO CARD
@@ -897,21 +756,12 @@ function MemberGallery() {
     videoList,
     isReel = false
   ) => {
-    const video =
-      item.video;
+    const video = item.video;
+    const type = getVideoType(video);
+    const embedUrl = getVideoEmbedUrl(video);
+    const thumbnail = getVideoThumbnail(video);
 
-    const type =
-      getVideoType(video);
-
-    const embedUrl =
-      getVideoEmbedUrl(video);
-
-    const thumbnail =
-      getVideoThumbnail(video);
-
-    if (!embedUrl) {
-      return null;
-    }
+    if (!embedUrl) return null;
 
     return (
       <div
@@ -920,15 +770,15 @@ function MemberGallery() {
             ? `video-card reel-video-card video-card-${type}`
             : `video-card wide-video-card video-card-${type}`
         }
-        key={`${item.member.memberId || item.member.id}-video-${index}`}
+        key={`${
+          item.member.memberId ||
+          item.member.id
+        }-video-${index}`}
       >
         <div
           className="video-preview"
           onClick={() =>
-            openVideo(
-              videoList,
-              index
-            )
+            openVideo(videoList, index)
           }
         >
           {thumbnail ? (
@@ -948,7 +798,9 @@ function MemberGallery() {
             <div className="instagram-gallery-preview">
               <iframe
                 src={embedUrl}
-                title={`Instagram Preview ${index + 1}`}
+                title={`Instagram Preview ${
+                  index + 1
+                }`}
                 scrolling="no"
                 frameBorder="0"
               />
@@ -1011,57 +863,56 @@ function MemberGallery() {
       </div>
 
       <div className="gallery-grid">
-        {photoItems.map(
-          (item, index) => (
+        {photoItems.map((item, index) => (
+          <div
+            className="gallery-card"
+            key={`${
+              item.member.memberId ||
+              item.member.id
+            }-photo-${index}`}
+          >
             <div
-              className="gallery-card"
-              key={`${item.member.memberId || item.member.id}-photo-${index}`}
+              className="gallery-photo"
+              onClick={() =>
+                openPhoto(
+                  item.member,
+                  item.index
+                )
+              }
             >
-              <div
-                className="gallery-photo"
-                onClick={() =>
-                  openPhoto(
-                    item.member,
-                    item.index
-                  )
-                }
-              >
-                <img
-                  src={item.photo}
-                  alt={`${item.member.name} Portfolio`}
-                />
+              <img
+                src={item.photo}
+                alt={`${item.member.name} Portfolio`}
+              />
 
-                <div className="photo-overlay">
-                  🔍
-                </div>
-              </div>
-
-              <div className="gallery-card-info">
-                <span>
-                  Work by
-                </span>
-
-                <strong>
-                  #{getMemberCode(item.member)}
-                </strong>
+              <div className="photo-overlay">
+                🔍
               </div>
             </div>
-          )
-        )}
+
+            <div className="gallery-card-info">
+              <span>Work by</span>
+
+              <strong>
+                #{getMemberCode(item.member)}
+              </strong>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* REELS */}
 
       {reelVideos.length > 0 && (
         <div className="video-section reels-section">
-
           <div className="gallery-heading video-heading">
             <h2>
               Reels & Short Videos
             </h2>
 
             <p>
-              Short Professional Videos by {siteName} Members
+              Short Professional Videos by{" "}
+              {siteName} Members
             </p>
           </div>
 
@@ -1083,14 +934,14 @@ function MemberGallery() {
 
       {wideVideos.length > 0 && (
         <div className="video-section wide-videos-section">
-
           <div className="gallery-heading video-heading">
             <h2>
               Professional Videos
             </h2>
 
             <p>
-              Professional Wide Screen Videos by {siteName} Members
+              Professional Wide Screen Videos by{" "}
+              {siteName} Members
             </p>
           </div>
 
@@ -1167,8 +1018,13 @@ function MemberGallery() {
                   className="popup-zoom-image"
                   draggable="false"
                   style={{
-                    transform:
-                      `translate3d(${imagePosition.x}px, ${imagePosition.y}px, 0) scale(${imageZoom})`
+                    transform: `translate3d(${
+                      imagePosition.x
+                    }px, ${
+                      imagePosition.y
+                    }px, 0) scale(${
+                      imageZoom
+                    })`
                   }}
                 />
               </div>
@@ -1212,7 +1068,8 @@ function MemberGallery() {
                   Zoom{" "}
                   {Math.round(
                     imageZoom * 100
-                  )}%
+                  )}
+                  %
                 </span>
               )}
             </div>
@@ -1295,4 +1152,3 @@ function MemberGallery() {
 }
 
 export default MemberGallery;
-
