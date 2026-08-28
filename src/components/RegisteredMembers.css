@@ -1,6 +1,10 @@
+
 /* =========================================
+
    OCMA REGISTERED MEMBERS
+
    PREMIUM RESPONSIVE DESIGN
+
 ========================================= */
 
 .registered-members {
@@ -402,7 +406,7 @@
 @media (max-width: 600px) {
 
   .registered-members {
-    padding: 42px 12px;
+    padding: 42px 10px;
   }
 
   .registered-header {
@@ -435,7 +439,6 @@
 
   /* =====================================
      PROFESSION BUTTONS
-     ALL SAME SIZE / ALIGNMENT
   ===================================== */
 
   .profession-filter {
@@ -482,65 +485,105 @@
   }
 
 
-  /* MEMBER GRID */
+  /* =====================================
+     MEMBER GRID
+     2 CARDS PER ROW
+  ===================================== */
 
   .registered-grid {
-    gap: 18px;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
+
+  /* =====================================
+     COMPACT MOBILE CARD
+  ===================================== */
+
   .office-member-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     text-align: center;
-    gap: 17px;
-    padding: 22px 14px;
-    border-radius: 22px;
+    gap: 10px;
+    padding: 12px 8px;
+    border-radius: 18px;
   }
 
   .office-member-card::before {
     width: auto;
     height: 3px;
-    left: 18px;
-    right: 18px;
+    left: 10px;
+    right: 10px;
     top: 0;
     bottom: auto;
   }
 
-  .office-photo {
-    width: 115px;
-    height: 115px;
-    border-radius: 20px;
-  }
 
-  .office-photo img {
+  /* =====================================
+     MOBILE PHOTO
+     SQUARE / NO DISTORTION
+  ===================================== */
+
+  .office-photo {
+    width: 82px;
+    height: 82px;
+    flex-shrink: 0;
+    padding: 4px;
     border-radius: 16px;
   }
 
+  .office-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+  }
+
+
+  /* =====================================
+     MOBILE INFO
+  ===================================== */
+
   .office-info {
     width: 100%;
+    min-width: 0;
     text-align: center;
   }
 
   .office-id {
-    min-height: 28px;
-    padding: 0 12px;
-    font-size: 11px;
+    min-height: 23px;
+    max-width: 100%;
+    padding: 0 7px;
+    border-radius: 15px;
+    font-size: 8px;
+    line-height: 1.1;
   }
 
   .office-info h3 {
-    margin: 11px 0;
-    font-size: 21px;
-    line-height: 1.25;
+    margin: 7px 0;
+    font-size: 15px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
   }
 
   .office-info p {
-    font-size: 14px;
+    margin: 5px 0;
+    font-size: 11px;
   }
 
   .office-whatsapp {
     width: 100%;
-    max-width: 220px;
-    min-height: 36px;
+    max-width: 130px;
+    min-height: 30px;
+    margin-top: 7px;
+    padding: 0 8px;
+    border-radius: 18px;
+    font-size: 9px;
   }
 }
 
@@ -552,8 +595,8 @@
 @media (max-width: 380px) {
 
   .registered-members {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 
   .registered-header h2 {
@@ -588,13 +631,49 @@
     font-size: 15px;
   }
 
+
+  /* 2-COLUMN MOBILE CARD */
+
+  .registered-grid {
+    gap: 10px;
+  }
+
+  .office-member-card {
+    padding: 10px 6px;
+    gap: 8px;
+    border-radius: 16px;
+  }
+
   .office-photo {
-    width: 105px;
-    height: 105px;
+    width: 72px;
+    height: 72px;
+    padding: 3px;
+    border-radius: 14px;
+  }
+
+  .office-photo img {
+    border-radius: 11px;
+  }
+
+  .office-id {
+    min-height: 21px;
+    padding: 0 6px;
+    font-size: 7px;
   }
 
   .office-info h3 {
-    font-size: 19px;
+    margin: 6px 0;
+    font-size: 13px;
+  }
+
+  .office-info p {
+    font-size: 10px;
+  }
+
+  .office-whatsapp {
+    max-width: 115px;
+    min-height: 28px;
+    font-size: 8px;
   }
 }
 
@@ -611,3 +690,237 @@
     transition: none;
   }
 }
+
+
+/* =====================================================
+   MEMBERS PAGINATION — CENTERED UNDER CARDS
+   DO NOT CHANGE
+===================================================== */
+
+.members-pagination {
+  grid-column: 1 / -1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 5px;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.pagination-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.members-pagination button {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 8px;
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.members-pagination button:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+.members-pagination .active-page {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  box-shadow: 0 4px 15px rgba(255,255,255,.18);
+}
+
+.members-pagination button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .members-pagination {
+    gap: 5px;
+    margin: 5px 0;
+    padding: 8px 0;
+  }
+
+  .pagination-numbers {
+    gap: 5px;
+  }
+
+  .members-pagination button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+}
+
+
+/* =====================================================
+   PROFESSIONAL VOICE SEARCH
+===================================================== */
+
+.registered-search {
+  position: relative;
+  width: 85%;
+  max-width: 700px;
+  margin: 30px auto 0;
+}
+
+.registered-search input {
+  width: 100%;
+  margin-top: 0;
+  padding-right: 68px;
+}
+
+
+/* VOICE BUTTON */
+
+.voice-search-btn {
+  position: absolute;
+  top: 33%;
+  right: 7px;
+  width: 44px;
+  height: 44px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: #d4af37;
+  color: #000;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 5;
+  transition: .25s ease;
+}
+
+.voice-search-btn:hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+
+/* LISTENING */
+
+.voice-search-btn.listening {
+  background: #111;
+  color: #fff;
+  box-shadow:
+    0 0 0 4px rgba(212,175,55,.15),
+    0 0 25px rgba(212,175,55,.35);
+}
+
+
+/* VOICE GRAPH */
+
+.voice-bars {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.voice-bars i {
+  width: 3px;
+  height: 7px;
+  border-radius: 5px;
+  background: #d4af37;
+  animation: voiceWave .65s infinite ease-in-out;
+}
+
+.voice-bars i:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.voice-bars i:nth-child(2) {
+  animation-delay: .1s;
+}
+
+.voice-bars i:nth-child(3) {
+  animation-delay: .2s;
+}
+
+.voice-bars i:nth-child(4) {
+  animation-delay: .1s;
+}
+
+.voice-bars i:nth-child(5) {
+  animation-delay: 0s;
+}
+
+@keyframes voiceWave {
+
+  0%,
+  100% {
+    height: 6px;
+  }
+
+  50% {
+    height: 21px;
+  }
+}
+
+
+/* ACTIVE SEARCH */
+
+.registered-search.voice-active input {
+  border-color: #d4af37;
+  box-shadow: 0 0 25px rgba(212,175,55,.3);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .registered-search {
+    width: 100%;
+    margin-top: 22px;
+  }
+
+  .registered-search input {
+    padding-right: 58px;
+  }
+
+  .voice-search-btn {
+    width: 38px;
+    height: 38px;
+    right: 5px;
+    font-size: 16px;
+  }
+}
+
+
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+
+  .voice-search-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .registered-search input {
+    padding-right: 55px;
+  }
+}
+

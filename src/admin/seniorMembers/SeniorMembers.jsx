@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   addData,
@@ -10,23 +10,18 @@ import {
 
 import { uploadImage } from "../../services/cloudinary";
 
-import {
-  doc,
-  getDoc
-} from "firebase/firestore";
-
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
 import "./SeniorMembers.css";
 
-
 function SeniorMembers() {
-
   const collectionName = "seniorMembers";
 
   const [members, setMembers] = useState([]);
-
   const [websiteLogo, setWebsiteLogo] = useState("");
+
+  const [search, setSearch] = useState("");
 
   const [name, setName] = useState("");
   const [memberCode, setMemberCode] = useState("");
@@ -35,81 +30,49 @@ function SeniorMembers() {
   const [profession, setProfession] = useState("");
   const [phone, setPhone] = useState("");
   const [stars, setStars] = useState(5);
+
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
 
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
 
-
-  // ==========================================
-  // LOAD SENIOR MEMBERS
-  // ==========================================
-
   const loadMembers = async () => {
-
-    const data = await getData(collectionName);
-
-    setMembers(data);
-
+    try {
+      const data = await getData(collectionName);
+      setMembers(data);
+    } catch (error) {
+      console.log("Senior Members Load Error:", error);
+    }
   };
 
-
-  // ==========================================
-  // LOAD WEBSITE LOGO
-  // ==========================================
-
   const loadWebsiteLogo = async () => {
-
     try {
-
-      const settingsRef = doc(
-        db,
-        "websiteSettings",
-        "main"
-      );
-
+      const settingsRef = doc(db, "websiteSettings", "main");
       const snap = await getDoc(settingsRef);
 
       if (snap.exists()) {
-
-        const data = snap.data();
-
-        setWebsiteLogo(
-          data.website?.logo || ""
-        );
-
+        setWebsiteLogo(snap.data().website?.logo || "");
       }
-
     } catch (error) {
-
-      console.log(
-        "Website Logo Load Error:",
-        error
-      );
-
+      console.log("Website Logo Load Error:", error);
     }
-
   };
 
-
-  // ==========================================
-  // LOAD DATA
-  // ==========================================
-
   useEffect(() => {
-
     loadMembers();
     loadWebsiteLogo();
-
   }, []);
 
-
-  // ==========================================
-  // RESET FORM
-  // ==========================================
+  useEffect(() => {
+    return () => {
+      if (imagePreview?.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   const resetForm = () => {
-
     setName("");
     setMemberCode("");
     setDesignation("");
@@ -118,185 +81,98 @@ function SeniorMembers() {
     setPhone("");
     setStars(5);
     setImage(null);
+    setImagePreview("");
     setEditingId(null);
-
   };
 
-
-  // ==========================================
-  // SUBMIT
-  // ==========================================
-
-  const handleSubmit = async (e) => {
-
-    e.preventDefault();
-
-    if (
-      !name.trim() ||
-      !designation.trim()
-    ) {
+  const handleImageChange = (file) => {
+    if (!file) {
+      setImage(null);
       return;
     }
 
+    if (imagePreview?.startsWith("blob:")) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!name.trim() || !designation.trim()) return;
 
     try {
-
       setLoading(true);
 
-
-      // Existing image while editing
-
       let imageUrl = editingId
-        ? members.find(
-            (m) => m.id === editingId
-          )?.image || ""
+        ? members.find((m) => m.id === editingId)?.image || ""
         : "";
 
-
-      // New uploaded image
-
       if (image) {
-
         imageUrl = await uploadImage(image);
-
       }
-
-
-      // Settings logo as fallback
 
       if (!imageUrl) {
-
-        imageUrl =
-          websiteLogo ||
-          "";
-
+        imageUrl = websiteLogo || "";
       }
 
-
       const memberData = {
-
-        name:
-          name.trim(),
-
-        memberCode:
-          memberCode.trim(),
-
-        designation:
-          designation.trim(),
-
-        city:
-          city.trim(),
-
-        profession:
-          profession.trim(),
-
-        phone:
-          phone.trim(),
-
-        stars:
-          Number(stars),
-
-        image:
-          imageUrl
-
+        name: name.trim(),
+        memberCode: memberCode.trim(),
+        designation: designation.trim(),
+        city: city.trim(),
+        profession: profession.trim(),
+        phone: phone.trim(),
+        stars: Number(stars),
+        image: imageUrl
       };
 
-
       if (editingId) {
-
         await updateData(
           collectionName,
           editingId,
           memberData
         );
-
       } else {
-
-        await addData(
-          collectionName,
-          {
-            ...memberData,
-            createdAt:
-              new Date().toISOString()
-          }
-        );
-
+        await addData(collectionName, {
+          ...memberData,
+          createdAt: new Date().toISOString()
+        });
       }
 
-
       resetForm();
-
       await loadMembers();
-
     } catch (error) {
-
-      console.log(
-        "Senior Member Save Error:",
-        error
-      );
-
+      console.log("Senior Member Save Error:", error);
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
-
-  // ==========================================
-  // EDIT
-  // ==========================================
-
   const handleEdit = (member) => {
-
     setEditingId(member.id);
 
-    setName(
-      member.name || ""
-    );
-
-    setMemberCode(
-      member.memberCode || ""
-    );
-
-    setDesignation(
-      member.designation || ""
-    );
-
-    setCity(
-      member.city || ""
-    );
-
-    setProfession(
-      member.profession || ""
-    );
-
-    setPhone(
-      member.phone || ""
-    );
-
-    setStars(
-      member.stars || 5
-    );
+    setName(member.name || "");
+    setMemberCode(member.memberCode || "");
+    setDesignation(member.designation || "");
+    setCity(member.city || "");
+    setProfession(member.profession || "");
+    setPhone(member.phone || "");
+    setStars(member.stars || 5);
 
     setImage(null);
-
+    setImagePreview(member.image || "");
 
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
-
   };
 
-
-  // ==========================================
-  // DELETE
-  // ==========================================
-
   const handleDelete = async (id) => {
-
     if (
       !window.confirm(
         "Are you sure you want to delete this member?"
@@ -305,157 +181,341 @@ function SeniorMembers() {
       return;
     }
 
-
-    await deleteData(
-      collectionName,
-      id
-    );
-
-
-    await loadMembers();
-
+    try {
+      await deleteData(collectionName, id);
+      await loadMembers();
+    } catch (error) {
+      console.log("Senior Member Delete Error:", error);
+    }
   };
 
+  const filteredMembers = useMemo(() => {
+    const query = search.trim().toLowerCase();
+
+    if (!query) return members;
+
+    return members.filter((member) =>
+      [
+        member.name,
+        member.memberCode,
+        member.city,
+        member.designation,
+        member.profession,
+        member.phone
+      ]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(query)
+        )
+    );
+  }, [members, search]);
+
+  const cityCounts = useMemo(() => {
+    return filteredMembers.reduce((acc, member) => {
+      const value = member.city?.trim();
+
+      if (value) {
+        acc[value] = (acc[value] || 0) + 1;
+      }
+
+      return acc;
+    }, {});
+  }, [filteredMembers]);
+
+  const designationCounts = useMemo(() => {
+    return filteredMembers.reduce((acc, member) => {
+      const value = member.designation?.trim();
+
+      if (value) {
+        acc[value] = (acc[value] || 0) + 1;
+      }
+
+      return acc;
+    }, {});
+  }, [filteredMembers]);
 
   return (
-
     <div className="senior-container">
 
-      <h1>
-        Senior Members Management
-      </h1>
+      {/* HEADER */}
+      <div className="senior-header">
+        <div>
+          <h1>Senior Members</h1>
+          <p>Manage senior members and profiles</p>
+        </div>
+      </div>
 
+      {/* SEARCH */}
+      <div className="senior-search-wrap">
 
+        <div className="senior-search">
+
+          <span className="search-icon">⌕</span>
+
+          <input
+            type="text"
+            placeholder="Search name, code, city, designation, profession or phone..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          {search && (
+            <button
+              type="button"
+              className="clear-search"
+              onClick={() => setSearch("")}
+            >
+              ×
+            </button>
+          )}
+
+        </div>
+
+        <div className="senior-result">
+          <strong>{filteredMembers.length}</strong>
+          <span>
+            {search.trim() ? "Results" : "Members"}
+          </span>
+        </div>
+
+      </div>
+
+      {/* COMPACT FILTER INFO */}
+      <div className="senior-overview">
+
+        <details className="senior-drop">
+          <summary>
+            <span>City</span>
+            <b>{Object.keys(cityCounts).length}</b>
+          </summary>
+
+          <div className="senior-drop-content">
+            {Object.entries(cityCounts)
+              .sort(([, a], [, b]) => b - a)
+              .map(([value, count]) => (
+                <div
+                  className="senior-drop-item"
+                  key={value}
+                >
+                  <span>{value}</span>
+                  <strong>{count}</strong>
+                </div>
+              ))}
+          </div>
+        </details>
+
+        <details className="senior-drop">
+          <summary>
+            <span>Designation</span>
+            <b>{Object.keys(designationCounts).length}</b>
+          </summary>
+
+          <div className="senior-drop-content">
+            {Object.entries(designationCounts)
+              .sort(([, a], [, b]) => b - a)
+              .map(([value, count]) => (
+                <div
+                  className="senior-drop-item"
+                  key={value}
+                >
+                  <span>{value}</span>
+                  <strong>{count}</strong>
+                </div>
+              ))}
+          </div>
+        </details>
+
+      </div>
+
+      {/* FORM */}
       <form
         className="senior-form"
         onSubmit={handleSubmit}
       >
 
-        <div className="form-title">
+        <div className="form-heading">
+          <div>
+            <span className="form-kicker">
+              SENIOR MEMBERS
+            </span>
 
-          {editingId
-            ? "Edit Senior Member"
-            : "Add Senior Member"}
+            <h2>
+              {editingId
+                ? "Edit Senior Member"
+                : "Add Senior Member"}
+            </h2>
+          </div>
+
+          {editingId && (
+            <span className="editing-badge">
+              Editing
+            </span>
+          )}
+        </div>
+
+        <div className="form-fields">
+
+          <input
+            placeholder="Member Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <input
+            placeholder="Member Code e.g. OCMA 1122"
+            value={memberCode}
+            onChange={(e) =>
+              setMemberCode(e.target.value)
+            }
+          />
+
+          <input
+            placeholder="Designation"
+            value={designation}
+            onChange={(e) =>
+              setDesignation(e.target.value)
+            }
+          />
+
+          <input
+            placeholder="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+
+          <input
+            placeholder="Profession"
+            value={profession}
+            onChange={(e) =>
+              setProfession(e.target.value)
+            }
+          />
+
+          <input
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
 
         </div>
 
+        <div className="form-bottom">
 
-        {/* MEMBER NAME */}
+          <div className="rating-input">
+            <span>Rating</span>
 
-        <input
-          placeholder="Member Name"
-          value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
-        />
-
-
-        {/* MEMBER CODE */}
-
-        <input
-          placeholder="Member Code e.g. OCMA 1122"
-          value={memberCode}
-          onChange={(e) =>
-            setMemberCode(e.target.value)
-          }
-        />
-
-
-        {/* DESIGNATION */}
-
-        <input
-          placeholder="Designation"
-          value={designation}
-          onChange={(e) =>
-            setDesignation(e.target.value)
-          }
-        />
-
-
-        {/* CITY */}
-
-        <input
-          placeholder="City"
-          value={city}
-          onChange={(e) =>
-            setCity(e.target.value)
-          }
-        />
-
-
-        {/* PROFESSION */}
-
-        <input
-          placeholder="Profession"
-          value={profession}
-          onChange={(e) =>
-            setProfession(e.target.value)
-          }
-        />
-
-
-        {/* PHONE */}
-
-        <input
-          placeholder="Phone Number"
-          value={phone}
-          onChange={(e) =>
-            setPhone(e.target.value)
-          }
-        />
-
-
-        {/* RATING */}
-
-        <div className="rating-input">
-
-          <span>
-            Rating
-          </span>
-
-          <div className="rating-stars">
-
-            {[1, 2, 3, 4, 5].map(
-              (star) => (
-
+            <div className="rating-stars">
+              {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   type="button"
                   key={star}
                   className={
-                    star <= stars
-                      ? "active"
-                      : ""
+                    star <= stars ? "active" : ""
                   }
-                  onClick={() =>
-                    setStars(star)
-                  }
+                  onClick={() => setStars(star)}
                 >
                   ★
                 </button>
+              ))}
+            </div>
 
-              )
-            )}
+            <small>
+              {Number(stars).toFixed(1)}
+            </small>
+          </div>
 
+          <div className="upload-box">
+            <label htmlFor="senior-photo">
+              Profile Photo
+            </label>
+
+            <input
+              id="senior-photo"
+              type="file"
+              accept="image/*"
+              onChange={(e) =>
+                handleImageChange(
+                  e.target.files?.[0] || null
+                )
+              }
+            />
           </div>
 
         </div>
 
+        {imagePreview && (
+          <div className="senior-image-preview">
 
-        {/* PHOTO */}
+            <span className="preview-label">
+              Profile Preview
+            </span>
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            setImage(
-              e.target.files?.[0] || null
-            )
-          }
-        />
+            <div className="senior-preview-card">
 
+              <div className="senior-preview-photo">
 
-        {/* BUTTONS */}
+                <img
+                  src={imagePreview}
+                  alt="Profile Preview"
+                />
+
+                {memberCode.trim() && (
+                  <div className="senior-preview-code">
+                    {memberCode.trim()}
+                  </div>
+                )}
+
+              </div>
+
+              <div className="senior-preview-info">
+
+                <h3>
+                  {name.trim() || "Member Name"}
+                </h3>
+
+                <div className="senior-preview-rating">
+
+                  <span>
+                    {"★".repeat(stars)}
+                  </span>
+
+                  <small>
+                    {Number(stars).toFixed(1)}
+                  </small>
+
+                </div>
+
+                <p className="senior-preview-designation">
+                  {designation.trim() || "Designation"}
+                </p>
+
+                {profession.trim() && (
+                  <p>
+                    <strong>Profession:</strong>{" "}
+                    {profession.trim()}
+                  </p>
+                )}
+
+                {city.trim() && (
+                  <p>
+                    <strong>City:</strong>{" "}
+                    {city.trim()}
+                  </p>
+                )}
+
+                {phone.trim() && (
+                  <p>
+                    <strong>Phone:</strong>{" "}
+                    {phone.trim()}
+                  </p>
+                )}
+
+              </div>
+
+            </div>
+
+          </div>
+        )}
 
         <div className="form-buttons">
 
@@ -464,18 +524,14 @@ function SeniorMembers() {
             className="save-btn"
             disabled={loading}
           >
-
             {loading
               ? "Saving..."
               : editingId
               ? "Update Senior Member"
               : "Add Senior Member"}
-
           </button>
 
-
           {editingId && (
-
             <button
               type="button"
               className="cancel-btn"
@@ -483,205 +539,154 @@ function SeniorMembers() {
             >
               Cancel
             </button>
-
           )}
 
         </div>
 
       </form>
 
-
-      {/* ======================================
-          SENIOR MEMBERS
-      ====================================== */}
-
+      {/* MEMBERS */}
       <div className="senior-grid">
 
-        {members.map((member) => (
+        {filteredMembers.length === 0 ? (
+          <div className="senior-no-results">
+            <strong>No members found</strong>
 
-          <div
-            className="senior-card"
-            key={member.id}
-          >
+            <span>
+              Try another name, code, city or designation.
+            </span>
+          </div>
+        ) : (
+          filteredMembers.map((member) => {
 
-            {/* PHOTO */}
+            const memberStars = Math.min(
+              Math.max(
+                Number(member.stars) || 5,
+                1
+              ),
+              5
+            );
 
-            <div className="senior-photo">
+            return (
+              <div
+                className="senior-card"
+                key={member.id}
+              >
 
-              <img
-                src={
-                  member.image ||
-                  websiteLogo ||
-                  "/assets/ocma-logo.png"
-                }
-                alt={
-                  member.name ||
-                  "Senior Member"
-                }
-              />
+                <div className="senior-photo">
 
+                  <img
+                    src={
+                      member.image ||
+                      websiteLogo ||
+                      "/assets/ocma-logo.png"
+                    }
+                    alt={
+                      member.name ||
+                      "Senior Member"
+                    }
+                  />
 
-              {/* MEMBER CODE */}
-
-              {member.memberCode && (
-
-                <div className="senior-member-code">
-
-                  {member.memberCode}
+                  {member.memberCode && (
+                    <div className="senior-member-code">
+                      {member.memberCode}
+                    </div>
+                  )}
 
                 </div>
 
-              )}
+                <div className="senior-info">
 
-            </div>
+                  <div className="member-top">
 
+                    <h2>{member.name}</h2>
 
-            {/* INFO */}
+                    <div className="senior-rating">
 
-            <div className="senior-info">
+                      <span className="stars">
+                        {"★".repeat(memberStars)}
+                      </span>
 
-              <h2>
-                {member.name}
-              </h2>
+                      <span className="rating-number">
+                        {memberStars.toFixed(1)}
+                      </span>
 
+                    </div>
 
-              {/* RATING */}
+                  </div>
 
-              <div className="senior-rating">
+                  <p className="designation">
+                    {member.designation}
+                  </p>
 
-                <span className="stars">
-
-                  {"★".repeat(
-                    member.stars || 5
+                  {member.profession && (
+                    <p>
+                      <strong>Profession</strong>
+                      <span>{member.profession}</span>
+                    </p>
                   )}
 
-                </span>
+                  {member.city && (
+                    <p>
+                      <strong>City</strong>
+                      <span>{member.city}</span>
+                    </p>
+                  )}
 
-                <span className="rating-number">
+                  {member.phone && (
+                    <p>
+                      <strong>Phone</strong>
+                      <span>{member.phone}</span>
+                    </p>
+                  )}
 
-                  {(member.stars || 5).toFixed(1)}
+                  <div className="senior-actions">
 
-                </span>
+                    {member.phone && (
+                      <a
+                        className="whatsapp-btn"
+                        href={`https://wa.me/${member.phone
+                          .replace(/\D/g, "")
+                          .replace(/^0/, "92")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        WhatsApp
+                      </a>
+                    )}
 
-              </div>
+                    <button
+                      className="edit-btn"
+                      onClick={() =>
+                        handleEdit(member)
+                      }
+                    >
+                      Edit
+                    </button>
 
+                    <button
+                      className="delete-btn"
+                      onClick={() =>
+                        handleDelete(member.id)
+                      }
+                    >
+                      Delete
+                    </button>
 
-              {/* DESIGNATION */}
+                  </div>
 
-              <p className="designation">
-
-                {member.designation}
-
-              </p>
-
-
-              {/* PROFESSION */}
-
-              {member.profession && (
-
-                <p>
-
-                  <strong>
-                    Profession:
-                  </strong>{" "}
-
-                  {member.profession}
-
-                </p>
-
-              )}
-
-
-              {/* CITY */}
-
-              {member.city && (
-
-                <p>
-
-                  <strong>
-                    City:
-                  </strong>{" "}
-
-                  {member.city}
-
-                </p>
-
-              )}
-
-
-              {/* PHONE */}
-
-              {member.phone && (
-
-                <p>
-
-                  <strong>
-                    Phone:
-                  </strong>{" "}
-
-                  {member.phone}
-
-                </p>
-
-              )}
-
-
-              {/* ACTIONS */}
-
-              <div className="senior-actions">
-
-                {member.phone && (
-
-                  <a
-                    className="whatsapp-btn"
-                    href={`https://wa.me/${member.phone
-                      .replace(/\D/g, "")
-                      .replace(/^0/, "92")}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    WhatsApp
-                  </a>
-
-                )}
-
-
-                <button
-                  className="edit-btn"
-                  onClick={() =>
-                    handleEdit(member)
-                  }
-                >
-                  Edit
-                </button>
-
-
-                <button
-                  className="delete-btn"
-                  onClick={() =>
-                    handleDelete(
-                      member.id
-                    )
-                  }
-                >
-                  Delete
-                </button>
+                </div>
 
               </div>
-
-            </div>
-
-          </div>
-
-        ))}
+            );
+          })
+        )}
 
       </div>
 
     </div>
-
   );
-
 }
 
-
 export default SeniorMembers;
+

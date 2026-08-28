@@ -16,7 +16,6 @@
   padding: 90px 25px;
   box-sizing: border-box;
   overflow: hidden;
-
   background:
     radial-gradient(
       circle at 12% 8%,
@@ -34,9 +33,7 @@
       #071016 48%,
       #020406
     );
-
   color: #fff;
-
   font-family:
     "DM Sans",
     "Segoe UI",
@@ -61,7 +58,6 @@
   width: 70px;
   height: 3px;
   margin: 0 auto 18px;
-
   background:
     linear-gradient(
       90deg,
@@ -71,28 +67,22 @@
       #f6d778,
       #9d7418
     );
-
   border-radius: 50px;
-
   box-shadow:
     0 0 12px rgba(212, 175, 55, .48);
 }
 
 .public-senior-heading h2 {
   margin: 0 0 14px;
-
   color: #f6d978;
-
   font-family:
     "Playfair Display",
     Georgia,
     serif;
-
   font-size: clamp(31px, 4vw, 46px);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -.3px;
-
   text-shadow:
     0 2px 10px rgba(0, 0, 0, .8),
     0 0 18px rgba(212, 175, 55, .16);
@@ -101,9 +91,7 @@
 .public-senior-heading p {
   max-width: 760px;
   margin: 0 auto;
-
   color: #b8c1c7;
-
   font-size: 15px;
   font-weight: 500;
   line-height: 1.8;
@@ -112,24 +100,17 @@
 
 /* =========================================================
    GRID
+   4 CARDS PER ROW
 ========================================================= */
 
 .public-senior-grid {
   width: 100%;
-  max-width: 1160px;
-
-  margin: 55px auto 0;
-
+  max-width: 1400px;
+  margin: 35px auto 20px;
   display: grid;
-
   grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(300px, 1fr)
-    );
-
-  gap: 28px;
-
+    repeat(4, minmax(0, 1fr));
+  gap: 25px;
   box-sizing: border-box;
 }
 
@@ -140,13 +121,10 @@
 
 .public-senior-card {
   position: relative;
-
   width: 100%;
   min-width: 0;
-
   box-sizing: border-box;
   overflow: hidden;
-
   background:
     linear-gradient(
       145deg,
@@ -154,16 +132,12 @@
       #081116 60%,
       #060c10
     );
-
   border:
     1px solid rgba(212, 175, 55, .25);
-
   border-radius: 22px;
-
   box-shadow:
     0 18px 45px rgba(0, 0, 0, .48),
     inset 0 1px 0 rgba(255, 255, 255, .06);
-
   transition:
     transform .3s ease,
     box-shadow .3s ease,
@@ -172,10 +146,8 @@
 
 .public-senior-card:hover {
   transform: translateY(-7px);
-
   border-color:
     rgba(212, 175, 55, .55);
-
   box-shadow:
     0 28px 60px rgba(0, 0, 0, .62),
     0 0 30px rgba(212, 175, 55, .08),
@@ -189,14 +161,10 @@
 
 .public-senior-photo-wrap {
   position: relative;
-
   width: 100%;
   height: 245px;
-
   padding: 14px;
-
   box-sizing: border-box;
-
   background:
     linear-gradient(
       135deg,
@@ -212,22 +180,15 @@
 
 .public-senior-photo {
   position: relative;
-
   width: 100%;
   height: 100%;
-
   overflow: hidden;
-
   border-radius: 16px;
-
   border:
     1px solid rgba(212, 175, 55, .38);
-
   background: #05090c;
-
   box-shadow:
     0 12px 30px rgba(0, 0, 0, .42);
-
   cursor: pointer;
 }
 
@@ -238,18 +199,12 @@
 
 .public-senior-photo::before {
   content: "";
-
   position: absolute;
-
   inset: 6px;
-
   z-index: 3;
-
   border:
     1px solid rgba(255, 224, 135, .28);
-
   border-radius: 12px;
-
   pointer-events: none;
 }
 
@@ -260,38 +215,27 @@
 
 .public-senior-photo img {
   display: block;
-
   width: 100% !important;
   height: 100% !important;
-
   min-width: 100% !important;
   max-width: 100% !important;
-
   min-height: 100% !important;
   max-height: 100% !important;
-
   margin: 0 !important;
   padding: 0 !important;
-
   box-sizing: border-box;
-
   object-fit: cover !important;
   object-position: center !important;
-
   border: 0 !important;
   border-radius: 0 !important;
-
   background: #080d10;
-
   transition:
     transform .5s ease,
     filter .5s ease;
 }
 
-.public-senior-card:hover
-.public-senior-photo img {
+.public-senior-card:hover .public-senior-photo img {
   transform: scale(1.045);
-
   filter:
     brightness(1.04)
     contrast(1.04)
@@ -305,22 +249,17 @@
 
 .public-senior-photo::after {
   content: "";
-
   position: absolute;
-
   left: 0;
   right: 0;
   bottom: 0;
-
   height: 38%;
-
   background:
     linear-gradient(
       to bottom,
       transparent,
       rgba(2, 7, 10, .72)
     );
-
   pointer-events: none;
 }
 
@@ -331,22 +270,14 @@
 
 .public-senior-badge {
   position: absolute;
-
   left: 27px;
   bottom: 25px;
-
   z-index: 8;
-
   display: inline-flex;
-
   align-items: center;
-
   gap: 6px;
-
   padding: 6px 11px;
-
   color: #111;
-
   background:
     linear-gradient(
       135deg,
@@ -354,53 +285,40 @@
       #f6da79,
       #c59720
     );
-
   border:
     1px solid rgba(255, 235, 160, .65);
-
   border-radius: 6px;
-
   font-family:
     "Manrope",
     "Segoe UI",
     Arial,
     sans-serif;
-
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 1.2px;
   line-height: 1;
-
   box-shadow:
     0 6px 16px rgba(0, 0, 0, .35);
 }
 
 
 /* =========================================================
-   GOLDEN CROWN / TAJ
+   GOLDEN CROWN
 ========================================================= */
 
 .public-senior-badge::before {
   content: "♛";
-
   display: inline-block;
-
   color: #8b6510;
-
   font-family:
     Georgia,
     "Times New Roman",
     serif;
-
   font-size: 15px;
   font-weight: 900;
-
   line-height: .8;
-
   transform:
     translateY(-1px);
-
   text-shadow:
     0 1px 0 rgba(255, 239, 160, .7);
 }
@@ -412,9 +330,7 @@
 
 .public-senior-body {
   position: relative;
-
-  padding: 22px 22px 20px;
-
+  padding: 2px 22px 5px;
   box-sizing: border-box;
 }
 
@@ -425,27 +341,19 @@
 
 .public-senior-name {
   width: 100%;
-
   margin: 0;
-
   color: #fff4d1;
-
   font-family:
     "Manrope",
     "Segoe UI",
     Arial,
     sans-serif;
-
   font-size: 25px;
   font-weight: 800;
-
   line-height: 1.2;
   letter-spacing: -.35px;
-
   text-align: center;
-
   overflow-wrap: anywhere;
-
   text-shadow:
     0 2px 8px rgba(0, 0, 0, .65);
 }
@@ -457,14 +365,10 @@
 
 .public-senior-name::after {
   content: "";
-
   display: block;
-
   width: 48px;
   height: 2px;
-
   margin: 9px auto 0;
-
   background:
     linear-gradient(
       90deg,
@@ -472,9 +376,7 @@
       #fff0a8,
       #d4af37
     );
-
   border-radius: 20px;
-
   box-shadow:
     0 0 8px rgba(212, 175, 55, .4);
 }
@@ -486,25 +388,18 @@
 
 .public-senior-designation {
   width: 100%;
-
   margin: 10px 0 20px;
-
-  color: #c4cdd1;
-
+  color: #d4b400;
   font-family:
     "DM Sans",
     "Segoe UI",
     Arial,
     sans-serif;
-
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 600;
-
   line-height: 1.45;
   letter-spacing: .15px;
-
   text-align: center;
-
   overflow-wrap: anywhere;
 }
 
@@ -515,12 +410,9 @@
 
 .public-senior-details {
   width: 100%;
-
   display: grid;
-
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
-
   gap: 10px;
 }
 
@@ -532,35 +424,24 @@
 .public-senior-detail {
   min-width: 0;
   min-height: 65px;
-
   padding: 11px 10px;
-
   box-sizing: border-box;
-
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
-
   text-align: center;
-
   background:
     linear-gradient(
       145deg,
       rgba(255, 255, 255, .065),
       rgba(255, 255, 255, .025)
     );
-
   border:
     1px solid rgba(255, 255, 255, .10);
-
   border-top:
     2px solid rgba(212, 175, 55, .65);
-
   border-radius: 10px;
-
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .04);
 }
@@ -572,23 +453,17 @@
 
 .public-senior-detail-label {
   display: block;
-
   margin-bottom: 6px;
-
   color: #e0bd5c;
-
   font-family:
     "DM Sans",
     "Segoe UI",
     Arial,
     sans-serif;
-
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 800;
-
   letter-spacing: 1.1px;
   line-height: 1.2;
-
   text-align: center;
 }
 
@@ -599,25 +474,18 @@
 
 .public-senior-detail-value {
   display: block;
-
   width: 100%;
-
   color: #ffffff;
-
   font-family:
     "Manrope",
     "Segoe UI",
     Arial,
     sans-serif;
-
   font-size: 15px;
   font-weight: 800;
-
   line-height: 1.35;
   letter-spacing: .1px;
-
   text-align: center;
-
   overflow-wrap: anywhere;
   word-break: normal;
 }
@@ -629,22 +497,14 @@
 
 .public-senior-rating {
   width: 100%;
-
   margin: 18px 0 16px;
-
   padding-top: 15px;
-
   border-top:
     1px solid rgba(255, 255, 255, .09);
-
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   gap: 5px;
-
   text-align: center;
 }
 
@@ -655,18 +515,13 @@
 
 .public-senior-stars {
   color: #ffd34f;
-
   font-size: 21px;
-
   letter-spacing: 2px;
   line-height: 1;
-
   white-space: nowrap;
-
   text-shadow:
     0 0 6px rgba(255, 211, 79, .55),
     0 0 16px rgba(255, 190, 40, .20);
-
   animation:
     seniorStarsGlow 2s ease-in-out infinite;
 }
@@ -678,16 +533,13 @@
 
 .public-senior-rating-number {
   color: #cbd4d8;
-
   font-family:
     "DM Sans",
     "Segoe UI",
     Arial,
     sans-serif;
-
   font-size: 10px;
   font-weight: 700;
-
   letter-spacing: .5px;
   line-height: 1.2;
 }
@@ -698,7 +550,6 @@
 ========================================================= */
 
 @keyframes seniorStarsGlow {
-
   0%,
   100% {
     opacity: .78;
@@ -706,7 +557,6 @@
 
   50% {
     opacity: 1;
-
     text-shadow:
       0 0 7px rgba(255, 215, 90, .75),
       0 0 18px rgba(255, 190, 40, .35);
@@ -716,22 +566,15 @@
 
 /* =========================================================
    CONTACT ROW
-   WHATSAPP + MEMBER CODE
 ========================================================= */
 
 .public-senior-contact {
   width: 100%;
-
   margin-top: 2px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   gap: 9px;
-
   flex-wrap: wrap;
 }
 
@@ -742,50 +585,31 @@
 
 .public-senior-whatsapp {
   width: auto;
-
   min-height: 34px;
-
   padding: 0 11px;
-
   margin: 0;
-
   box-sizing: border-box;
-
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
   gap: 7px;
-
   color: #fff;
-
   background: #09913b;
-
   border:
     1px solid #1ebe5d;
-
   border-radius: 7px;
-
   text-decoration: none;
-
   font-family:
     "Manrope",
     "Segoe UI",
     Arial,
     sans-serif;
-
   font-size: 10px;
   font-weight: 800;
-
   line-height: 1;
-
   white-space: nowrap;
-
   box-shadow:
     0 5px 12px rgba(37, 211, 102, .18);
-
   transition:
     transform .2s ease,
     box-shadow .2s ease,
@@ -794,9 +618,7 @@
 
 .public-senior-whatsapp:hover {
   transform: translateY(-2px);
-
   filter: brightness(1.07);
-
   box-shadow:
     0 8px 18px rgba(37, 211, 102, .32);
 }
@@ -808,63 +630,113 @@
 
 .public-senior-whatsapp-arrow {
   font-size: 14px;
-
   font-weight: 700;
-
   line-height: 1;
 }
 
 
 /* =========================================================
    MEMBER CODE
-   EXAMPLE: OCMA 1122
 ========================================================= */
 
 .public-senior-member-code {
   min-height: 34px;
-
   padding: 0 12px;
-
   box-sizing: border-box;
-
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
   color: #f6d978;
-
   background:
     linear-gradient(
       145deg,
       rgba(212, 175, 55, .12),
       rgba(212, 175, 55, .045)
     );
-
   border:
     1px solid rgba(212, 175, 55, .42);
-
   border-radius: 7px;
-
   font-family:
     "Manrope",
     "Segoe UI",
     Arial,
     sans-serif;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: .8px;
-
   line-height: 1;
-
   white-space: nowrap;
-
   box-shadow:
     0 5px 14px rgba(0, 0, 0, .20),
     inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.senior-pagination {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 15px auto 0;
+  padding: 15px 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.senior-pagination button {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 13px;
+  border:
+    1px solid rgba(255, 255, 255, .18);
+  border-radius: 8px;
+  background:
+    rgba(255, 255, 255, .055);
+  color: #fff;
+  font-family:
+    "DM Sans",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    .25s ease;
+}
+
+.senior-pagination button:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+.senior-pagination button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.senior-pagination .active-page {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  box-shadow:
+    0 4px 15px rgba(255, 255, 255, .18);
+}
+
+.senior-pagination-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 
@@ -880,12 +752,11 @@
 
   .public-senior-grid {
     max-width: 760px;
-
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
-
     gap: 20px;
   }
+
 }
 
 
@@ -909,13 +780,9 @@
 
   .public-senior-grid {
     width: 100%;
-
     max-width: 400px;
-
     margin-top: 35px;
-
     grid-template-columns: 1fr;
-
     gap: 18px;
   }
 
@@ -925,7 +792,6 @@
 
   .public-senior-photo-wrap {
     height: 235px;
-
     padding: 12px;
   }
 
@@ -944,13 +810,11 @@
 
   .public-senior-designation {
     font-size: 12px;
-
     margin-bottom: 18px;
   }
 
   .public-senior-detail {
     min-height: 60px;
-
     padding: 10px 7px;
   }
 
@@ -960,13 +824,11 @@
 
   .public-senior-detail-value {
     font-size: 13px;
-
     font-weight: 800;
   }
 
   .public-senior-stars {
     font-size: 18px;
-
     letter-spacing: 1.5px;
   }
 
@@ -980,21 +842,34 @@
 
   .public-senior-whatsapp {
     min-height: 32px;
-
     padding: 0 10px;
-
     font-size: 9px;
   }
 
   .public-senior-member-code {
     min-height: 32px;
-
     padding: 0 10px;
-
     font-size: 9px;
-
     letter-spacing: .6px;
   }
+
+  .senior-pagination {
+    gap: 5px;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .senior-pagination-numbers {
+    gap: 5px;
+  }
+
+  .senior-pagination button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 9px;
+    font-size: 12px;
+  }
+
 }
 
 
@@ -1011,7 +886,6 @@
 
   .public-senior-photo-wrap {
     height: 215px;
-
     padding: 10px;
   }
 
@@ -1033,7 +907,6 @@
 
   .public-senior-detail {
     min-height: 56px;
-
     padding: 8px 5px;
   }
 
@@ -1043,7 +916,6 @@
 
   .public-senior-detail-value {
     font-size: 11px;
-
     font-weight: 800;
   }
 
@@ -1057,19 +929,14 @@
 
   .public-senior-whatsapp {
     min-height: 31px;
-
     padding: 0 9px;
-
     font-size: 8px;
   }
 
   .public-senior-member-code {
     min-height: 31px;
-
     padding: 0 9px;
-
     font-size: 8px;
-
     letter-spacing: .5px;
   }
 
@@ -1080,17 +947,30 @@
   .public-senior-badge {
     left: 22px;
     bottom: 21px;
-
     padding: 5px 9px;
-
     gap: 5px;
-
     font-size: 7px;
   }
 
   .public-senior-badge::before {
     font-size: 13px;
   }
+
+  .senior-pagination {
+    gap: 4px;
+  }
+
+  .senior-pagination-numbers {
+    gap: 4px;
+  }
+
+  .senior-pagination button {
+    min-width: 33px;
+    height: 33px;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+
 }
 
 
@@ -1103,100 +983,79 @@
   .public-senior-card,
   .public-senior-photo img,
   .public-senior-whatsapp,
-  .public-senior-stars {
+  .public-senior-stars,
+  .senior-pagination button {
     animation: none;
     transition: none;
   }
+
 }
+
+
 /* =========================================================
    SENIOR PHOTO POPUP
-   ONLY FOR PHOTO OPEN — EXISTING DESIGN UNCHANGED
+   ONLY FOR PHOTO OPEN
 ========================================================= */
 
 .public-senior-photo-popup {
   position: fixed;
   inset: 0;
   z-index: 99999;
-
   width: 100%;
   height: 100%;
-
   padding: 20px;
-
   box-sizing: border-box;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: rgba(0, 0, 0, .88);
-
+  background:
+    rgba(0, 0, 0, .88);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-
   cursor: zoom-out;
 }
 
 .public-senior-photo-popup-image {
   display: block;
-
   width: auto;
   height: auto;
-
   max-width: 94vw;
   max-height: 90vh;
-
   object-fit: contain;
-
   border-radius: 12px;
-
-  border: 1px solid rgba(212, 175, 55, .45);
-
+  border:
+    1px solid rgba(212, 175, 55, .45);
   background: #05090c;
-
   box-shadow:
     0 25px 70px rgba(0, 0, 0, .75),
     0 0 30px rgba(212, 175, 55, .12);
-
   cursor: default;
 }
 
 .public-senior-photo-popup-close {
   position: fixed;
-
   top: 16px;
   right: 18px;
-
   z-index: 100000;
-
   width: 42px;
   height: 42px;
-
   padding: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: #fff;
-
-  background: rgba(8, 13, 16, .94);
-
-  border: 1px solid rgba(212, 175, 55, .5);
-
+  background:
+    rgba(8, 13, 16, .94);
+  border:
+    1px solid rgba(212, 175, 55, .5);
   border-radius: 50%;
-
   font-family: Arial, sans-serif;
   font-size: 30px;
   font-weight: 300;
-
   line-height: 1;
-
   cursor: pointer;
-
   box-shadow:
     0 8px 25px rgba(0, 0, 0, .5);
-
   transition:
     transform .2s ease,
     background .2s ease;
@@ -1204,13 +1063,13 @@
 
 .public-senior-photo-popup-close:hover {
   transform: scale(1.06);
-
-  background: rgba(212, 175, 55, .18);
+  background:
+    rgba(212, 175, 55, .18);
 }
 
 
 /* =========================================================
-   MOBILE
+   POPUP MOBILE
 ========================================================= */
 
 @media (max-width: 650px) {
@@ -1222,24 +1081,22 @@
   .public-senior-photo-popup-image {
     max-width: 96vw;
     max-height: 86vh;
-
     border-radius: 9px;
   }
 
   .public-senior-photo-popup-close {
     top: 9px;
     right: 9px;
-
     width: 38px;
     height: 38px;
-
     font-size: 27px;
   }
+
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   POPUP SMALL MOBILE
 ========================================================= */
 
 @media (max-width: 380px) {
@@ -1256,10 +1113,9 @@
   .public-senior-photo-popup-close {
     top: 7px;
     right: 7px;
-
     width: 35px;
     height: 35px;
-
     font-size: 25px;
   }
+
 }

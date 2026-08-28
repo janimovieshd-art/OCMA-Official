@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -9,6 +8,10 @@ import "./SeniorMembers.css";
 
 function SeniorMembers() {
   const [members, setMembers] = useState([]);
+  const [randomMembers, setRandomMembers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const membersPerPage = 8;
 
   const [sectionTitle, setSectionTitle] = useState(
     "All Senior Members of OCMA"
@@ -20,6 +23,10 @@ function SeniorMembers() {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
+  /* =====================================================
+     LOAD MEMBERS
+  ===================================================== */
+
   const loadMembers = async () => {
     try {
       const data = await getData("seniorMembers");
@@ -28,6 +35,10 @@ function SeniorMembers() {
       console.log("Senior Members Error:", error);
     }
   };
+
+  /* =====================================================
+     LOAD SECTION SETTINGS
+  ===================================================== */
 
   const loadSectionSettings = async () => {
     try {
@@ -57,10 +68,72 @@ function SeniorMembers() {
     }
   };
 
+  /* =====================================================
+     INITIAL LOAD
+  ===================================================== */
+
   useEffect(() => {
     loadMembers();
     loadSectionSettings();
   }, []);
+
+  /* =====================================================
+     SHUFFLE ALL MEMBERS
+  ===================================================== */
+
+  const shuffleMembers = (list) => {
+    const shuffled = [...list];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const randomIndex = Math.floor(
+        Math.random() * (i + 1)
+      );
+
+      [shuffled[i], shuffled[randomIndex]] = [
+        shuffled[randomIndex],
+        shuffled[i],
+      ];
+    }
+
+    return shuffled;
+  };
+
+  /* =====================================================
+     INITIAL RANDOM ORDER
+     ALL MEMBERS ARE SHUFFLED
+  ===================================================== */
+
+  useEffect(() => {
+    if (members.length === 0) return;
+
+    setRandomMembers(shuffleMembers(members));
+    setCurrentPage(1);
+  }, [members]);
+
+  /* =====================================================
+     RANDOM CHANGE ONLY ON PAGE 1
+  ===================================================== */
+
+  useEffect(() => {
+    if (
+      currentPage !== 1 ||
+      randomMembers.length <= 1
+    ) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setRandomMembers((previous) =>
+        shuffleMembers(previous)
+      );
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [currentPage, randomMembers.length]);
+
+  /* =====================================================
+     PHOTO POPUP
+  ===================================================== */
 
   useEffect(() => {
     if (!selectedImage) return;
@@ -75,10 +148,57 @@ function SeniorMembers() {
     document.body.style.overflow = "hidden";
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+
       document.body.style.overflow = "";
     };
   }, [selectedImage]);
+
+  /* =====================================================
+     PAGINATION
+  ===================================================== */
+
+  const totalPages = Math.ceil(
+    randomMembers.length / membersPerPage
+  );
+
+  const startIndex =
+    (currentPage - 1) * membersPerPage;
+
+  const paginatedMembers = randomMembers.slice(
+    startIndex,
+    startIndex + membersPerPage
+  );
+
+  /* =====================================================
+     KEEP PAGE VALID
+  ===================================================== */
+
+  useEffect(() => {
+    if (
+      totalPages > 0 &&
+      currentPage > totalPages
+    ) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
+
+  /* =====================================================
+     PAGE NUMBERS
+  ===================================================== */
+
+  const pageNumbers = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
+  /* =====================================================
+     RENDER
+  ===================================================== */
 
   return (
     <>
@@ -96,15 +216,17 @@ function SeniorMembers() {
 
         </div>
 
-
         {/* MEMBERS */}
 
         <div className="public-senior-grid">
 
-          {members.map((member) => {
+          {paginatedMembers.map((member) => {
 
             const stars = Math.min(
-              Math.max(Number(member.stars) || 5, 1),
+              Math.max(
+                Number(member.stars) || 5,
+                1
+              ),
               5
             );
 
@@ -133,7 +255,10 @@ function SeniorMembers() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="public-senior-photo-link"
-                    aria-label={`Open ${member.name || "Senior Member"} photo`}
+                    aria-label={`Open ${
+                      member.name ||
+                      "Senior Member"
+                    } photo`}
                     onClick={(event) => {
                       event.preventDefault();
                       setSelectedImage(image);
@@ -161,24 +286,19 @@ function SeniorMembers() {
 
                 </div>
 
-
                 {/* CARD BODY */}
 
                 <div className="public-senior-body">
 
-                  {/* NAME */}
-
                   <h3 className="public-senior-name">
-                    {member.name || "Senior Member"}
+                    {member.name ||
+                      "Senior Member"}
                   </h3>
 
-
-                  {/* DESIGNATION */}
-
                   <p className="public-senior-designation">
-                    {member.designation || "Senior Member"}
+                    {member.designation ||
+                      "Senior Member"}
                   </p>
-
 
                   {/* DETAILS */}
 
@@ -198,7 +318,6 @@ function SeniorMembers() {
                       </div>
                     )}
 
-
                     {member.city && (
                       <div className="public-senior-detail">
 
@@ -215,7 +334,6 @@ function SeniorMembers() {
 
                   </div>
 
-
                   {/* RATING */}
 
                   <div className="public-senior-rating">
@@ -231,10 +349,10 @@ function SeniorMembers() {
 
                   </div>
 
+                  {/* CONTACT */}
 
-                  {/* WHATSAPP + MEMBER CODE */}
-
-                  {(phone || member.memberCode) && (
+                  {(phone ||
+                    member.memberCode) && (
 
                     <div className="public-senior-contact">
 
@@ -257,7 +375,6 @@ function SeniorMembers() {
                         </a>
                       )}
 
-
                       {member.memberCode && (
                         <span className="public-senior-member-code">
                           {member.memberCode}
@@ -276,21 +393,82 @@ function SeniorMembers() {
 
         </div>
 
-      </section>
+        {/* PAGINATION */}
 
+        {totalPages > 1 && (
+          <div className="senior-pagination">
+
+            <button
+              type="button"
+              disabled={currentPage === 1}
+              onClick={() =>
+                setCurrentPage((page) =>
+                  Math.max(page - 1, 1)
+                )
+              }
+            >
+              Previous
+            </button>
+
+            <div className="senior-pagination-numbers">
+
+              {pageNumbers.map((page) => (
+                <button
+                  key={page}
+                  type="button"
+                  className={
+                    currentPage === page
+                      ? "active-page"
+                      : ""
+                  }
+                  onClick={() =>
+                    setCurrentPage(page)
+                  }
+                >
+                  {page}
+                </button>
+              ))}
+
+            </div>
+
+            <button
+              type="button"
+              disabled={
+                currentPage === totalPages
+              }
+              onClick={() =>
+                setCurrentPage((page) =>
+                  Math.min(
+                    page + 1,
+                    totalPages
+                  )
+                )
+              }
+            >
+              Next
+            </button>
+
+          </div>
+        )}
+
+      </section>
 
       {/* PHOTO POPUP */}
 
       {selectedImage && (
         <div
           className="public-senior-photo-popup"
-          onClick={() => setSelectedImage(null)}
+          onClick={() =>
+            setSelectedImage(null)
+          }
         >
 
           <button
             type="button"
             className="public-senior-photo-popup-close"
-            onClick={() => setSelectedImage(null)}
+            onClick={() =>
+              setSelectedImage(null)
+            }
             aria-label="Close photo"
           >
             ×
@@ -300,14 +478,16 @@ function SeniorMembers() {
             src={selectedImage}
             alt="Senior Member"
             className="public-senior-photo-popup-image"
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) =>
+              event.stopPropagation()
+            }
           />
 
         </div>
       )}
+
     </>
   );
 }
 
 export default SeniorMembers;
-

@@ -1,28 +1,256 @@
+
 /* =====================================================
    SENIOR MEMBERS ADMIN
-   PREMIUM EXECUTIVE / VISITING CARD DESIGN
+   CLEAN / MODERN / COMPACT
 ===================================================== */
 
 .senior-container {
   width: 100%;
   min-height: 100vh;
-  padding: 30px;
-  background: #f3f4f6;
-  color: #222;
+  padding: 28px;
   box-sizing: border-box;
+  background: #eef0f3;
+  color: #171717;
 }
 
 
 /* =====================================================
-   PAGE TITLE
+   HEADER
 ===================================================== */
 
-.senior-container h1 {
-  margin: 0 0 28px;
-  text-align: center;
+.senior-header {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto 18px;
+}
+
+.senior-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 750;
+  letter-spacing: -.5px;
   color: #151515;
-  font-size: 30px;
-  font-weight: 700;
+}
+
+.senior-header p {
+  margin: 5px 0 0;
+  color: #747474;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   SEARCH + RESULT
+===================================================== */
+
+.senior-search-wrap {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.senior-search {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.senior-search input {
+  width: 100%;
+  height: 48px;
+  padding: 0 45px 0 43px;
+  box-sizing: border-box;
+  border: 1px solid #d9dce1;
+  border-radius: 11px;
+  outline: none;
+  background: #fff;
+  color: #222;
+  font-family: inherit;
+  font-size: 13px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .04);
+  transition: .2s ease;
+}
+
+.senior-search input::placeholder {
+  color: #969696;
+}
+
+.senior-search input:focus {
+  border-color: #b99632;
+  box-shadow: 0 0 0 3px rgba(185, 150, 50, .09);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-52%);
+  color: #777;
+  font-size: 22px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.clear-search {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%);
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: #f0f1f3;
+  color: #555;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.clear-search:hover {
+  background: #e5e6e8;
+}
+
+.senior-result {
+  height: 48px;
+  min-width: 88px;
+  padding: 0 13px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #171717;
+  border-radius: 11px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.senior-result strong {
+  color: #d4af37;
+  font-size: 15px;
+}
+
+.senior-result span {
+  color: #d5d5d5;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   COMPACT DROPDOWNS
+===================================================== */
+
+.senior-overview {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto 18px;
+  display: flex;
+  gap: 9px;
+}
+
+.senior-drop {
+  position: relative;
+  min-width: 145px;
+}
+
+.senior-drop summary {
+  height: 36px;
+  padding: 0 11px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  background: #fff;
+  border: 1px solid #dcdfe3;
+  border-radius: 8px;
+  color: #555;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.senior-drop summary::-webkit-details-marker {
+  display: none;
+}
+
+.senior-drop summary::after {
+  content: "⌄";
+  color: #999;
+  font-size: 14px;
+  transition: transform .2s ease;
+}
+
+.senior-drop[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.senior-drop summary b {
+  min-width: 20px;
+  padding: 3px 6px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background: #f0f0f0;
+  color: #555;
+  font-size: 10px;
+  text-align: center;
+}
+
+.senior-drop-content {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 5px);
+  z-index: 20;
+  width: 220px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 6px;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .12);
+}
+
+.senior-drop-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 9px;
+  border-radius: 6px;
+  color: #444;
+  font-size: 11px;
+}
+
+.senior-drop-item:hover {
+  background: #f5f5f5;
+}
+
+.senior-drop-item span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.senior-drop-item strong {
+  min-width: 20px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: #171717;
+  color: #d4af37;
+  font-size: 10px;
+  text-align: center;
 }
 
 
@@ -32,101 +260,117 @@
 
 .senior-form {
   width: 100%;
-  max-width: 1100px;
-  margin: 0 auto 35px;
-  padding: 24px;
-
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 13px;
-
-  background: #fff;
-
-  border: 1px solid #e2e2e2;
-  border-radius: 14px;
-
-  box-shadow:
-    0 8px 28px rgba(0, 0, 0, .06);
-
+  max-width: 1250px;
+  margin: 0 auto 25px;
+  padding: 21px;
   box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #dedfe2;
+  border-radius: 13px;
+  box-shadow: 0 7px 24px rgba(0, 0, 0, .055);
 }
 
+.form-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 17px;
+}
 
-.form-title {
-  grid-column: 1 / -1;
-
+.form-kicker {
+  display: block;
   margin-bottom: 3px;
+  color: #b28c25;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
 
-  color: #151515;
+.form-heading h2 {
+  margin: 0;
+  color: #181818;
+  font-size: 19px;
+  font-weight: 700;
+}
 
-  font-size: 20px;
+.editing-badge {
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: #f5edda;
+  color: #96741d;
+  font-size: 10px;
   font-weight: 700;
 }
 
 
 /* =====================================================
-   INPUTS
+   FORM FIELDS
 ===================================================== */
 
-.senior-form input {
+.form-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.senior-form input[type="text"],
+.senior-form input:not([type]) {
   width: 100%;
   min-width: 0;
-
-  padding: 12px 14px;
-
-  background: #fff;
-
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-
-  outline: none;
-
-  color: #222;
-
-  font-family: inherit;
-  font-size: 14px;
-
+  height: 43px;
+  padding: 0 12px;
   box-sizing: border-box;
-
-  transition:
-    border-color .2s ease,
-    box-shadow .2s ease;
+  border: 1px solid #dfe1e4;
+  border-radius: 8px;
+  outline: none;
+  background: #fafafa;
+  color: #222;
+  font-family: inherit;
+  font-size: 12px;
+  transition: .2s ease;
 }
 
+.senior-form input[type="text"]:focus,
+.senior-form input:not([type]):focus {
+  background: #fff;
+  border-color: #c6a332;
+  box-shadow: 0 0 0 3px rgba(198, 163, 50, .08);
+}
 
 .senior-form input::placeholder {
-  color: #888;
-}
-
-
-.senior-form input:focus {
-  border-color: #c9a227;
-
-  box-shadow:
-    0 0 0 3px rgba(201, 162, 39, .10);
+  color: #929292;
 }
 
 
 /* =====================================================
-   RATING INPUT
+   FORM BOTTOM
 ===================================================== */
 
-.rating-input {
+.form-bottom {
+  margin-top: 11px;
   display: flex;
   align-items: center;
-  gap: 14px;
-
-  min-height: 45px;
+  justify-content: space-between;
+  gap: 15px;
 }
 
+.rating-input {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
 
 .rating-input > span {
-  color: #444;
-
-  font-size: 14px;
-  font-weight: 600;
+  color: #555;
+  font-size: 12px;
+  font-weight: 650;
 }
 
+.rating-input small {
+  color: #888;
+  font-size: 11px;
+}
 
 .rating-stars {
   display: flex;
@@ -134,100 +378,189 @@
   gap: 1px;
 }
 
-
 .rating-stars button {
-  margin: 0;
   padding: 0 2px;
-
-  background: transparent;
-
   border: 0;
-
-  color: #d5d5d5;
-
-  font-size: 25px;
+  background: transparent;
+  color: #d7d7d7;
+  font-size: 22px;
   line-height: 1;
-
   cursor: pointer;
 }
 
-
 .rating-stars button.active {
-  color: #f4b400;
+  color: #d4af37;
+}
 
-  text-shadow:
-    0 0 6px rgba(244, 180, 0, .25);
+.upload-box {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.upload-box label {
+  color: #555;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.upload-box input[type="file"] {
+  width: 230px;
+  height: auto;
+  padding: 7px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 10px;
 }
 
 
 /* =====================================================
-   FORM BUTTONS
+   PREVIEW
+===================================================== */
+
+.senior-image-preview {
+  margin-top: 17px;
+}
+
+.preview-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #666;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.senior-preview-card {
+  width: 100%;
+  max-width: 620px;
+  min-height: 185px;
+  display: flex;
+  overflow: hidden;
+  background: #171717;
+  border-radius: 11px;
+  border: 1px solid #292929;
+}
+
+.senior-preview-photo {
+  position: relative;
+  width: 150px;
+  min-width: 150px;
+  height: 185px;
+  overflow: hidden;
+  background: #222;
+}
+
+.senior-preview-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.senior-preview-code {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, .8);
+  border: 1px solid rgba(212, 175, 55, .6);
+  color: #d4af37;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.senior-preview-info {
+  min-width: 0;
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.senior-preview-info h3 {
+  margin: 0 0 4px;
+  color: #d4af37;
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+.senior-preview-rating {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+
+.senior-preview-rating span {
+  color: #f2b900;
+  font-size: 14px;
+}
+
+.senior-preview-rating small {
+  color: #999;
+  font-size: 10px;
+}
+
+.senior-preview-info p {
+  margin: 2px 0;
+  color: #c8c8c8;
+  font-size: 11px;
+}
+
+.senior-preview-info strong {
+  color: #d4af37;
+}
+
+.senior-preview-designation {
+  color: #f1f1f1 !important;
+  font-weight: 600;
+  margin-bottom: 7px !important;
+}
+
+
+/* =====================================================
+   BUTTONS
 ===================================================== */
 
 .form-buttons {
-  grid-column: 1 / -1;
-
+  margin-top: 16px;
   display: flex;
-  align-items: center;
-  gap: 9px;
-
-  margin-top: 2px;
+  gap: 7px;
 }
-
 
 .form-buttons button {
-  margin: 0;
-
-  padding: 11px 20px;
-
+  height: 38px;
+  padding: 0 16px;
   border: 0;
-  border-radius: 8px;
-
+  border-radius: 7px;
   font-family: inherit;
-
-  font-size: 13px;
-  font-weight: 600;
-
+  font-size: 11px;
+  font-weight: 700;
   cursor: pointer;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    background .2s ease;
+  transition: .2s ease;
 }
-
-
-.form-buttons button:hover {
-  transform: translateY(-1px);
-}
-
-
-/* SAVE */
 
 .save-btn {
-  background: #d4af37;
-  color: #111;
-
-  box-shadow:
-    0 5px 14px rgba(212, 175, 55, .20);
+  background: #171717;
+  color: #d4af37;
 }
-
 
 .save-btn:hover {
-  background: #c29d2f;
-
-  box-shadow:
-    0 7px 18px rgba(212, 175, 55, .28);
+  background: #292929;
 }
 
-
-/* CANCEL */
+.save-btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
 
 .cancel-btn {
-  background: #ececec;
-  color: #333;
+  background: #e9e9e9;
+  color: #444;
 }
-
 
 .cancel-btn:hover {
   background: #ddd;
@@ -235,280 +568,149 @@
 
 
 /* =====================================================
-   CARD GRID
+   MEMBER GRID
 ===================================================== */
 
 .senior-grid {
   width: 100%;
   max-width: 1250px;
-
   margin: 0 auto;
-
   display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
 
 /* =====================================================
-   VISITING CARD
+   MEMBER CARD
 ===================================================== */
 
 .senior-card {
-  position: relative;
-
-  display: flex;
-
   min-width: 0;
-  min-height: 235px;
-
+  min-height: 215px;
+  display: flex;
   overflow: hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #111 0%,
-      #181818 48%,
-      #0b0b0b 100%
-    );
-
-  border: 1px solid rgba(212, 175, 55, .35);
-
-  border-radius: 15px;
-
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, .16);
-
-  transition:
-    transform .3s ease,
-    border-color .3s ease,
-    box-shadow .3s ease;
+  background: #fff;
+  border: 1px solid #dedfe2;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .055);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
-
-
-.senior-card::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  right: 0;
-
-  width: 130px;
-  height: 130px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(212, 175, 55, .12),
-      transparent 70%
-    );
-
-  pointer-events: none;
-}
-
 
 .senior-card:hover {
-  transform: translateY(-4px);
-
-  border-color:
-    rgba(212, 175, 55, .75);
-
-  box-shadow:
-    0 16px 38px rgba(0, 0, 0, .24),
-    0 0 22px rgba(212, 175, 55, .08);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .09);
 }
 
 
 /* =====================================================
-   PHOTO AREA
+   MEMBER PHOTO
 ===================================================== */
 
 .senior-photo {
   position: relative;
-
-  width: 190px;
-  min-width: 190px;
-
-  height: 235px;
-
+  width: 170px;
+  min-width: 170px;
+  height: 215px;
   overflow: hidden;
-
-  background: #171717;
+  background: #dedede;
 }
-
-
-/*
-   PHOTO — RECTANGULAR
-   NO CIRCLE
-*/
 
 .senior-photo img {
-  display: block;
-
   width: 100%;
   height: 100%;
-
+  display: block;
   object-fit: cover;
-
-  object-position: center;
-
-  border: 0;
-
-  border-radius: 0;
-
-  transition:
-    transform .45s ease;
+  transition: transform .3s ease;
 }
-
-
-/* PHOTO FADE / FEATHER */
-
-.senior-photo::after {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  right: -1px;
-  bottom: 0;
-
-  width: 55px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #111
-    );
-
-  pointer-events: none;
-}
-
 
 .senior-card:hover .senior-photo img {
-  transform: scale(1.035);
+  transform: scale(1.025);
+}
+
+.senior-member-code {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, .8);
+  color: #d4af37;
+  border: 1px solid rgba(212, 175, 55, .65);
+  font-size: 9px;
+  font-weight: 700;
 }
 
 
 /* =====================================================
-   INFORMATION
+   MEMBER INFO
 ===================================================== */
 
 .senior-info {
-  position: relative;
-  z-index: 2;
-
-  flex: 1;
   min-width: 0;
-
-  padding: 22px 20px;
-
+  flex: 1;
+  padding: 19px 17px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  overflow: hidden;
 }
 
-
-/* =====================================================
-   NAME
-===================================================== */
-
-.senior-info h2 {
-  margin: 0 0 5px;
-
-  color: #d4af37;
-
-  font-size: 21px;
-  font-weight: 700;
-
-  line-height: 1.3;
-
+.member-top h2 {
+  margin: 0;
+  color: #181818;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 750;
   word-break: break-word;
-
-  text-shadow:
-    0 0 10px rgba(212, 175, 55, .16);
 }
-
-
-/* =====================================================
-   GOOGLE STYLE RATING
-===================================================== */
 
 .senior-rating {
   display: flex;
-
   align-items: center;
-
-  gap: 7px;
-
-  margin-bottom: 9px;
+  gap: 6px;
+  margin: 5px 0 7px;
 }
-
 
 .stars {
-  color: #f4b400;
-
-  font-size: 17px;
-
-  letter-spacing: 1px;
-
+  color: #e2a900;
+  font-size: 14px;
+  letter-spacing: 0;
   line-height: 1;
-
-  text-shadow:
-    0 0 7px rgba(244, 180, 0, .20);
 }
-
 
 .rating-number {
-  color: #aaa;
-
-  font-size: 12px;
-  font-weight: 500;
+  color: #999;
+  font-size: 10px;
 }
-
-
-/* =====================================================
-   DESIGNATION
-===================================================== */
 
 .senior-info p {
   margin: 3px 0;
-
-  color: #c7c7c7;
-
-  font-size: 13px;
-
-  line-height: 1.5;
-
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: #555;
+  font-size: 11px;
+  line-height: 1.35;
   word-break: break-word;
 }
 
-
-.senior-info .designation {
-  margin-bottom: 9px;
-
-  color: #f0f0f0;
-
-  font-size: 14px;
-
-  font-weight: 600;
+.senior-info p strong {
+  flex: 0 0 auto;
+  color: #8e6e18;
+  font-size: 10px;
+  font-weight: 700;
 }
 
+.senior-info p span {
+  min-width: 0;
+}
 
-/* =====================================================
-   LABELS
-===================================================== */
-
-.senior-info strong {
-  color: #d4af37;
-
-  font-weight: 600;
+.senior-info .designation {
+  display: block;
+  margin: 0 0 8px;
+  color: #333;
+  font-size: 12px;
+  font-weight: 650;
 }
 
 
@@ -518,117 +720,85 @@
 
 .senior-actions {
   display: flex;
-
   align-items: center;
-
   flex-wrap: wrap;
-
-  gap: 7px;
-
-  margin-top: 14px;
+  gap: 6px;
+  margin-top: 12px;
 }
-
 
 .senior-actions a,
 .senior-actions button {
-  margin: 0;
-
-  padding: 7px 11px;
-
+  height: 29px;
+  padding: 0 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   border: 0;
-
   border-radius: 6px;
-
   font-family: inherit;
-
-  font-size: 11px;
-  font-weight: 600;
-
+  font-size: 9px;
+  font-weight: 700;
   line-height: 1;
-
   text-decoration: none;
-
   cursor: pointer;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    background .2s ease;
+  transition: .2s ease;
 }
-
-
-.senior-actions a:hover,
-.senior-actions button:hover {
-  transform: translateY(-1px);
-}
-
-
-/* =====================================================
-   WHATSAPP
-===================================================== */
 
 .whatsapp-btn {
-  background:
-    linear-gradient(
-      135deg,
-      #d4af37,
-      #b89120
-    );
-
-  color: #111;
-
-  box-shadow:
-    0 4px 12px rgba(212, 175, 55, .18);
+  background: #171717;
+  color: #d4af37;
 }
-
 
 .whatsapp-btn:hover {
-  background:
-    linear-gradient(
-      135deg,
-      #e2c052,
-      #c9a227
-    );
-
-  box-shadow:
-    0 6px 16px rgba(212, 175, 55, .28);
+  background: #2b2b2b;
 }
-
-
-/* =====================================================
-   EDIT
-===================================================== */
 
 .edit-btn {
-  background: #292929;
-
-  color: #d4af37;
-
-  border: 1px solid rgba(212, 175, 55, .4) !important;
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd !important;
 }
 
-
 .edit-btn:hover {
-  background: #333;
+  background: #e4e4e4;
+}
 
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, .25);
+.delete-btn {
+  background: #f5e7e7;
+  color: #a32929;
+}
+
+.delete-btn:hover {
+  background: #ecd3d3;
 }
 
 
 /* =====================================================
-   DELETE
+   NO RESULTS
 ===================================================== */
 
-.delete-btn {
-  background: #8f2525;
-
-  color: #fff;
+.senior-no-results {
+  grid-column: 1 / -1;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
 }
 
+.senior-no-results strong {
+  color: #333;
+  font-size: 14px;
+}
 
-.delete-btn:hover {
-  background: #b52d2d;
+.senior-no-results span {
+  color: #888;
+  font-size: 11px;
 }
 
 
@@ -636,94 +806,131 @@
    TABLET
 ===================================================== */
 
-@media (max-width: 1050px) {
-
+@media (max-width: 1000px) {
   .senior-container {
-    padding: 25px 20px;
+    padding: 22px 18px;
   }
 
   .senior-grid {
     grid-template-columns: 1fr;
-
     max-width: 760px;
   }
 
+  .form-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 
 /* =====================================================
-   MOBILE / TABLET
+   MOBILE
 ===================================================== */
 
-@media (max-width: 700px) {
-
+@media (max-width: 650px) {
   .senior-container {
-    padding: 20px 14px;
+    padding: 17px 12px;
   }
 
-
-  .senior-container h1 {
-    font-size: 25px;
-
-    margin-bottom: 22px;
+  .senior-header h1 {
+    font-size: 23px;
   }
 
-
-  .senior-form {
-    grid-template-columns: 1fr;
-
-    padding: 20px;
+  .senior-search-wrap {
+    gap: 7px;
   }
 
-
-  .form-title,
-  .form-buttons {
-    grid-column: auto;
+  .senior-search input {
+    height: 44px;
+    padding-left: 38px;
+    font-size: 11px;
   }
 
-
-  .rating-input {
-    justify-content: flex-start;
-  }
-
-
-  .senior-card {
-    min-height: 220px;
-  }
-
-
-  .senior-photo {
-    width: 155px;
-    min-width: 155px;
-
-    height: 220px;
-  }
-
-
-  .senior-photo::after {
-    width: 45px;
-  }
-
-
-  .senior-info {
-    padding: 18px 16px;
-  }
-
-
-  .senior-info h2 {
+  .search-icon {
+    left: 12px;
     font-size: 19px;
   }
 
+  .senior-result {
+    height: 44px;
+    min-width: 72px;
+    padding: 0 8px;
+  }
+
+  .senior-result strong {
+    font-size: 13px;
+  }
+
+  .senior-result span {
+    font-size: 9px;
+  }
+
+  .senior-overview {
+    margin-bottom: 13px;
+  }
+
+  .senior-drop {
+    min-width: 120px;
+  }
+
+  .senior-drop summary {
+    height: 34px;
+    font-size: 10px;
+  }
+
+  .senior-form {
+    padding: 16px;
+  }
+
+  .form-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .form-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .upload-box {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .upload-box input[type="file"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .senior-card {
+    min-height: 190px;
+  }
+
+  .senior-photo {
+    width: 135px;
+    min-width: 135px;
+    height: 190px;
+  }
+
+  .senior-info {
+    padding: 15px 13px;
+  }
+
+  .member-top h2 {
+    font-size: 16px;
+  }
 
   .senior-info p {
-    font-size: 12px;
+    font-size: 10px;
   }
 
+  .senior-info p strong {
+    font-size: 9px;
+  }
 
   .senior-actions {
-    margin-top: 11px;
+    margin-top: 9px;
   }
-
 }
 
 
@@ -731,164 +938,131 @@
    SMALL MOBILE
 ===================================================== */
 
-@media (max-width: 500px) {
-
-  .senior-card {
-    display: flex;
-
-    min-height: 190px;
-
-    border-radius: 13px;
-  }
-
-
-  .senior-photo {
-    width: 125px;
-    min-width: 125px;
-
-    height: 190px;
-  }
-
-
-  .senior-photo::after {
-    width: 40px;
-  }
-
-
-  .senior-info {
-    padding: 15px 13px;
-  }
-
-
-  .senior-info h2 {
-    font-size: 17px;
-
-    margin-bottom: 4px;
-  }
-
-
-  .senior-rating {
-    gap: 5px;
-
-    margin-bottom: 6px;
-  }
-
-
-  .stars {
-    font-size: 15px;
-
-    letter-spacing: 0;
-  }
-
-
-  .rating-number {
-    font-size: 11px;
-  }
-
-
-  .senior-info .designation {
-    font-size: 12px;
-
-    margin-bottom: 6px;
-  }
-
-
-  .senior-info p {
-    margin: 2px 0;
-
-    font-size: 11px;
-
-    line-height: 1.4;
-  }
-
-
-  .senior-actions {
-    gap: 5px;
-
-    margin-top: 9px;
-  }
-
-
-  .senior-actions a,
-  .senior-actions button {
-    padding: 6px 8px;
-
-    font-size: 10px;
-  }
-
-}
-
-
-/* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
-
-@media (max-width: 370px) {
-
+@media (max-width: 430px) {
   .senior-container {
-    padding: 16px 10px;
+    padding: 14px 9px;
   }
 
-
-  .senior-card {
-    min-height: 175px;
+  .senior-header {
+    margin-bottom: 13px;
   }
 
-
-  .senior-photo {
-    width: 105px;
-    min-width: 105px;
-
-    height: 175px;
+  .senior-header h1 {
+    font-size: 21px;
   }
 
-
-  .senior-info {
-    padding: 13px 10px;
+  .senior-header p {
+    font-size: 11px;
   }
 
-
-  .senior-info h2 {
-    font-size: 15px;
-  }
-
-
-  .senior-info p {
+  .senior-search input {
+    height: 41px;
+    padding-right: 35px;
     font-size: 10px;
   }
 
+  .senior-result {
+    height: 41px;
+    min-width: 65px;
+  }
 
-  .senior-actions a,
-  .senior-actions button {
-    padding: 5px 7px;
+  .senior-result span {
+    display: none;
+  }
 
+  .senior-overview {
+    gap: 6px;
+  }
+
+  .senior-drop {
+    min-width: 105px;
+  }
+
+  .senior-drop summary {
+    padding: 0 8px;
     font-size: 9px;
   }
 
+  .senior-drop-content {
+    width: 190px;
+  }
+
+  .senior-form {
+    padding: 13px;
+  }
+
+  .form-heading h2 {
+    font-size: 17px;
+  }
+
+  .senior-preview-card {
+    min-height: 165px;
+  }
+
+  .senior-preview-photo {
+    width: 110px;
+    min-width: 110px;
+    height: 165px;
+  }
+
+  .senior-preview-info {
+    padding: 13px;
+  }
+
+  .senior-preview-info h3 {
+    font-size: 16px;
+  }
+
+  .senior-preview-info p {
+    font-size: 9px;
+  }
+
+  .senior-card {
+    min-height: 170px;
+  }
+
+  .senior-photo {
+    width: 112px;
+    min-width: 112px;
+    height: 170px;
+  }
+
+  .senior-info {
+    padding: 12px 10px;
+  }
+
+  .member-top h2 {
+    font-size: 14px;
+  }
+
+  .stars {
+    font-size: 12px;
+  }
+
+  .rating-number {
+    font-size: 9px;
+  }
+
+  .senior-info p {
+    margin: 2px 0;
+    font-size: 9px;
+  }
+
+  .senior-info .designation {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
+  .senior-actions {
+    gap: 4px;
+    margin-top: 7px;
+  }
+
+  .senior-actions a,
+  .senior-actions button {
+    height: 26px;
+    padding: 0 7px;
+    font-size: 8px;
+  }
 }
-/* =====================================================
-   SENIOR MEMBER CODE
-===================================================== */
 
-.senior-member-code {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  z-index: 3;
-
-  padding: 5px 9px;
-
-  background: rgba(0, 0, 0, .78);
-  border: 1px solid rgba(212, 175, 55, .65);
-  border-radius: 5px;
-
-  color: #d4af37;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .5px;
-
-  box-shadow:
-    0 3px 10px rgba(0, 0, 0, .35);
-
-  backdrop-filter: blur(4px);
-}
