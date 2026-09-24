@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 import {
@@ -832,6 +831,26 @@ function MemberRequests() {
 
           certificate:
             member.certificate || "",
+
+          /* GOOGLE ACCOUNT OWNERSHIP */
+
+          googleUid:
+            member.googleUid || "",
+
+          googleEmail:
+            member.googleEmail || "",
+
+          googleName:
+            member.googleName || "",
+
+          googlePhoto:
+            member.googlePhoto || "",
+
+          googleRating:
+            member.googleRating || 0,
+
+          googleReviewCount:
+            member.googleReviewCount || 0,
 
           status:
             "ACTIVE",
@@ -2075,4 +2094,3 @@ function MemberRequests() {
 
 
 export default MemberRequests;
-

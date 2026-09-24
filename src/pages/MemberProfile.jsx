@@ -1,5 +1,8 @@
+
 import { QRCodeCanvas } from "qrcode.react";
+
 import { useEffect, useRef, useState } from "react";
+
 import { useParams } from "react-router-dom";
 
 import {
@@ -12,14 +15,15 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
+
 import { getData, addData } from "../services/firestoreService";
+
 import GoogleLogin from "../components/GoogleLogin";
 
 import "./MemberProfile.css";
 
 
 function MemberProfile({ data }) {
-
   const { memberId } = useParams();
 
   const settings = data || {};
@@ -28,8 +32,9 @@ function MemberProfile({ data }) {
 
   const brandName =
     navbar.name?.trim() ||
+    website.siteName?.trim() ||
     website.shortName?.trim() ||
-      "";
+    "OCMA";
 
 
   const [member, setMember] = useState(null);
@@ -101,6 +106,7 @@ function MemberProfile({ data }) {
   const [ratingMessage, setRatingMessage] = useState("");
 
   const [ratingUser, setRatingUser] = useState(null);
+
   const [alreadyRated, setAlreadyRated] = useState(false);
   const [existingReviewId, setExistingReviewId] = useState("");
 
@@ -113,9 +119,7 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const loadMember = async () => {
-
     try {
-
       const data = await getData("members");
 
       setMember(
@@ -123,27 +127,19 @@ function MemberProfile({ data }) {
           (item) => item.memberId === memberId
         )
       );
-
     } catch (error) {
-
       console.log(
         "Member Profile Error:",
         error
       );
-
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
 
   useEffect(() => {
-
     loadMember();
-
   }, [memberId]);
 
 
@@ -152,9 +148,7 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const loadOCMARatings = async () => {
-
     try {
-
       const ref = collection(
         db,
         "member_ratings"
@@ -180,13 +174,10 @@ function MemberProfile({ data }) {
 
 
       if (!ratings.length) {
-
         setOcmaRating(0);
         setOcmaReviewCount(0);
         setOcmaReviews([]);
-
         return;
-
       }
 
 
@@ -226,25 +217,19 @@ function MemberProfile({ data }) {
             ).getTime()
         )
       );
-
     } catch (error) {
-
       console.log(
         "Rating Load Error:",
         error
       );
-
     }
-
   };
 
 
   useEffect(() => {
-
     if (memberId) {
       loadOCMARatings();
     }
-
   }, [memberId]);
 
 
@@ -253,13 +238,11 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const checkAlreadyRated = async (user) => {
-
     if (!user?.uid || !memberId) {
       return false;
     }
 
     try {
-
       const ref = collection(
         db,
         "member_ratings"
@@ -284,13 +267,10 @@ function MemberProfile({ data }) {
 
 
       if (snapshot.empty) {
-
         setAlreadyRated(false);
         setExistingReviewId("");
         setEditingReview(false);
-
         return false;
-
       }
 
 
@@ -318,18 +298,14 @@ function MemberProfile({ data }) {
       );
 
       return true;
-
     } catch (error) {
-
       console.log(
         "Rating Check Error:",
         error
       );
 
       return false;
-
     }
-
   };
 
 
@@ -340,30 +316,89 @@ function MemberProfile({ data }) {
   const handleRatingGoogleLogin = async (
     user
   ) => {
-
     setRatingMessage("");
+
+    if (!user?.uid) {
+      setRatingMessage(
+        "Google account information could not be verified."
+      );
+      return;
+    }
+
+
+    /* =================================================
+       CHECK MEMBER'S OWN GOOGLE ACCOUNT
+    ================================================= */
+
+    const memberGoogleUid = String(
+      member?.googleUid || ""
+    ).trim();
+
+    const memberGoogleEmail = String(
+      member?.googleEmail || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+    const ratingGoogleUid = String(
+      user.uid || ""
+    ).trim();
+
+    const ratingGoogleEmail = String(
+      user.email || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+    const isOwnProfile =
+      (memberGoogleUid &&
+        ratingGoogleUid === memberGoogleUid) ||
+      (memberGoogleEmail &&
+        ratingGoogleEmail === memberGoogleEmail);
+
+
+    if (isOwnProfile) {
+      setRatingUser(null);
+      setShowGoogleLogin(false);
+
+      setAlreadyRated(false);
+      setExistingReviewId("");
+      setEditingReview(false);
+
+      setSelectedRating(0);
+      setReviewText("");
+
+      setRatingMessage(
+        "You cannot rate your own profile."
+      );
+
+      return;
+    }
+
+
     setRatingUser(user);
     setShowGoogleLogin(false);
+
 
     const hasRated =
       await checkAlreadyRated(user);
 
 
     if (hasRated) {
-
       setEditingReview(false);
-
       return;
-
     }
 
 
     setSelectedRating(0);
     setReviewText("");
+
     setExistingReviewId("");
     setAlreadyRated(false);
-    setEditingReview(true);
 
+    setEditingReview(true);
   };
 
 
@@ -372,40 +407,31 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const startEditingReview = () => {
-
     if (!existingReviewId) {
-
       setRatingMessage(
         "Review not found."
       );
-
       return;
-
     }
 
     setEditingReview(true);
     setRatingMessage("");
-
   };
 
 
   const cancelEditingReview = async () => {
-
     setEditingReview(false);
 
     if (
       ratingUser &&
       existingReviewId
     ) {
-
       await checkAlreadyRated(
         ratingUser
       );
-
     }
 
     setRatingMessage("");
-
   };
 
 
@@ -414,15 +440,11 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const submitOCMARating = async () => {
-
     if (!ratingUser) {
-
       setRatingMessage(
         "Please sign in with Google first."
       );
-
       return;
-
     }
 
 
@@ -430,13 +452,10 @@ function MemberProfile({ data }) {
       selectedRating < 1 ||
       selectedRating > 5
     ) {
-
       setRatingMessage(
         "Please select a rating."
       );
-
       return;
-
     }
 
 
@@ -445,29 +464,67 @@ function MemberProfile({ data }) {
 
 
     if (!cleanReview) {
-
       setRatingMessage(
         "Please write your review."
       );
-
       return;
-
     }
 
 
     if (cleanReview.length > 500) {
-
       setRatingMessage(
         "Review can contain maximum 500 characters."
       );
+      return;
+    }
+
+
+    /* =================================================
+       FINAL SELF-RATING CHECK
+       This also protects the EDIT REVIEW action.
+    ================================================= */
+
+    const memberGoogleUid = String(
+      member?.googleUid || ""
+    ).trim();
+
+    const memberGoogleEmail = String(
+      member?.googleEmail || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+    const ratingGoogleUid = String(
+      ratingUser?.uid || ""
+    ).trim();
+
+    const ratingGoogleEmail = String(
+      ratingUser?.email || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+    const isOwnProfile =
+      (memberGoogleUid &&
+        ratingGoogleUid === memberGoogleUid) ||
+      (memberGoogleEmail &&
+        ratingGoogleEmail === memberGoogleEmail);
+
+
+    if (isOwnProfile) {
+      setRatingMessage(
+        "You cannot rate your own profile."
+      );
+
+      setEditingReview(false);
 
       return;
-
     }
 
 
     try {
-
       setRatingLoading(true);
       setRatingMessage("");
 
@@ -478,7 +535,6 @@ function MemberProfile({ data }) {
         editingReview &&
         existingReviewId
       ) {
-
         await updateDoc(
           doc(
             db,
@@ -508,7 +564,6 @@ function MemberProfile({ data }) {
         await loadOCMARatings();
 
         return;
-
       }
 
 
@@ -538,7 +593,6 @@ function MemberProfile({ data }) {
 
 
       if (!duplicate.empty) {
-
         const existing =
           duplicate.docs[0];
 
@@ -569,7 +623,6 @@ function MemberProfile({ data }) {
         );
 
         return;
-
       }
 
 
@@ -617,7 +670,6 @@ function MemberProfile({ data }) {
       await loadOCMARatings();
 
     } catch (error) {
-
       console.log(
         "Rating Submit Error:",
         error
@@ -628,11 +680,8 @@ function MemberProfile({ data }) {
       );
 
     } finally {
-
       setRatingLoading(false);
-
     }
-
   };
 
 
@@ -680,22 +729,18 @@ function MemberProfile({ data }) {
 
 
   const formatJoiningDate = (date) => {
-
     if (!date) {
       return "Not Added";
     }
 
     try {
-
       const parsed =
         new Date(date);
 
       if (
         isNaN(parsed.getTime())
       ) {
-
         return date;
-
       }
 
       return parsed.toLocaleDateString(
@@ -708,11 +753,8 @@ function MemberProfile({ data }) {
       );
 
     } catch {
-
       return date;
-
     }
-
   };
 
 
@@ -721,21 +763,17 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const resetImageZoom = () => {
-
     setImageZoom(1);
 
     setImagePan({
       x: 0,
       y: 0,
     });
-
   };
 
 
   const zoomImage = (amount) => {
-
     setImageZoom((current) => {
-
       const zoom =
         Math.min(
           5,
@@ -751,19 +789,15 @@ function MemberProfile({ data }) {
 
 
       if (zoom === 1) {
-
         setImagePan({
           x: 0,
           y: 0,
         });
-
       }
 
 
       return zoom;
-
     });
-
   };
 
 
@@ -772,7 +806,6 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const openProfileImage = () => {
-
     setSelectedPhotoIndex(0);
 
     setSelectedImage(
@@ -781,7 +814,6 @@ function MemberProfile({ data }) {
     );
 
     resetImageZoom();
-
   };
 
 
@@ -792,7 +824,6 @@ function MemberProfile({ data }) {
   const openPortfolioImage = (
     index
   ) => {
-
     if (!portfolioPhotos[index]) {
       return;
     }
@@ -804,7 +835,6 @@ function MemberProfile({ data }) {
     );
 
     resetImageZoom();
-
   };
 
 
@@ -813,7 +843,6 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const nextPhoto = (e) => {
-
     e?.stopPropagation();
 
     if (!portfolioPhotos.length) {
@@ -834,7 +863,6 @@ function MemberProfile({ data }) {
     );
 
     resetImageZoom();
-
   };
 
 
@@ -843,7 +871,6 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const previousPhoto = (e) => {
-
     e?.stopPropagation();
 
     if (!portfolioPhotos.length) {
@@ -866,7 +893,6 @@ function MemberProfile({ data }) {
     );
 
     resetImageZoom();
-
   };
 
 
@@ -875,11 +901,8 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const closeImage = () => {
-
     setSelectedImage("");
-
     resetImageZoom();
-
   };
 
 
@@ -890,7 +913,6 @@ function MemberProfile({ data }) {
   const handleImageMouseDown = (
     e
   ) => {
-
     if (imageZoom <= 1) {
       return;
     }
@@ -904,21 +926,17 @@ function MemberProfile({ data }) {
       startPanX: imagePan.x,
       startPanY: imagePan.y,
     };
-
   };
 
 
   const handleImageMouseMove = (
     e
   ) => {
-
     if (
       !imageDragRef.current.dragging ||
       imageZoom <= 1
     ) {
-
       return;
-
     }
 
     e.preventDefault();
@@ -938,15 +956,12 @@ function MemberProfile({ data }) {
         imageDragRef.current
           .startY,
     });
-
   };
 
 
   const handleImageMouseUp = () => {
-
     imageDragRef.current.dragging =
       false;
-
   };
 
 
@@ -958,7 +973,6 @@ function MemberProfile({ data }) {
     a,
     b
   ) => {
-
     const dx =
       a.clientX - b.clientX;
 
@@ -968,21 +982,18 @@ function MemberProfile({ data }) {
     return Math.sqrt(
       dx * dx + dy * dy
     );
-
   };
 
 
   const handleImageTouchStart = (
     e
   ) => {
-
     if (!e.touches.length) {
       return;
     }
 
 
     if (e.touches.length === 2) {
-
       imageTouchRef.current = {
         mode: "pinch",
 
@@ -1005,7 +1016,6 @@ function MemberProfile({ data }) {
       };
 
       return;
-
     }
 
 
@@ -1013,7 +1023,6 @@ function MemberProfile({ data }) {
       e.touches.length === 1 &&
       imageZoom > 1
     ) {
-
       const touch =
         e.touches[0];
 
@@ -1036,16 +1045,13 @@ function MemberProfile({ data }) {
         startPanY:
           imagePan.y,
       };
-
     }
-
   };
 
 
   const handleImageTouchMove = (
     e
   ) => {
-
     if (!e.touches.length) {
       return;
     }
@@ -1058,7 +1064,6 @@ function MemberProfile({ data }) {
       imageTouchRef.current.mode ===
         "pinch"
     ) {
-
       const distance =
         getTouchDistance(
           e.touches[0],
@@ -1070,9 +1075,7 @@ function MemberProfile({ data }) {
         !imageTouchRef.current
           .startDistance
       ) {
-
         return;
-
       }
 
 
@@ -1100,16 +1103,13 @@ function MemberProfile({ data }) {
 
 
       if (zoom <= 1) {
-
         setImagePan({
           x: 0,
           y: 0,
         });
-
       }
 
       return;
-
     }
 
 
@@ -1119,7 +1119,6 @@ function MemberProfile({ data }) {
         "drag" &&
       imageZoom > 1
     ) {
-
       const touch =
         e.touches[0];
 
@@ -1139,17 +1138,13 @@ function MemberProfile({ data }) {
           imageTouchRef.current
             .startY,
       });
-
     }
-
   };
 
 
   const handleImageTouchEnd = () => {
-
     imageTouchRef.current.mode =
       null;
-
   };
 
 
@@ -1158,7 +1153,6 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const handleImageWheel = (e) => {
-
     e.preventDefault();
     e.stopPropagation();
 
@@ -1167,16 +1161,13 @@ function MemberProfile({ data }) {
         ? 0.25
         : -0.25
     );
-
   };
 
-
-  /* =====================================================
+    /* =====================================================
      VIDEO HELPERS
   ===================================================== */
 
   const getVideoRawUrl = (video) => {
-
     if (!video) {
       return "";
     }
@@ -1184,9 +1175,7 @@ function MemberProfile({ data }) {
     if (
       typeof video === "string"
     ) {
-
       return video.trim();
-
     }
 
     return (
@@ -1196,28 +1185,22 @@ function MemberProfile({ data }) {
       video.videoUrl ||
       ""
     ).trim();
-
   };
 
 
   const getVideoType = (video) => {
-
     const url =
       getVideoRawUrl(
         video
       ).toLowerCase();
-
 
     if (
       url.includes(
         "instagram.com"
       )
     ) {
-
       return "instagram";
-
     }
-
 
     if (
       url.includes(
@@ -1227,46 +1210,35 @@ function MemberProfile({ data }) {
         "youtu.be"
       )
     ) {
-
       return "youtube";
-
     }
-
 
     if (
       url.includes(
         "facebook.com"
       )
     ) {
-
       return "facebook";
-
     }
 
-
     return "other";
-
   };
 
 
   const getYouTubeId = (url) => {
-
     if (!url) {
       return "";
     }
 
     try {
-
       const parsed =
         new URL(url);
-
 
       if (
         parsed.hostname.includes(
           "youtube.com"
         )
       ) {
-
         const id =
           parsed.searchParams.get(
             "v"
@@ -1275,7 +1247,6 @@ function MemberProfile({ data }) {
         if (id) {
           return id;
         }
-
 
         const shorts =
           parsed.pathname.match(
@@ -1286,7 +1257,6 @@ function MemberProfile({ data }) {
           return shorts[1];
         }
 
-
         const embed =
           parsed.pathname.match(
             /\/embed\/([^/?#]+)/
@@ -1295,49 +1265,39 @@ function MemberProfile({ data }) {
         if (embed) {
           return embed[1];
         }
-
       }
-
 
       if (
         parsed.hostname.includes(
           "youtu.be"
         )
       ) {
-
         return parsed.pathname
           .replace(
             "/",
             ""
           )
           .trim();
-
       }
-
     } catch (error) {
-
       console.log(
         "YouTube ID Error:",
         error
       );
-
     }
 
     return "";
-
   };
 
 
   const getInstagramEmbedUrl = (
     url
   ) => {
-
     if (!url) {
       return "";
     }
 
     try {
-
       const parsed =
         new URL(url);
 
@@ -1350,9 +1310,7 @@ function MemberProfile({ data }) {
           "/embed"
         )
       ) {
-
         return url;
-
       }
 
 
@@ -1362,9 +1320,7 @@ function MemberProfile({ data }) {
         );
 
       if (reel) {
-
         return `https://www.instagram.com/reel/${reel[1]}/embed/`;
-
       }
 
 
@@ -1374,9 +1330,7 @@ function MemberProfile({ data }) {
         );
 
       if (post) {
-
         return `https://www.instagram.com/p/${post[1]}/embed/`;
-
       }
 
 
@@ -1386,37 +1340,29 @@ function MemberProfile({ data }) {
         );
 
       if (tv) {
-
         return `https://www.instagram.com/tv/${tv[1]}/embed/`;
-
       }
 
     } catch (error) {
-
       console.log(
         "Instagram URL Error:",
         error
       );
-
     }
 
     return "";
-
   };
 
 
   const getVideoEmbedUrl = (
     video
   ) => {
-
     const rawUrl =
       getVideoRawUrl(video);
-
 
     if (!rawUrl) {
       return "";
     }
-
 
     const type =
       getVideoType(video);
@@ -1425,51 +1371,40 @@ function MemberProfile({ data }) {
     if (
       type === "instagram"
     ) {
-
       return getInstagramEmbedUrl(
         rawUrl
       );
-
     }
 
 
     if (
       type === "youtube"
     ) {
-
       const id =
         getYouTubeId(rawUrl);
 
-
       if (id) {
-
         return `https://www.youtube.com/embed/${id}?rel=0&autoplay=1`;
-
       }
-
     }
 
 
     if (
       type === "facebook"
     ) {
-
       return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
         rawUrl
       )}&show_text=false&autoplay=true`;
-
     }
 
 
     return rawUrl;
-
   };
 
 
   const getVideoThumbnail = (
     video
   ) => {
-
     const type =
       getVideoType(video);
 
@@ -1480,17 +1415,12 @@ function MemberProfile({ data }) {
     if (
       type === "youtube"
     ) {
-
       const id =
         getYouTubeId(rawUrl);
 
-
       if (id) {
-
         return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-
       }
-
     }
 
 
@@ -1498,18 +1428,15 @@ function MemberProfile({ data }) {
       typeof video === "object" &&
       video
     ) {
-
       return (
         video.thumbnail ||
         video.thumbnailUrl ||
         ""
       );
-
     }
 
 
     return "";
-
   };
 
 
@@ -1518,55 +1445,44 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const openVideo = (index) => {
-
     const video =
       videos[index];
-
 
     if (!video) {
       return;
     }
-
 
     const embedUrl =
       getVideoEmbedUrl(
         video
       );
 
-
     if (!embedUrl) {
       return;
     }
-
 
     setSelectedVideoIndex(
       index
     );
 
-
     setSelectedVideo({
       url: embedUrl,
       type: getVideoType(video),
     });
-
   };
 
 
   const closeVideo = () => {
-
     setSelectedVideo(null);
-
   };
 
 
   const nextVideo = (e) => {
-
     e?.stopPropagation();
 
     if (!videos.length) {
       return;
     }
-
 
     openVideo(
       (
@@ -1574,18 +1490,15 @@ function MemberProfile({ data }) {
       ) %
       videos.length
     );
-
   };
 
 
   const previousVideo = (e) => {
-
     e?.stopPropagation();
 
     if (!videos.length) {
       return;
     }
-
 
     openVideo(
       (
@@ -1595,7 +1508,6 @@ function MemberProfile({ data }) {
       ) %
       videos.length
     );
-
   };
 
 
@@ -1604,17 +1516,13 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   const handleShare = async () => {
-
     const profileUrl =
       window.location.href;
 
     setShareMessage("");
 
-
     try {
-
       if (navigator.share) {
-
         await navigator.share({
           title:
             `${brandName} Member - ${member.name}`,
@@ -1625,29 +1533,24 @@ function MemberProfile({ data }) {
           url: profileUrl,
         });
 
-
         setShareMessage(
           "Profile successfully shared."
         );
 
         return;
-
       }
 
 
       if (navigator.clipboard) {
-
         await navigator.clipboard.writeText(
           profileUrl
         );
-
 
         setShareMessage(
           "Profile link copied successfully."
         );
 
         return;
-
       }
 
 
@@ -1673,13 +1576,11 @@ function MemberProfile({ data }) {
         textArea
       );
 
-
       setShareMessage(
         "Profile link copied successfully."
       );
 
     } catch (error) {
-
       console.log(
         "Share Error:",
         error
@@ -1690,18 +1591,14 @@ function MemberProfile({ data }) {
         error?.name ===
         "AbortError"
       ) {
-
         return;
-
       }
 
 
       setShareMessage(
         "Profile share failed. Please try again."
       );
-
     }
-
   };
 
 
@@ -1710,13 +1607,11 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   useEffect(() => {
-
     const popupOpen =
       Boolean(
         selectedImage ||
         selectedVideo
       );
-
 
     if (!popupOpen) {
       return;
@@ -1754,17 +1649,13 @@ function MemberProfile({ data }) {
 
 
     if (scrollbarWidth > 0) {
-
       body.style.paddingRight =
         `${scrollbarWidth}px`;
-
     }
 
 
     const handleKeyDown = (e) => {
-
       if (e.key === "Escape") {
-
         if (selectedImage) {
           closeImage();
         }
@@ -1774,23 +1665,19 @@ function MemberProfile({ data }) {
         }
 
         return;
-
       }
 
 
       if (selectedImage) {
-
         if (
           e.key === "ArrowRight"
         ) {
-
           e.preventDefault();
           nextPhoto();
 
         } else if (
           e.key === "ArrowLeft"
         ) {
-
           e.preventDefault();
           previousPhoto();
 
@@ -1798,49 +1685,38 @@ function MemberProfile({ data }) {
           e.key === "+" ||
           e.key === "="
         ) {
-
           e.preventDefault();
           zoomImage(0.25);
 
         } else if (
           e.key === "-"
         ) {
-
           e.preventDefault();
           zoomImage(-0.25);
 
         } else if (
           e.key === "0"
         ) {
-
           e.preventDefault();
           resetImageZoom();
-
         }
-
       }
 
 
       if (selectedVideo) {
-
         if (
           e.key === "ArrowRight"
         ) {
-
           e.preventDefault();
           nextVideo();
 
         } else if (
           e.key === "ArrowLeft"
         ) {
-
           e.preventDefault();
           previousVideo();
-
         }
-
       }
-
     };
 
 
@@ -1851,7 +1727,6 @@ function MemberProfile({ data }) {
 
 
     return () => {
-
       body.style.overflow =
         oldBodyOverflow;
 
@@ -1866,7 +1741,6 @@ function MemberProfile({ data }) {
         "keydown",
         handleKeyDown
       );
-
     };
 
   }, [
@@ -1884,31 +1758,25 @@ function MemberProfile({ data }) {
   ===================================================== */
 
   if (loading) {
-
     return (
       <div className="profile-loading">
         Loading Member Profile...
       </div>
     );
-
   }
 
 
   if (!member) {
-
     return (
       <div className="profile-loading">
         Member Not Found
       </div>
     );
-
   }
 
 
   return (
-
     <section className="member-profile">
-
 
       {/* =================================================
           PROFILE
@@ -1957,18 +1825,14 @@ function MemberProfile({ data }) {
 
 
           <div className="member-joining-date">
-
             📅 <b>Joined {brandName}:</b>{" "}
-
             {formatJoiningDate(
               joiningDate
             )}
-
           </div>
 
 
           {googleRating > 0 && (
-
             <div className="profile-google-rating">
 
               <div className="profile-rating-stars">
@@ -1990,24 +1854,17 @@ function MemberProfile({ data }) {
 
 
               <span className="profile-rating-number">
-
                 {googleRating.toFixed(1)}
-
               </span>
 
 
               {googleReviewCount > 0 && (
-
                 <span className="profile-review-count">
-
                   ({googleReviewCount} reviews)
-
                 </span>
-
               )}
 
             </div>
-
           )}
 
         </div>
@@ -2073,7 +1930,6 @@ function MemberProfile({ data }) {
 
 
         {whatsappNumber && (
-
           <a
             href={`https://wa.me/${whatsappNumber}`}
             target="_blank"
@@ -2082,7 +1938,6 @@ function MemberProfile({ data }) {
           >
             💬 WhatsApp Contact
           </a>
-
         )}
 
       </div>
@@ -2093,7 +1948,6 @@ function MemberProfile({ data }) {
       ================================================= */}
 
       {portfolioPhotos.length > 0 && (
-
         <div className="member-photo-portfolio">
 
           <h2>
@@ -2148,9 +2002,7 @@ function MemberProfile({ data }) {
 
 
                   <div className="photo-thumbnail-number">
-
                     Photo {index + 1}
-
                   </div>
 
                 </button>
@@ -2161,7 +2013,6 @@ function MemberProfile({ data }) {
           </div>
 
         </div>
-
       )}
 
 
@@ -2170,7 +2021,6 @@ function MemberProfile({ data }) {
       ================================================= */}
 
       {videos.length > 0 && (
-
         <div className="member-videos">
 
           <h2>
@@ -2200,7 +2050,6 @@ function MemberProfile({ data }) {
 
 
                 return (
-
                   <div
                     className={`video-item video-card-${type}`}
                     key={index}
@@ -2226,7 +2075,6 @@ function MemberProfile({ data }) {
                               src={thumbnail}
                               alt="Video Thumbnail"
                             />
-
 
                             <div className="video-thumbnail-overlay">
 
@@ -2254,7 +2102,6 @@ function MemberProfile({ data }) {
                               frameBorder="0"
                             />
 
-
                             <div className="instagram-preview-overlay">
 
                               <div className="video-play-icon">
@@ -2281,7 +2128,6 @@ function MemberProfile({ data }) {
                         <div className="video-card-info">
 
                           <span>
-
                             {type ===
                             "instagram"
                               ? "Instagram Reel"
@@ -2292,7 +2138,6 @@ function MemberProfile({ data }) {
                                 "facebook"
                               ? "Facebook Video"
                               : "Video Portfolio"}
-
                           </span>
 
 
@@ -2313,31 +2158,24 @@ function MemberProfile({ data }) {
                     )}
 
                   </div>
-
                 );
-
               }
             )}
 
           </div>
 
         </div>
-
       )}
-
-
-      {/* =================================================
+            {/* =================================================
           CERTIFICATE
       ================================================= */}
 
       {member.certificate && (
-
         <div className="member-certificate">
 
           <h2>
             {brandName} Certificate
           </h2>
-
 
           <a
             href={
@@ -2351,7 +2189,6 @@ function MemberProfile({ data }) {
           </a>
 
         </div>
-
       )}
 
 
@@ -2360,20 +2197,17 @@ function MemberProfile({ data }) {
       ================================================= */}
 
       {googleAddress && (
-
         <div className="member-location">
 
           <h2>
             📍 Google Location
           </h2>
 
-
           <p>
             View this member's location,
             Google rating and latest
             reviews directly on Google Maps.
           </p>
-
 
           <a
             href={googleAddress}
@@ -2385,7 +2219,6 @@ function MemberProfile({ data }) {
           </a>
 
         </div>
-
       )}
 
 
@@ -2399,7 +2232,6 @@ function MemberProfile({ data }) {
           Share Member Profile
         </h2>
 
-
         <button
           type="button"
           className="share-btn"
@@ -2410,13 +2242,10 @@ function MemberProfile({ data }) {
           🔗 Share Profile
         </button>
 
-
         {shareMessage && (
-
           <p className="share-message">
             {shareMessage}
           </p>
-
         )}
 
       </div>
@@ -2455,7 +2284,6 @@ function MemberProfile({ data }) {
 
 
                   return (
-
                     <span
                       key={star}
                       className={
@@ -2468,9 +2296,7 @@ function MemberProfile({ data }) {
                     >
                       ★
                     </span>
-
                   );
-
                 }
               )}
 
@@ -2480,24 +2306,18 @@ function MemberProfile({ data }) {
             <div className="profile-rating-score-row">
 
               <strong className="profile-rating-score-number">
-
                 {ocmaRating > 0
                   ? ocmaRating.toFixed(
                       1
                     )
                   : "0.0"}
-
               </strong>
 
-
               <span className="profile-rating-reviews-count">
-
                 {ocmaReviewCount}{" "}
-
                 {ocmaReviewCount === 1
                   ? "review"
                   : "reviews"}
-
               </span>
 
             </div>
@@ -2537,17 +2357,12 @@ function MemberProfile({ data }) {
                     <div className="profile-review-user-details">
 
                       <h4 className="profile-review-user-name">
-
                         {review.userName ||
                           "Google Account"}
-
                       </h4>
 
-
                       <span className="profile-review-verified">
-
                         Google Account
-
                       </span>
 
                     </div>
@@ -2582,9 +2397,7 @@ function MemberProfile({ data }) {
 
 
                   <p className="profile-review-text">
-
                     {review.review}
-
                   </p>
 
 
@@ -2630,13 +2443,10 @@ function MemberProfile({ data }) {
                 type="button"
                 className="profile-write-review-btn"
                 onClick={() => {
-
                   setRatingMessage("");
-
                   setShowGoogleLogin(
                     true
                   );
-
                 }}
               >
                 Write a Review
@@ -2692,7 +2502,6 @@ function MemberProfile({ data }) {
                 }
               />
 
-
               <div>
 
                 <strong>
@@ -2745,11 +2554,9 @@ function MemberProfile({ data }) {
             <div className="review-input-wrapper">
 
               <label htmlFor="member-review">
-
                 {editingReview
                   ? "Edit Your Review"
                   : "Write Your Review"}
-
               </label>
 
 
@@ -2770,9 +2577,7 @@ function MemberProfile({ data }) {
 
 
               <div className="review-character-count">
-
                 {reviewText.length} / 500
-
               </div>
 
             </div>
@@ -2791,18 +2596,15 @@ function MemberProfile({ data }) {
                 !reviewText.trim()
               }
             >
-
               {ratingLoading
                 ? "Saving..."
                 : editingReview
                 ? "Save Changes"
                 : "Submit Review"}
-
             </button>
 
 
             {editingReview && (
-
               <button
                 type="button"
                 className="cancel-edit-review-button"
@@ -2815,7 +2617,6 @@ function MemberProfile({ data }) {
               >
                 Cancel
               </button>
-
             )}
 
           </div>
@@ -2824,11 +2625,9 @@ function MemberProfile({ data }) {
 
 
         {ratingMessage && (
-
           <p className="rating-message">
             {ratingMessage}
           </p>
-
         )}
 
       </div>
@@ -2887,10 +2686,8 @@ function MemberProfile({ data }) {
             type="button"
             className="popup-close"
             onClick={(e) => {
-
               e.stopPropagation();
               closeImage();
-
             }}
             aria-label="Close"
           >
@@ -2919,12 +2716,10 @@ function MemberProfile({ data }) {
 
 
             <span>
-
               {Math.round(
                 imageZoom * 100
               )}
               %
-
             </span>
 
 
@@ -3011,13 +2806,11 @@ function MemberProfile({ data }) {
                 handleImageTouchEnd
               }
               onDoubleClick={(e) => {
-
                 e.stopPropagation();
 
                 imageZoom > 1
                   ? resetImageZoom()
                   : setImageZoom(2);
-
               }}
               draggable={false}
             />
@@ -3052,13 +2845,10 @@ function MemberProfile({ data }) {
 
 
           <div className="zoom-help">
-
             Scroll / Pinch to Zoom • Drag to Move • Double Click to Zoom
-
           </div>
 
         </div>
-
       )}
 
 
@@ -3079,10 +2869,8 @@ function MemberProfile({ data }) {
             type="button"
             className="video-popup-close"
             onClick={(e) => {
-
               e.stopPropagation();
               closeVideo();
-
             }}
           >
             ✕
@@ -3152,13 +2940,10 @@ function MemberProfile({ data }) {
           )}
 
         </div>
-
       )}
 
     </section>
-
   );
-
 }
 
 
